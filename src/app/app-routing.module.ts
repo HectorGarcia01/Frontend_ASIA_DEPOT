@@ -7,8 +7,13 @@ const routes: Routes = [
   { path: '', redirectTo: '', pathMatch: 'full' },
 
   //Rutas para el login
+  {
+    path: '',
+    loadChildren: () =>
+      import('./auth/auth.module').then((m) => m.AuthModule),
+  },
 
-  //Rutas para
+  //Rutas para el admin/superadmin
   {
     path: 'admin',
     loadChildren: () =>
@@ -24,6 +29,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./admin/admin-profile/admin-profile.module').then((m) => m.AdminProfileModule),
   },
+
   //Rutas para el cliente
   {
     path: '',
