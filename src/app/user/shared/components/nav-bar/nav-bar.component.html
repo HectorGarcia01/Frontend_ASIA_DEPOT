@@ -17,7 +17,7 @@
             <!-- Left links -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Inicio</a>
+                    <a class="nav-link" href="/home">Inicio</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Productos</a>
@@ -29,6 +29,17 @@
                     <a class="nav-link" href="#">Contáctanos</a>
                 </li>
             </ul>
+
+            <div class="d-flex align-items-center">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Iniciar sesión</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signup">Registrarse</a>
+                    </li>
+                </ul>
+            </div>
             <!-- Left links -->
         </div>
         <!-- Collapsible wrapper -->
@@ -36,19 +47,23 @@
         <!-- Right elements -->
         <div class="d-flex align-items-center">
             <!-- Icon -->
-            <a class="link-secondary me-3" href="#">
+            <a class="link-secondary me-3 ms-4" href="#">
                 <i class="fas fa-shopping-cart"></i>
+                <span class="badge rounded-pill badge-notification bg-danger">1</span>
             </a>
 
             <!-- Avatar -->
-            <div class="dropdown">
+            <div class="dropdown ms-2">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle" height="35"
                         alt="Black and White Portrait of a Man" loading="lazy" />
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
                     <li>
-                        <a class="dropdown-item">Mi perfil</a>
+                        <a class="dropdown-item" href="/login">Iniciar sesión</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="/profile">Mi perfil</a>
                     </li>
                     <li>
                         <a class="dropdown-item" href="#">Salir</a>

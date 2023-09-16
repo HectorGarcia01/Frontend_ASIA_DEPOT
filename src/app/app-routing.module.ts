@@ -6,6 +6,25 @@ const routes: Routes = [
   // Validar cualquier otro path y redireccionar a inicio
   { path: '', redirectTo: '', pathMatch: 'full' },
 
+  //Rutas para el cliente
+  {
+    path: '',
+    loadChildren: () =>
+      import('./user/user-home/user-home.module').then((m) => m.UserHomeModule),
+  },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./user/user-profile/user-profile.module').then((m) => m.UserProfileModule),
+  },
+
+  //Rutas para registrarse
+  { //Para el cliente
+    path: '',
+    loadChildren: () =>
+      import('./user/user-register/user-register.module').then((m) => m.UserRegisterModule),
+  },
+
   //Rutas para el login
   {
     path: '',
@@ -28,19 +47,7 @@ const routes: Routes = [
     path: 'admin',
     loadChildren: () =>
       import('./admin/admin-profile/admin-profile.module').then((m) => m.AdminProfileModule),
-  },
-
-  //Rutas para el cliente
-  {
-    path: '',
-    loadChildren: () =>
-      import('./user/user-home/user-home.module').then((m) => m.UserHomeModule),
-  },
-  {
-    path: '',
-    loadChildren: () =>
-      import('./user/user-profile/user-profile.module').then((m) => m.UserProfileModule),
-  },
+  }
 ]
 
 @NgModule({
