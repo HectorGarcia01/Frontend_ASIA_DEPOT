@@ -1,0 +1,115 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container mt-2 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+                    <form class="border border-2 border-dark p-5">
+                        <div class="text-center mb-3">
+                            <p>Regístrate con:</p>
+                            <button type="button" class="btn btn-secondary btn-floating mx-1">
+                                <i class="fab fa-google"></i>
+                            </button>
+                        </div>
+
+                        <p class="text-center">o:</p>
+
+                        <!-- Name input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="registerName">Nombre</label>
+                            <input type="text" id="registerName" class="form-control" />
+                        </div>
+
+                        <!-- Username input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="registerUsername">Apellido</label>
+                            <input type="text" id="registerUsername" class="form-control" />
+                        </div>
+
+                        <!-- Tel input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="registerTel">Teléfono</label>
+                            <input type="text" id="registerTel" class="form-control" />
+                        </div>
+
+                        <!-- Nit input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="registerNIT">NIT</label>
+                            <input type="text" id="registerNIT" class="form-control" />
+                        </div>
+
+                        <!-- Departamento input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="registerDepartamento">Departamento</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Selecciona un departamento</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+
+                        <!-- Municipio input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="registerMunicipio">Municipio</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Selecciona un municipio</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </select>
+                        </div>
+
+                        <!-- Address input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="registerAddress">Dirección general</label>
+                            <input type="text" id="registerAddress" class="form-control" />
+                        </div>
+
+                        <!-- Email input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="registerEmail">Correo</label>
+                            <input type="email" id="registerEmail" class="form-control" />
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="registerPassword">Contraseña</label>
+                            <input type="password" id="registerPassword" class="form-control" />
+                        </div>
+
+                        <!-- Repeat Password input -->
+                        <div class="form-outline mb-4">
+                            <label class="form-label" for="registerRepeatPassword">Repetir contraseña</label>
+                            <input type="password" id="registerRepeatPassword" class="form-control" />
+                        </div>
+
+                        <!-- Checkbox -->
+                        <div class="form-check d-flex justify-content-center mb-4">
+                            <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
+                                aria-describedby="registerCheckHelpText" />
+                            <label class="form-check-label" for="registerCheck">
+                                I have read and agree to the terms
+                            </label>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-12 d-flex justify-content-center">
+                                <!-- Submit button -->
+                                <button type="submit" class="btn btn-primary btn-block w-75">Crear cuenta</button>
+                            </div>
+                        </div>
+
+                        <!-- Login buttons -->
+                        <div class="text-center">
+                            <p>¿Ya posees una cuenta? <a href="#">Inicia sesión</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>
