@@ -17,6 +17,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./user/user-profile/user-profile.module').then((m) => m.UserProfileModule),
   },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./user/shopping-cart/shopping-cart.module').then((m) => m.ShoppingCartModule),
+  },
 
   //Rutas para registrarse
   { //Para el cliente
