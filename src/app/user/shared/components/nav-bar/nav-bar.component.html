@@ -11,32 +11,32 @@
         <!-- Collapsible wrapper -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Navbar brand -->
-            <a class="navbar-brand mt-2 mt-lg-0" href="#">
-                <img src="../../../../../assets/Logo_ASIA_DEPOT.jpeg" height="55" alt="Logo ASIA DEPOT" loading="lazy" />
+            <a class="navbar-brand mt-2 mt-lg-0" [routerLink]="['/home']">
+                <img src="assets/Logo_ASIA_DEPOT.jpeg" height="55" alt="Logo ASIA DEPOT" loading="lazy" />
             </a>
             <!-- Left links -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="/home">Inicio</a>
+                    <a class="nav-link" [routerLink]="['/home']">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Productos</a>
+                    <a class="nav-link" [routerLink]="['/products']">Productos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Nosotros</a>
+                    <a class="nav-link" [routerLink]="['/about']">Nosotros</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contáctanos</a>
+                    <a class="nav-link" [routerLink]="['/contact-us']">Contáctanos</a>
                 </li>
             </ul>
 
             <div class="d-flex align-items-center">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Iniciar sesión</a>
+                        <a class="nav-link" [routerLink]="['/login']">Iniciar sesión</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/signup">Registrarse</a>
+                        <a class="nav-link" [routerLink]="['/signup']">Registrarse</a>
                     </li>
                 </ul>
             </div>
@@ -47,26 +47,27 @@
         <!-- Right elements -->
         <div class="d-flex align-items-center">
             <!-- Icon -->
-            <a class="link-secondary me-3 ms-4" href="#">
+            <a class="link-secondary me-3 nav-link" [routerLink]="['/checkout/cart']">
+                Ver carrito
                 <i class="fas fa-shopping-cart"></i>
-                <span class="badge rounded-pill badge-notification bg-danger">1</span>
+                <span class="badge rounded-pill badge-notification bg-danger">N</span>
             </a>
 
             <!-- Avatar -->
             <div class="dropdown ms-2">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle" height="35"
                         alt="Black and White Portrait of a Man" loading="lazy" />
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
                     <li>
-                        <a class="dropdown-item" href="/login">Iniciar sesión</a>
+                        <a class="dropdown-item" [routerLink]="['/login']">Iniciar sesión</a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="/profile">Mi perfil</a>
+                        <a class="dropdown-item" [routerLink]="['/profile']">Mi perfil</a>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="#">Salir</a>
+                        <a class="dropdown-item" [routerLink]="['/home']">Salir</a>
                     </li>
                 </ul>
             </div>
