@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Cambia el ancho y el color de la barra */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Cambia el color del pulgar (barra deslizadora) */
+::-webkit-scrollbar-thumb {
+    background-color: #8e959a;
+    border-radius: 5px;
+}
+
+/* Cambia el color de la pista (fondo de la barra) */
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
