@@ -9,6 +9,12 @@ export class AuthGuardService implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router) { }
 
+  /**
+   * Función para validar la protección de rutas
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
+
   canActivate(): boolean {
     if (this.authService.isAuthenticated()) {
       return true;
