@@ -38,14 +38,12 @@
                             <input type="text" id="registerNIT" class="form-control" placeholder="Ingresa tu NIT">
                             <label for="registerNIT">NIT</label>
                         </div>
-
+                        
                         <!-- Departamento input -->
                         <div class="form-floating mb-3">
-                            <select class="form-select" aria-label="Default select example">
+                            <select class="form-select" aria-label="Default select example" [(ngModel)]="departmentSelectId" [ngModelOptions]="{ standalone: true }" (change)="DepartmentSelected(departmentSelectId)">
                                 <option selected>Selecciona un departamento</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <option *ngFor="let department of departments" [value]="department.id">{{ department.nombre_departamento }}</option>
                             </select>
                             <label for="registerDepartamento">Departamento</label>
                         </div>
@@ -54,9 +52,7 @@
                         <div class="form-floating mb-3">
                             <select class="form-select" aria-label="Default select example">
                                 <option selected>Selecciona un municipio</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <option *ngFor="let municipality of municipalities" [value]="municipality.id">{{ municipality.nombre_municipio }}</option>
                             </select>
                             <label for="registerMunicipio">Municipio</label>
                         </div>
