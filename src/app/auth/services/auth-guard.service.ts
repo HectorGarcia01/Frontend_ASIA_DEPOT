@@ -22,10 +22,15 @@ export class AuthGuardService implements CanActivate {
       if (userRole === 'admin' || userRole === 'superAdmin') {
         return true;
       } else {
-        //***************por el momento un alert xd */
+        ///**********************ALERTA TEMPORAL LUEGO MODIFICARLA */
+        //LA ALERTA PONE LA PAGINA EN BLANCO PROBAR CON ALERT DE SWEET O SI NO UNA MODAL O ALGO ASÍ
+        alert('No tienes los permisos necesarios!!!');
         return false;
       }
     } else {
+      ///**********************ALERTA TEMPORAL LUEGO MODIFICARLA */
+      //LA ALERTA PONE LA PAGINA EN BLANCO PROBAR CON ALERT DE SWEET O SI NO UNA MODAL O ALGO ASÍ
+      alert('Primero debes de iniciar sesión!!!');
       this.router.navigate(['/login']);
       return false;
     }
