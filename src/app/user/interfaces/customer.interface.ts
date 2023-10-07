@@ -1,4 +1,5 @@
 export interface addCustomer {
+    [key: string]: any;
     Nombre_Cliente: string;
     Apellido_Cliente: string;
     Telefono_Cliente: string;
