@@ -11,41 +11,41 @@ import { Department, Municipalities } from 'src/app/user/interfaces/address.inte
 export class SingUpComponent implements OnInit {
   // registerForm: FormGroup;
   departments: Department[] = [];
+  selectedDepartmentId: number | null = null;
+  selectedMunicipalityId: number | null = null;
   municipalities: Municipalities[] = [];
-  departmentSelectId: number | null = null;
+
 
   constructor(
     private fb: FormBuilder,
     private userService: UserServicesService
-  ) { }
+  ) { this.selectedDepartmentId = null; }
 
-    ngOnInit() {
-      // this.registerForm = this.fb.group({
-      //   nombre: ['', Validators.required],
-      //   apellido: ['', Validators.required],
-      //   telefono: ['', Validators.required],
-      //   nit: ['', Validators.required],
-      //   departamento: [null, Validators.required],
-      //   municipio: [null, Validators.required],
-      //   direccion: ['', Validators.required],
-      //   correo: ['', [Validators.required, Validators.email]],
-      //   password: ['', [Validators.required, Validators.minLength(6)]],
-      //   repeatPassword: ['', Validators.required]
-      // });
+  ngOnInit() {
+    this.getAddresses();
+  }
 
-      this.userService.getAddress('http://18.216.63.42:3000/usuario/ver/direcciones').subscribe((data: any) => {
-        this.departments = data.address;
-        console.log(this.departments);
-        console.log(this.departments[0].nombre_departamento, this.departments[0].municipios[0].nombre_municipio);
-      });
+  getAddresses() {
+    this.userService.getAddress('http://localhost:3000/usuario/ver/direcciones').subscribe((data: any) => {
+      this.departments = data.address;
+    });
+  }
+
+  onDepartmentSelected() {
+    if (this.selectedDepartmentId !== null) {
+      this.selectedDepartmentId = Number(this.selectedDepartmentId);
+      const selectedDepartment = this.departments.find(department => department.id === this.selectedDepartmentId);
+      if (selectedDepartment) {
+        this.municipalities = selectedDepartment.municipios;
+      } else {
+        this.municipalities = [];
+      }
+    } else {
+      this.municipalities = [];
     }
+  }
 
-    DepartmentSelected(departmentId: number | null) {
-      const departmentSelected = this.departments.find(department => department.id === departmentId);
-      this.municipalities = departmentSelected ? departmentSelected.municipios : [];
-    }
+  onSubmit() {
 
-    onSubmit() {
-
-    }
+  }
 } 
