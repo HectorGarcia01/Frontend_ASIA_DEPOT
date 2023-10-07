@@ -35,7 +35,7 @@
 
                         <!-- Nit input -->
                         <div class="form-floating mb-3">
-                            <input type="text" formControlName="nit" class="form-control" placeholder="Ingresa tu NIT">
+                            <input type="number" formControlName="nit" class="form-control" placeholder="Ingresa tu NIT">
                             <label for="registerNIT">NIT</label>
                         </div>
                         
@@ -79,6 +79,12 @@
                         <div class="form-floating mb-3">
                             <input type="password" formControlName="repetir_password" class="form-control" placeholder="Repite la contraseña">
                             <label for="registerRepeatPassword">Repetir contraseña</label>
+                            <div *ngIf="registerForm.get('repetir_password')?.hasError('required') && registerForm.get('repetir_password')?.touched" class="text-danger">
+                                Debes repetir la contraseña.
+                            </div>
+                            <div *ngIf="submitted && registerForm.hasError('passwordsNotMatch')" class="text-danger">
+                                Las contraseñas no coinciden.
+                            </div>
                         </div>
 
                         <!-- Checkbox -->

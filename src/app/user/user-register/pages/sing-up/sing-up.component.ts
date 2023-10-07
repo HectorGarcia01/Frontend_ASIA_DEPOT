@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
 import { UserServicesService } from 'src/app/user/services/user-services.service';
 import { Department, Municipalities } from 'src/app/user/interfaces/address.interface';
+import { addCustomer } from 'src/app/user/interfaces/customer.interface';
 
 @Component({
   selector: 'app-sing-up',
@@ -14,6 +15,7 @@ export class SingUpComponent implements OnInit {
   selectedDepartmentId: number | null = null;
   selectedMunicipalityId: number | null = null;
   municipalities: Municipalities[] = [];
+  submitted = false;
 
 
   constructor(
@@ -77,7 +79,50 @@ export class SingUpComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  getUserData() {
+    const newCustomer: addCustomer = {
+      Nombre_Cliente: this.registerForm.get('nombre')?.value,
+      Apellido_Cliente: this.registerForm.get('apellido')?.value,
+      Telefono_Cliente: this.registerForm.get('telefono')?.value,
+      NIT_Cliente: this.registerForm.get('nit')?.value,
+      Direccion_General: this.registerForm.get('direccion')?.value,
+      Correo_Cliente: this.registerForm.get('correo')?.value,
+      Password_Cliente: this.registerForm.get('password')?.value,
+      Repetir_Password_Cliente: this.registerForm.get('repetir_password')?.value,
+      ID_Departamento_FK: this.registerForm.get('departamento')?.value,
+      ID_Municipio_FK: this.registerForm.get('municipio')?.value,
+    };
 
+    for (const key in newCustomer) {
+      if (newCustomer.hasOwnProperty(key) && (newCustomer[key] === null || newCustomer[key] === undefined || newCustomer[key] === '')) {
+        delete newCustomer[key];
+      }
+    }
+
+    if (Object.keys(newCustomer).length === 0) {
+      return null;
+    }
+
+    return newCustomer;
+  }
+
+  onSubmit() {
+    this.submitted = true;
+
+    if (this.registerForm.valid) {
+      const password = this.registerForm.get('password')?.value;
+      const repeatPassword = this.registerForm.get('repetir_password')?.value;
+
+      if (password === repeatPassword) {
+        const userData = this.getUserData(); 
+
+        this.userService.addCustomer('http://localhost:3000/nuevo/cliente', userData).subscribe((response) => {
+          alert(response.msg);
+          this.registerForm.reset();
+        });
+      } else {
+        this.registerForm.get('repetir_password')?.setErrors({ passwordsNotMatch: true });
+      }
+    }
   }
 } 
