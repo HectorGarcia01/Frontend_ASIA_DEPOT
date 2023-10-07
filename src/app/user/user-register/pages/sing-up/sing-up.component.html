@@ -5,7 +5,7 @@
         <div class="col-md-6">
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-                    <form class="border border-2 border-dark p-5">
+                    <form class="border border-2 border-dark p-5" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                         <div class="text-center mb-3">
                             <p>Regístrate con:</p>
                             <button type="button" class="btn btn-secondary btn-floating mx-1">
@@ -17,32 +17,32 @@
 
                         <!-- Name input -->
                         <div class="form-floating mb-3">
-                            <input type="text" id="registerName" class="form-control" placeholder="Ingresa tu nombre">
+                            <input type="text" formControlName="Nombre_Cliente" class="form-control" placeholder="Ingresa tu nombre">
                             <label for="registerName">Nombre</label>
                         </div>
 
                         <!-- Username input -->
                         <div class="form-floating mb-3">
-                            <input type="text" id="registerUsername" class="form-control" placeholder="Ingresa tu apellido">
+                            <input type="text" formControlName="Apellido_Cliente" class="form-control" placeholder="Ingresa tu apellido">
                             <label for="registerUsername">Apellido</label>
                         </div>
 
                         <!-- Tel input -->
                         <div class="form-floating mb-3">
-                            <input type="text" id="registerTel" class="form-control" placeholder="Ingresa tu número de teléfono">
+                            <input type="text" formControlName="Telefono_Cliente" class="form-control" placeholder="Ingresa tu número de teléfono">
                             <label for="registerTel">Teléfono</label>
                         </div>
 
                         <!-- Nit input -->
                         <div class="form-floating mb-3">
-                            <input type="text" id="registerNIT" class="form-control" placeholder="Ingresa tu NIT">
+                            <input type="text" formControlName="NIT_Cliente" class="form-control" placeholder="Ingresa tu NIT">
                             <label for="registerNIT">NIT</label>
                         </div>
                         
                         <!-- Departamento input -->
                         <div class="form-floating mb-3">
-                            <select class="form-select" aria-label="Default select example" [(ngModel)]="selectedDepartmentId" (change)="onDepartmentSelected()" name="selectedDepartment">
-                                <option [ngValue]="null">Selecciona un departamento</option>
+                            <select class="form-select" aria-label="Default select example" (change)="onDepartmentSelected($event)" formControlName="ID_Departamento_FK">
+                                <option value="null">Selecciona un departamento</option>
                                 <option *ngFor="let department of departments" [value]="department.id">{{ department.Nombre_Departamento }}</option>
                             </select>
                             <label for="registerDepartamento">Departamento</label>
@@ -50,8 +50,8 @@
 
                         <!-- Municipio input -->
                         <div class="form-floating mb-3">
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>Selecciona un municipio</option>
+                            <select class="form-select" aria-label="Default select example" formControlName="ID_Municipio_FK">
+                                <option value="null">Selecciona un municipio</option>
                                 <option *ngFor="let municipality of municipalities" [value]="municipality.id">{{ municipality.Nombre_Municipio }}</option>
                             </select>
                             <label for="registerMunicipio">Municipio</label>
@@ -59,25 +59,25 @@
 
                         <!-- Address input -->
                         <div class="form-floating mb-3">
-                            <input type="text" id="registerAddress" class="form-control" placeholder="Ingresa tu dirección general">
+                            <input type="text" formControlName="Direccion_General" class="form-control" placeholder="Ingresa tu dirección general">
                             <label for="registerAddress">Dirección general</label>
                         </div>
 
                         <!-- Email input -->
                         <div class="form-floating mb-3">
-                            <input type="email" id="registerEmail" class="form-control" placeholder="Ingresa tu correo">
+                            <input type="email" formControlName="Correo_Cliente" class="form-control" placeholder="Ingresa tu correo">
                             <label for="registerEmail">Correo</label>
                         </div>
 
                         <!-- Password input -->
                         <div class="form-floating mb-3">
-                            <input type="password" id="registerPassword" class="form-control" placeholder="Ingresa tu contraseña">
+                            <input type="password" formControlName="Password_Cliente" class="form-control" placeholder="Ingresa tu contraseña">
                             <label for="registerPassword">Contraseña</label>
                         </div>
 
                         <!-- Repeat Password input -->
                         <div class="form-floating mb-3">
-                            <input type="password" id="registerRepeatPassword" class="form-control" placeholder="Repite la contraseña">
+                            <input type="password" formControlName="Repetir_Password_Cliente" class="form-control" placeholder="Repite la contraseña">
                             <label for="registerRepeatPassword">Repetir contraseña</label>
                         </div>
 
