@@ -9,8 +9,8 @@ export class UserServicesService {
 
   constructor(private http: HttpClient) { }
 
-  getAddress(url: string): Observable<any> {
-    return this.http.get<any>(url);
+  public getAddress(url: string) {
+    return this.http.get(url);
   }
 
   addCustomer(url: string, customer: any): Observable<any> {
