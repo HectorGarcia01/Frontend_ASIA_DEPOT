@@ -46,29 +46,29 @@ export class SingUpComponent implements OnInit {
     } else {
       this.municipalities = [];
     }
-    this.registerForm.get('ID_Municipio_FK')?.setValue(null);
+    this.registerForm.get('municipio')?.setValue(null);
   }
 
   private validateForm() {
     this.registerForm = new FormGroup({
-      Nombre_Cliente: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/), Validators.minLength(3), Validators.maxLength(30)]),
-      Apellido_Cliente: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/), Validators.minLength(3), Validators.maxLength(30)]),
-      Telefono_Cliente: new FormControl('', [Validators.required, Validators.pattern(/^[345][0-9]{7}$/)]),
-      NIT_Cliente: new FormControl(''),
-      Direccion_General: new FormControl('', [Validators.pattern(/^[^[\]<>(){}_=\\|';]+$/), Validators.minLength(10), Validators.maxLength(100)]),
-      Correo_Cliente: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(40)]),
-      Password_Cliente: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?!.*\s).*$/), Validators.minLength(8), Validators.maxLength(25)]),
-      Repetir_Password_Cliente: new FormControl('', [Validators.required]),
-      ID_Departamento_FK: new FormControl(null, [Validators.required]),
-      ID_Municipio_FK: new FormControl(null)
+      nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/), Validators.minLength(3), Validators.maxLength(30)]),
+      apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/), Validators.minLength(3), Validators.maxLength(30)]),
+      telefono: new FormControl('', [Validators.required, Validators.pattern(/^[345][0-9]{7}$/)]),
+      nit: new FormControl(''),
+      direccion: new FormControl('', [Validators.pattern(/^[^[\]<>(){}_=\\|';]+$/), Validators.minLength(10), Validators.maxLength(100)]),
+      correo: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(40)]),
+      password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?!.*\s).*$/), Validators.minLength(8), Validators.maxLength(25)]),
+      repetir_password: new FormControl('', [Validators.required]),
+      departamento: new FormControl(null),
+      municipio: new FormControl(null)
     }, {
       validators: [this.passwordMatchValidator]
     });
   }
 
   private passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    const password = control.get('Password_Cliente')?.value;
-    const repeatPassword = control.get('Repetir_Password_Cliente')?.value;
+    const password = control.get('password')?.value;
+    const repeatPassword = control.get('repetir_password')?.value;
 
     if (password === repeatPassword) {
       return null;
