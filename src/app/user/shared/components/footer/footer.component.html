@@ -10,19 +10,14 @@
                 <p class="mb10">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
                     has been the industry's standard dummy text ever since the 1500s</p>
                 <p><i class="fa fa-location-arrow"></i> 9878/25 sec 9 rohini 35 </p>
-                <p><i class="fa fa-phone"></i> +91-9999878398 </p>
-                <p><i class="fa fa-envelope"></i> info@example.com </p>
+                <p><i class="fa fa-phone"></i> +502 4665 1581 </p>
+                <p><i class="fa fa-envelope"></i> asiadepotchiquimulilla@gmail.com </p>
             </div>
 
             <div class="col-md-4 col-sm-6">
                 <h5 class="headin5_amrc col_white_amrc pt2">CATEGORÍAS</h5>
                 <ul class="footer_ul_amrc">
-                    <li><a href="http://webenlance.com">Image Retouching</a></li>
-                    <li><a href="http://webenlance.com">Clipping Path</a></li>
-                    <li><a href="http://webenlance.com">Hollow Man Montage</a></li>
-                    <li><a href="http://webenlance.com">Ebay & Amazon</a></li>
-                    <li><a href="http://webenlance.com">Hair Masking/Clipping</a></li>
-                    <li><a href="http://webenlance.com">Image Cropping</a></li>
+                    <li *ngFor="let categoria of category"><a href="">{{ categoria.Nombre_Categoria }}</a></li>
                 </ul>
             </div>
 
