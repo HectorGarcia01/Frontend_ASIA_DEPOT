@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service'; 
+import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { SingIn } from '../../interfaces/login.interface';
 import { getCustomer } from 'src/app/user/interfaces/customer.interface';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
+    private customAlertService: CustomAlertService,
     private router: Router
   ) {
     this.validateForm();
@@ -25,16 +26,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     
-  }
-
-  sweetAlertPersonalizada(icono:any, titulo:any, msgError:any) {
-    Swal.fire({
-      icon: icono,
-      title: titulo,
-      text: msgError,
-      showConfirmButton: false,
-      timer: 3000
-    });
   }
 
   private validateForm() {
@@ -55,11 +46,11 @@ export class LoginComponent implements OnInit {
           this.authService.saveCookieAuth();
           this.customerData = data.user;
           console.log(this.customerData);
-          this.sweetAlertPersonalizada('success', "Exitoso", `Bienvenido ${ data.user.Nombre_Cliente } ${ data.user.Apellido_Cliente }`);
+          this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", `Bienvenido ${ data.user.Nombre_Cliente } ${ data.user.Apellido_Cliente }`);
           this.router.navigate(['/home']);
       }, (error:any) => {
         console.log(error.error);
-        this.sweetAlertPersonalizada('error', "Error", error.error.error);
+        this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
       });
     }
   }
