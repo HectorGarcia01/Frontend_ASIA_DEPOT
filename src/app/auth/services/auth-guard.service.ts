@@ -19,7 +19,7 @@ export class AuthGuardService implements CanActivate {
     if (this.authService.isAuthenticated()) {
       const userRole = this.authService.getRole();
 
-      if (userRole === 'admin' || userRole === 'superAdmin') {
+      if (userRole === 'Admin' || userRole === 'SuperAdmin') {
         return true;
       } else {
         ///**********************ALERTA TEMPORAL LUEGO MODIFICARLA */
