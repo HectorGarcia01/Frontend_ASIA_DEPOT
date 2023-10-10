@@ -25,6 +25,7 @@ export class AuthGuardService implements CanActivate {
         ///**********************ALERTA TEMPORAL LUEGO MODIFICARLA */
         //LA ALERTA PONE LA PAGINA EN BLANCO PROBAR CON ALERT DE SWEET O SI NO UNA MODAL O ALGO ASÍ
         alert('No tienes los permisos necesarios!!!');
+        this.router.navigate(['/home']);
         return false;
       }
     } else {
