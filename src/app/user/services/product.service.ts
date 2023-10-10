@@ -11,4 +11,8 @@ export class ProductService {
   getProducts(url: string) {
     return this.http.get(url);
   }
+
+  getProductId(url: string) {
+    return this.http.get(url);
+  }
 }
