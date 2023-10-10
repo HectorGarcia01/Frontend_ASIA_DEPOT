@@ -24,7 +24,6 @@ export interface getCustomer {
     Correo_Cliente: string;
     municipio?: MunicipalityCustomer[];
     estado: customerStatus[];
-    userRole: string;    
 }
 
 export interface customerStatus {
