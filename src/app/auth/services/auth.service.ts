@@ -17,7 +17,14 @@ export class AuthService {
   ) { }
 
   singIn(url: string, user: any): Observable<any> {
-    return this.http.post<any>(url, user);
+    return this.http.post<any>(url, user).pipe(
+      
+    );
+  }
+
+  saveCookieAuth() {
+    const token = this.cookieService.get('authCookie');
+    this.cookieService.set('authCookie', token);
   }
 
   /**
