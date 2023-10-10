@@ -18,8 +18,7 @@ export class AuthUserGuardService {
   canActivate(): boolean {
     if (this.authService.isAuthenticated()) {
       const userRole = this.authService.getRole();
-
-      if (userRole === 'user') {
+      if (userRole === 'User') {
         return true;
       } else {
         ///**********************ALERTA TEMPORAL LUEGO MODIFICARLA */
