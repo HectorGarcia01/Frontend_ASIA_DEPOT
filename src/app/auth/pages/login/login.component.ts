@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit {
       this.authService.singIn('http://localhost:3000/usuario/login', signIn).subscribe((data: any) => {
           this.authService.saveCookieAuth();
           this.customerData = data.user;
-          console.log(this.customerData);
           this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", `Bienvenido ${ data.user.Nombre_Cliente } ${ data.user.Apellido_Cliente }`);
           this.router.navigate(['/home']);
       }, (error:any) => {
