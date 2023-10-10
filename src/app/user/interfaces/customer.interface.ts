@@ -1,3 +1,5 @@
+import { MunicipalityCustomer } from "./address.interface";
+
 export interface addCustomer {
     [key: string]: any;
     Nombre_Cliente: string;
@@ -13,14 +15,20 @@ export interface addCustomer {
 }
 
 export interface getCustomer {
-    nombre: string;
-    apellido: string;
-    telefono: string;
-    nit: string;
-    direccionGeneral: string;
-    correo: string;
-    departamento: number; //Tipo de dato pendiente
-    municipio: number;    //Tipo de dato pendiente
+    id: number;
+    Nombre_Cliente: string;
+    Apellido_Cliente: string;
+    Telefono_Cliente: string;
+    NIT_Cliente?: string;
+    Direccion_General?: string;
+    Correo_Cliente: string;
+    municipio?: MunicipalityCustomer[];
+    estado: customerStatus[];
+    userRole: string;    
+}
+
+export interface customerStatus {
+    Tipo_Estado: string;
 }
 
 export interface updateCustomer {
