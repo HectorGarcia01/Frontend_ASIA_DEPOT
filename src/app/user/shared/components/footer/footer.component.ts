@@ -10,6 +10,7 @@ import { Category, Categories } from 'src/app/user/interfaces/category.interface
 export class FooterComponent implements OnInit {
   category: Category[] = [];
   categories: Categories[] = [];
+  categoriesPerColumn!: number;
 
   constructor(
     private categoryService: CategoryService
@@ -22,6 +23,7 @@ export class FooterComponent implements OnInit {
   getCategories() {
     this.categoryService.getCategories('http://localhost:3000/usuario/ver/categorias').subscribe((data: any) => {
       this.category = data.categories;
+      this.categoriesPerColumn = Math.ceil(this.category.length / 3);
     });
   }
 }
