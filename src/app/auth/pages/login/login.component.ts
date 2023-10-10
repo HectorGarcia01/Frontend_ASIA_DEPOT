@@ -52,15 +52,14 @@ export class LoginComponent implements OnInit {
       }
 
       this.authService.singIn('http://localhost:3000/usuario/login', signIn).subscribe((data: any) => {
-        if (data.success) {
-          this.sweetAlertPersonalizada('success', "Exitoso", `Bienvenido ${data.user.Nombre_Cliente}`);
+          this.authService.saveCookieAuth();
           this.customerData = data.user;
           console.log(this.customerData);
+          this.sweetAlertPersonalizada('success', "Exitoso", `Bienvenido ${data.user.Nombre_Cliente}`);
           this.router.navigate(['/home']);
-        } else {
-          console.log(data.error);
-          this.sweetAlertPersonalizada('error', "Error", data.error);
-        }
+      }, (error:any) => {
+        console.log(error.error);
+        this.sweetAlertPersonalizada('error', "Error", error.error.error);
       });
     }
   }
