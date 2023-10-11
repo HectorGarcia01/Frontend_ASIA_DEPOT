@@ -1,48 +1,14 @@
 <section>
-    <div class="container">
-        <h2 class="text-center">Categorías</h2>
+    <div class="container pt-4 pb-3">
+        <h2 class="mb-4">Categorías</h2>
         <div class="row row-cols-1 row-cols-md-3 g-2">
-            <div class="col">
+            <div class="col" *ngFor="let categoria of category">
                 <div class="card">
-                    <img src="../../../../../assets/Logo_ASIA_DEPOT.jpeg" class="card-img-top img-fluid" alt="...">
                     <div class="card-body p-3">
-                        <h5 class="card-title fs-5">Card title</h5>
-                        <p class="card-text fs-6">This is a longer card with supporting text below as a natural lead-in to additional
-                            content. This content is a little bit longer.</p>
+                        <h5 class="card-title fs-5">{{ categoria.Nombre_Categoria }}</h5>
+                        <p class="card-text fs-6">{{ categoria.Descripcion_Categoria }}</p>
                     </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="../../../../../assets/Logo_ASIA_DEPOT.jpeg" class="card-img-top img-fluid" alt="...">
-                    <div class="card-body p-3">
-                        <h5 class="card-title fs-5">Card title</h5>
-                        <p class="card-text fs-6">This is a longer card with supporting text below as a natural lead-in to
-                            additional
-                            content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="../../../../../assets/Logo_ASIA_DEPOT.jpeg" class="card-img-top img-fluid" alt="...">
-                    <div class="card-body p-3">
-                        <h5 class="card-title fs-5">Card title</h5>
-                        <p class="card-text fs-6">This is a longer card with supporting text below as a natural lead-in to
-                            additional
-                            content. This content is a little bit longer.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="../../../../../assets/Logo_ASIA_DEPOT.jpeg" class="card-img-top img-fluid" alt="...">
-                    <div class="card-body p-3">
-                        <h5 class="card-title fs-5">Card title</h5>
-                        <p class="card-text fs-6">This is a longer card with supporting text below as a natural lead-in to
-                            additional
-                            content. This content is a little bit longer.</p>
-                    </div>
+                    <button [routerLink]="['/products/category', categoria.id]" class="btn btn-primary">Ver productos</button>
                 </div>
             </div>
         </div>
