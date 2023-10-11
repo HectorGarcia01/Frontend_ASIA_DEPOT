@@ -19,12 +19,21 @@
                         <div class="form-outline mb-4">
                             <label class="form-label" for="loginName">Correo</label>
                             <input type="email" formControlName="correo" id="loginName" class="form-control" />
+                            <div *ngIf="loginForm.get('correo')?.hasError('required') && loginForm.get('correo')?.touched" class="text-danger">
+                                El correo es obligatorio.
+                            </div>
+                            <div *ngIf="loginForm.get('correo')?.hasError('email') && loginForm.get('correo')?.touched" class="text-danger">
+                                El correo no es válido.
+                            </div>
                         </div>
 
                         <!-- Password input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="loginPassword">Contraseña</label>
                             <input type="password" formControlName="password" id="loginPassword" class="form-control" />
+                            <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched" class="text-danger">
+                                La contraseña es obligatoria.
+                            </div>
                         </div>
 
                         <div class="row mb-4">
