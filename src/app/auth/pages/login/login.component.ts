@@ -13,6 +13,7 @@ import { getCustomer } from 'src/app/user/interfaces/customer.interface';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  // employeeData: getEmployee[] = [];
   customerData: getCustomer[] = [];
 
   constructor(
@@ -44,9 +45,15 @@ export class LoginComponent implements OnInit {
 
       this.authService.singIn('http://localhost:3000/usuario/login', signIn).subscribe((data: any) => {
           this.authService.saveCookieAuth();
-          this.customerData = data.user;
-          this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", `Bienvenido ${ data.user.Nombre_Cliente } ${ data.user.Apellido_Cliente }`);
-          this.router.navigate(['/home']);
+          if (data.userRole === 'Admin' || data.userRole === 'SuperAdmin') {
+            // this.employeeData = data.user;
+            this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", `Bienvenido ${data.user.Nombre_Empleado} ${data.user.Apellido_Empleado}`);
+            this.router.navigate(['/admin']);
+          } else {
+            this.customerData = data.user;
+            this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", `Bienvenido ${data.user.Nombre_Cliente} ${data.user.Apellido_Cliente}`);
+            this.router.navigate(['/home']);
+          }
       }, (error:any) => {
         console.log(error.error);
         this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
