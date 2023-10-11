@@ -19,24 +19,48 @@
                         <div class="form-floating mb-3">
                             <input type="text" formControlName="nombre" class="form-control" placeholder="Ingresa tu nombre">
                             <label for="registerName">Nombre</label>
+                            <div *ngIf="registerForm.get('nombre')?.hasError('required') && registerForm.get('nombre')?.touched" class="text-danger">
+                                El nombre es obligatorio.
+                            </div>
+                            <div *ngIf="registerForm.get('nombre')?.hasError('pattern') && registerForm.get('nombre')?.touched" class="text-danger">
+                                El nombre no es válido, no use carácteres especiales.
+                            </div>
                         </div>
 
                         <!-- Username input -->
                         <div class="form-floating mb-3">
                             <input type="text" formControlName="apellido" class="form-control" placeholder="Ingresa tu apellido">
                             <label for="registerUsername">Apellido</label>
+                            <div *ngIf="registerForm.get('apellido')?.hasError('required') && registerForm.get('apellido')?.touched" class="text-danger">
+                                El apellido es obligatorio.
+                            </div>
+                            <div *ngIf="registerForm.get('apellido')?.hasError('pattern') && registerForm.get('apellido')?.touched" class="text-danger">
+                                El apellido no es válido, no use carácteres especiales.
+                            </div>
                         </div>
 
                         <!-- Tel input -->
                         <div class="form-floating mb-3">
                             <input type="text" formControlName="telefono" class="form-control" placeholder="Ingresa tu número de teléfono">
                             <label for="registerTel">Teléfono</label>
+                            <div *ngIf="registerForm.get('telefono')?.hasError('required') && registerForm.get('telefono')?.touched" class="text-danger">
+                                El teléfono es obligatorio.
+                            </div>
+                            <div *ngIf="registerForm.get('telefono')?.hasError('pattern') && registerForm.get('telefono')?.touched" class="text-danger">
+                                El teléfono no es válido, debe de poseer 8 dígitos.
+                            </div>
                         </div>
 
                         <!-- Nit input -->
                         <div class="form-floating mb-3">
                             <input type="number" formControlName="nit" class="form-control" placeholder="Ingresa tu NIT">
                             <label for="registerNIT">NIT</label>
+                            <div *ngIf="registerForm.get('nit')?.hasError('required') && registerForm.get('nit')?.touched" class="text-danger">
+                                El NIT es obligatorio.
+                            </div>
+                            <div *ngIf="registerForm.get('nit')?.hasError('pattern') && registerForm.get('nit')?.touched" class="text-danger">
+                                El NIT no es válido.
+                            </div>
                         </div>
                         
                         <!-- Departamento input -->
@@ -61,18 +85,45 @@
                         <div class="form-floating mb-3">
                             <input type="text" formControlName="direccion" class="form-control" placeholder="Ingresa tu dirección general">
                             <label for="registerAddress">Dirección general</label>
+                            <div *ngIf="registerForm.get('direccion')?.hasError('pattern') && registerForm.get('direccion')?.touched" class="text-danger">
+                                La dirección no es válida, no use carácteres especiales.
+                            </div>
+                            <div *ngIf="registerForm.get('direccion')?.hasError('minlength') && registerForm.get('direccion')?.touched" class="text-danger">
+                                La dirección es demasiado corta (mínimo 10 carácteres).
+                            </div>
+                            <div *ngIf="registerForm.get('direccion')?.hasError('maxlength') && registerForm.get('direccion')?.touched" class="text-danger">
+                                La dirección es demasiado larga (máximo 100 carácteres).
+                            </div>
                         </div>
 
                         <!-- Email input -->
                         <div class="form-floating mb-3">
                             <input type="email" formControlName="correo" class="form-control" placeholder="Ingresa tu correo">
                             <label for="registerEmail">Correo</label>
+                            <div *ngIf="registerForm.get('correo')?.hasError('required') && registerForm.get('correo')?.touched" class="text-danger">
+                                El correo es obligatorio.
+                            </div>
+                            <div *ngIf="registerForm.get('correo')?.hasError('email') && registerForm.get('correo')?.touched" class="text-danger">
+                                El correo no es válido.
+                            </div>
+                            <div *ngIf="registerForm.get('correo')?.hasError('maxlength') && registerForm.get('correo')?.touched" class="text-danger">
+                                El correo es demasiado largo (máximo 40 carácteres).
+                            </div>
                         </div>
 
                         <!-- Password input -->
                         <div class="form-floating mb-3">
                             <input type="password" formControlName="password" class="form-control" placeholder="Ingresa tu contraseña">
                             <label for="registerPassword">Contraseña</label>
+                            <div *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched" class="text-danger">
+                                La contraseña es obligatoria.
+                            </div>
+                            <div *ngIf="registerForm.get('password')?.hasError('pattern') && registerForm.get('password')?.touched" class="text-danger">
+                                La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un dígito y no debe contener espacios en blanco.
+                            </div>
+                            <div *ngIf="registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.touched" class="text-danger">
+                                La contraseña es demasiado corta (mínimo 8 carácteres).
+                            </div>
                         </div>
 
                         <!-- Repeat Password input -->
@@ -86,15 +137,6 @@
                                 Las contraseñas no coinciden.
                             </div>
                         </div>
-
-                        <!-- Checkbox -->
-                        <!-- <div class="form-check d-flex justify-content-center mb-4">
-                            <input class="form-check-input me-2" type="checkbox" value="" id="registerCheck" checked
-                                aria-describedby="registerCheckHelpText" />
-                            <label class="form-check-label" for="registerCheck">
-                                I have read and agree to the terms
-                            </label>
-                        </div> -->
 
                         <div class="row mb-4">
                             <div class="col-md-12 d-flex justify-content-center">
