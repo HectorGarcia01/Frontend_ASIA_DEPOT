@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthService } from './auth.service';
+import { CustomAlertService } from 'src/app/services/custom-alert.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthUserGuardService {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService, 
+    private customAlertService: CustomAlertService,
+    private router: Router
+  ) { }
 
   /**
    * Función para validar la protección de rutas del user
@@ -18,19 +23,15 @@ export class AuthUserGuardService {
   canActivate(): boolean {
     if (this.authService.isAuthenticated()) {
       const userRole = this.authService.getRole();
-
-      if (userRole === 'user') {
+      if (userRole === 'User') {
         return true;
       } else {
-        ///**********************ALERTA TEMPORAL LUEGO MODIFICARLA */
-        //LA ALERTA PONE LA PAGINA EN BLANCO PROBAR CON ALERT DE SWEET O SI NO UNA MODAL O ALGO ASÍ
-        alert('No tienes los permisos necesarios!!!');
+        this.customAlertService.sweetAlertPersonalizada('error', "Permisos denegados", "No posees los permisos necesarios");
+        this.router.navigate(['/admin']);
         return false;
       }
     } else {
-      ///**********************ALERTA TEMPORAL LUEGO MODIFICARLA */
-      //LA ALERTA PONE LA PAGINA EN BLANCO PROBAR CON ALERT DE SWEET O SI NO UNA MODAL O ALGO ASÍ
-      alert('Primero debes de iniciar sesión!!!');
+      this.customAlertService.sweetAlertPersonalizada('error', "Error de autenticación", "Primero debes de iniciar sesión");
       this.router.navigate(['/login']);
       return false;
     }

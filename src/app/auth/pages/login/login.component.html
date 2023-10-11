@@ -5,7 +5,7 @@
         <div class="col-md-6">
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-                    <form class="border border-2 border-dark p-5">
+                    <form class="border border-2 border-dark p-5" [formGroup]="loginForm" (ngSubmit)="singIn()">
                         <div class="text-center mb-3">
                             <p>Inicia sesión con:</p>
                             <button type="button" class="btn btn-secondary btn-floating mx-1">
@@ -18,19 +18,28 @@
                         <!-- Email input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="loginName">Correo</label>
-                            <input type="email" id="loginName" class="form-control" />
+                            <input type="email" formControlName="correo" id="loginName" class="form-control" />
+                            <div *ngIf="loginForm.get('correo')?.hasError('required') && loginForm.get('correo')?.touched" class="text-danger">
+                                El correo es obligatorio.
+                            </div>
+                            <div *ngIf="loginForm.get('correo')?.hasError('email') && loginForm.get('correo')?.touched" class="text-danger">
+                                El correo no es válido.
+                            </div>
                         </div>
 
                         <!-- Password input -->
                         <div class="form-outline mb-4">
                             <label class="form-label" for="loginPassword">Contraseña</label>
-                            <input type="password" id="loginPassword" class="form-control" />
+                            <input type="password" formControlName="password" id="loginPassword" class="form-control" />
+                            <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched" class="text-danger">
+                                La contraseña es obligatoria.
+                            </div>
                         </div>
 
                         <div class="row mb-4">
                             <div class="col-md-12 d-flex justify-content-center">
                                 <!-- Simple link -->
-                                <a href="#!">¿Olvidó la contraseña?</a>
+                                <a [routerLink]="['/login']">¿Olvidó la contraseña?</a>
                             </div>
                         </div>
 
@@ -43,7 +52,7 @@
 
                         <!-- Register buttons -->
                         <div class="text-center">
-                            <p>¿No posees una cuenta? <a href="#">Regístrate</a></p>
+                            <p>¿No posees una cuenta? <a [routerLink]="['/signup']">Regístrate</a></p>
                         </div>
                     </form>
                 </div>
