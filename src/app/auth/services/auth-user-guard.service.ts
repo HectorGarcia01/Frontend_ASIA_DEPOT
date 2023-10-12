@@ -18,6 +18,9 @@ export class AuthUserGuardService {
    * Función para validar la protección de rutas del user
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
+   * Referencias:
+   *            Función isAuthenticated del servicio de autenticación (auth.service),
+   *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)
    */
 
   canActivate(): boolean {
