@@ -20,6 +20,7 @@ export class AuthUserGuardService {
    * Autor: Hector Armando García González
    * Referencias:
    *            Función isAuthenticated del servicio de autenticación (auth.service),
+   *            Función getRole del servicio de autenticación (auth.service),
    *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)
    */
 
