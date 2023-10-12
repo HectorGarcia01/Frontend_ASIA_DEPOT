@@ -23,6 +23,14 @@ export class ProductDetailComponent implements OnInit {
     this.getProductId();
   }
 
+  /**
+   * Función para consumir servicio de obtener un producto por Id
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *            Función getProductId del servicio de productos (product.service)
+   */
+
   getProductId() {
     // this.route.paramMap.subscribe(params => {
     //   this.productoId = params.get('id');

@@ -20,6 +20,14 @@ export class ProductListComponent {
     this.getProducts();
   }
 
+  /**
+   * Función para consumir servicio de listar todos los productos
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *            Función getProducts del servicio de productos (product.service)
+   */
+
   getProducts() {
     this.productService.getProducts(`${apiURL}/usuario/ver/productos`).subscribe((data: any) => {
       this.product = data.products;
