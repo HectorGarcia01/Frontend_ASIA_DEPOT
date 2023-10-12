@@ -8,6 +8,12 @@ export class CustomAlertService {
 
   constructor() { }
 
+  /**
+   * Función para la creación de una alerta personalizada
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
+
   sweetAlertPersonalizada(icono: any, titulo: any, message: any) {
     Swal.fire({
       icon: icono,
