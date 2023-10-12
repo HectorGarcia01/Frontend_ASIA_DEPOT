@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, AbstractControl, Validators } from
 import { UserServicesService } from 'src/app/user/services/user-services.service';
 import { Department, Municipalities } from 'src/app/user/interfaces/address.interface';
 import { addCustomer } from 'src/app/user/interfaces/customer.interface';
+import { apiURL } from 'src/app/config/config';
 
 @Component({
   selector: 'app-sing-up',
@@ -30,7 +31,7 @@ export class SingUpComponent implements OnInit {
   }
 
   getAddresses() {
-    this.userService.getAddress('http://localhost:3000/usuario/ver/direcciones').subscribe((data: any) => {
+    this.userService.getAddress(`${apiURL}/usuario/ver/direcciones`).subscribe((data: any) => {
       this.departments = data.address;
     });
   }
@@ -116,7 +117,7 @@ export class SingUpComponent implements OnInit {
       if (password === repeatPassword) {
         const userData = this.getUserData(); 
 
-        this.userService.addCustomer('http://localhost:3000/nuevo/cliente', userData).subscribe((response) => {
+        this.userService.addCustomer(`${apiURL}/nuevo/cliente`, userData).subscribe((response) => {
           alert(response.msg);
           this.registerForm.reset();
         });
