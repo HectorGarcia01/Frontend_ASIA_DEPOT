@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   * Función para realizar consumir el servicio de inicio de sesión
+   * Función para consumir el servicio de inicio de sesión
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    * Referencias: 
