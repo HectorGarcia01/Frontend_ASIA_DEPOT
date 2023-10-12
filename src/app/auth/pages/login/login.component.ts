@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service'; 
+import { apiURL } from 'src/app/config/config';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { SingIn } from '../../interfaces/login.interface';
 import { getCustomer } from 'src/app/user/interfaces/customer.interface';
@@ -29,12 +30,28 @@ export class LoginComponent implements OnInit {
     
   }
 
+  /**
+   * Función privada para la definición de un formulario reactivo
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
   private validateForm() {
     this.loginForm = new FormGroup({
       correo: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
     });
   }
+
+  /**
+   * Función para consumir el servicio de inicio de sesión
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función singIn del servicio de autenticación (auth.service),
+   *            Función saveCookieAuth del servicio de autenticación (auth.service),
+   *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)
+   *            
+   */
 
   singIn() {
     if (this.loginForm.valid) {
@@ -43,7 +60,7 @@ export class LoginComponent implements OnInit {
         password: this.loginForm.get('password')?.value
       }
 
-      this.authService.singIn('http://localhost:3000/usuario/login', signIn).subscribe((data: any) => {
+      this.authService.singIn(`${apiURL}/usuario/login`, signIn).subscribe((data: any) => {
           this.authService.saveCookieAuth();
           if (data.userRole === 'Admin' || data.userRole === 'SuperAdmin') {
             // this.employeeData = data.user;

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, AbstractControl, Validators } from
 import { UserServicesService } from 'src/app/user/services/user-services.service';
 import { Department, Municipalities } from 'src/app/user/interfaces/address.interface';
 import { addCustomer } from 'src/app/user/interfaces/customer.interface';
+import { apiURL } from 'src/app/config/config';
 
 @Component({
   selector: 'app-sing-up',
@@ -29,11 +30,25 @@ export class SingUpComponent implements OnInit {
     this.getAddresses();
   }
 
+  /**
+   * Función para consumir el servicio de de listar las direcciones
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getAddress del servicio de usuario (user-services.service)
+   */
+
   getAddresses() {
-    this.userService.getAddress('http://localhost:3000/usuario/ver/direcciones').subscribe((data: any) => {
+    this.userService.getAddress(`${apiURL}/usuario/ver/direcciones`).subscribe((data: any) => {
       this.departments = data.address;
     });
   }
+
+  /**
+   * Función para capturar el departamento seleccionado y así listar sus municipios
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
 
   onDepartmentSelected(event: any) {
     const selectedValue = event.target.value;
@@ -50,6 +65,12 @@ export class SingUpComponent implements OnInit {
     }
     this.registerForm.get('municipio')?.setValue(null);
   }
+
+  /**
+   * Función privada para la definición de un formulario reactivo
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
 
   private validateForm() {
     this.registerForm = new FormGroup({
@@ -68,6 +89,12 @@ export class SingUpComponent implements OnInit {
     });
   }
 
+  /**
+   * Función privada para validar si las contraseñas coinciden
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
+
   private passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const password = control.get('password')?.value;
     const repeatPassword = control.get('repetir_password')?.value;
@@ -78,6 +105,12 @@ export class SingUpComponent implements OnInit {
       return { passwordsNotMatch: true };
     }
   }
+
+  /**
+   * Función para obtener todos los datos del formulario reactivo
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
 
   getUserData() {
     const newCustomer: addCustomer = {
@@ -106,6 +139,14 @@ export class SingUpComponent implements OnInit {
     return newCustomer;
   }
 
+  /**
+   * Función para consumir el servicio de registro de nuevo cliente
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getAddress del servicio de usuario (user-services.service)
+   */
+
   onSubmit() {
     this.submitted = true;
 
@@ -116,7 +157,7 @@ export class SingUpComponent implements OnInit {
       if (password === repeatPassword) {
         const userData = this.getUserData(); 
 
-        this.userService.addCustomer('http://localhost:3000/nuevo/cliente', userData).subscribe((response) => {
+        this.userService.addCustomer(`${apiURL}/nuevo/cliente`, userData).subscribe((response) => {
           alert(response.msg);
           this.registerForm.reset();
         });

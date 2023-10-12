@@ -32,11 +32,16 @@
 
             <div class="d-flex align-items-center">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
+                    <!-- En caso de no estar autenticado -->
+                    <li *ngIf="!isAuthenticated()" class="nav-item">
                         <a class="nav-link" [routerLink]="['/login']">Iniciar sesión</a>
                     </li>
-                    <li class="nav-item">
+                    <li *ngIf="!isAuthenticated()" class="nav-item">
                         <a class="nav-link" [routerLink]="['/signup']">Registrarse</a>
+                    </li>
+                    <!-- En caso de estar autenticado -->
+                    <li *ngIf="isAuthenticated()" class="nav-item">
+                        <a class="nav-link" [routerLink]="['/profile']">Mi perfil</a>
                     </li>
                 </ul>
             </div>
@@ -60,14 +65,19 @@
                         alt="Black and White Portrait of a Man" loading="lazy" />
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-                    <li>
+                    <!-- En caso de no estar autenticado -->
+                    <li *ngIf="!isAuthenticated()">
                         <a class="dropdown-item" [routerLink]="['/login']">Iniciar sesión</a>
                     </li>
-                    <li>
+                    <li *ngIf="!isAuthenticated()">
+                        <a class="dropdown-item" [routerLink]="['/signup']">Registrarse</a>
+                    </li>
+                    <!-- En caso de estar autenticado -->
+                    <li *ngIf="isAuthenticated()">
                         <a class="dropdown-item" [routerLink]="['/profile']">Mi perfil</a>
                     </li>
-                    <li>
-                        <a class="dropdown-item" [routerLink]="['/home']">Salir</a>
+                    <li *ngIf="isAuthenticated()">
+                        <a class="btn dropdown-item" (click)="logout()">Salir</a>
                     </li>
                 </ul>
             </div>

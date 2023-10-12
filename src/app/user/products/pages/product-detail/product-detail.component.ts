@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from 'src/app/user/services/product.service';
 import { Product } from 'src/app/user/interfaces/product.interface';
+import { apiURL } from 'src/app/config/config';
 
 @Component({
   selector: 'app-product-detail',
@@ -22,12 +23,20 @@ export class ProductDetailComponent implements OnInit {
     this.getProductId();
   }
 
+  /**
+   * Función para consumir servicio de obtener un producto por Id
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *            Función getProductId del servicio de productos (product.service)
+   */
+
   getProductId() {
     // this.route.paramMap.subscribe(params => {
     //   this.productoId = params.get('id');
     // });
 
-    this.productService.getProductId(`http://localhost:3000/usuario/ver/producto/${this.getProductId}`).subscribe((data: any) => {
+    this.productService.getProductId(`${apiURL}/usuario/ver/producto/${this.getProductId}`).subscribe((data: any) => {
       this.product = data.products;
     });
   }
