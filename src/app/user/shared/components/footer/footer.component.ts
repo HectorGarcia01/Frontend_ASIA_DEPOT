@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/user/services/category.service';
 import { Category, Categories } from 'src/app/user/interfaces/category.interface';
+import { apiURL } from 'src/app/config/config';
 
 @Component({
   selector: 'app-footer',
@@ -21,7 +22,7 @@ export class FooterComponent implements OnInit {
   }
 
   getCategories() {
-    this.categoryService.getCategories('http://localhost:3000/usuario/ver/categorias').subscribe((data: any) => {
+    this.categoryService.getCategories(`${apiURL}/usuario/ver/categorias`).subscribe((data: any) => {
       this.category = data.categories;
       this.categoriesPerColumn = Math.ceil(this.category.length / 3);
     });
