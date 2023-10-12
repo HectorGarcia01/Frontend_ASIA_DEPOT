@@ -30,12 +30,28 @@ export class LoginComponent implements OnInit {
     
   }
 
+  /**
+   * Función privada para la definición de un formulario reactivo
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
   private validateForm() {
     this.loginForm = new FormGroup({
       correo: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required])
     });
   }
+
+  /**
+   * Función para realizar una solicitud post de inicio de sesión
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función singIn del servicio de autenticación (auth.service),
+   *            Función saveCookieAuth del servicio de autenticación (auth.service),
+   *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)
+   *            
+   */
 
   singIn() {
     if (this.loginForm.valid) {
