@@ -20,6 +20,8 @@ export class NavBarComponent implements OnInit {
    * Función para verificar si el cliente está autenticado
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
+   * Referencias:
+   *            Función isAuthenticated del servicio de autenticación (auth.service)
    */
 
   isAuthenticated(): boolean {
@@ -30,6 +32,8 @@ export class NavBarComponent implements OnInit {
    * Función para cerrar la sesión del cliente
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función logout() del servicio de autenticación (auth.service)
    */
 
   logout(): void {
