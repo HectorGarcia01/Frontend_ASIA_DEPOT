@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthRedirectGuardService } from './auth/services/auth-redirect-guard.service';
 import { AuthUserGuardService } from './auth/services/auth-user-guard.service';
 import { AuthGuardService } from './auth/services/auth-guard.service';
+import { NeutralRouteGuardService } from './auth/services/neutral-route-guard.service';
 
 const routes: Routes = [
 
@@ -13,6 +15,7 @@ const routes: Routes = [
     path: '',
     loadChildren: () =>
       import('./user/user-home/user-home.module').then((m) => m.UserHomeModule),
+    canActivate: [NeutralRouteGuardService]
   },
   {
     path: '',
@@ -24,11 +27,13 @@ const routes: Routes = [
     path: '',
     loadChildren: () =>
       import('./user/shopping-cart/shopping-cart.module').then((m) => m.ShoppingCartModule),
+    canActivate: [NeutralRouteGuardService]
   },
   {
     path: '',
     loadChildren: () =>
       import('./user/products/products.module').then((m) => m.ProductsModule),
+    canActivate: [NeutralRouteGuardService]
   },
 
   //Rutas para registrarse
@@ -36,6 +41,7 @@ const routes: Routes = [
     path: '',
     loadChildren: () =>
       import('./user/user-register/user-register.module').then((m) => m.UserRegisterModule),
+    canActivate: [AuthRedirectGuardService]
   },
 
   //Rutas para el login
@@ -43,6 +49,7 @@ const routes: Routes = [
     path: '',
     loadChildren: () =>
       import('./auth/auth.module').then((m) => m.AuthModule),
+    canActivate: [AuthRedirectGuardService]
   },
 
   //Rutas para el admin/superadmin
