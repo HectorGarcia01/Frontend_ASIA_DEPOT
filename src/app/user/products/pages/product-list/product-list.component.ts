@@ -33,4 +33,8 @@ export class ProductListComponent implements OnInit {
       this.product = data.products;
     });
   }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }
