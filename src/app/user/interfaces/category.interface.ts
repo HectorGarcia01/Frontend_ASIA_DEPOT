@@ -7,3 +7,9 @@ export interface Category {
 export interface Categories {
     categorias: Category[];
 }
+
+export interface CategoryResponse {
+    categories: Category[];
+    totalPages: number;
+    currentPage: number;
+}

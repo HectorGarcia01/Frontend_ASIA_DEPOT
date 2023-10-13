@@ -35,4 +35,8 @@ export class FooterComponent implements OnInit {
       this.categoriesPerColumn = Math.ceil(this.category.length / 3);
     });
   }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth'});
+  }
 }

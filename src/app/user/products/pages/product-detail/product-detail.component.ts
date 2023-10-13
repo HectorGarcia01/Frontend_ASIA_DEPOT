@@ -10,8 +10,7 @@ import { apiURL } from 'src/app/config/config';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  productoId!: string;
-  product: Product[] = [];
+  product: Product | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,7 +19,25 @@ export class ProductDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getProductId();
+    this.getParamsId();
+  }
+
+  /**
+   * Función para obtener el id de los parámetros de la url
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *            Función getProductId que consume el servicio del backend
+   */
+
+  getParamsId() {
+    this.route.paramMap.subscribe(params => {
+      const IdProduct = params.get('id');
+
+      if (IdProduct) {
+        this.getProductId(IdProduct);
+      }
+    });
   }
 
   /**
@@ -31,13 +48,9 @@ export class ProductDetailComponent implements OnInit {
    *            Función getProductId del servicio de productos (product.service)
    */
 
-  getProductId() {
-    // this.route.paramMap.subscribe(params => {
-    //   this.productoId = params.get('id');
-    // });
-
-    this.productService.getProductId(`${apiURL}/usuario/ver/producto/${this.getProductId}`).subscribe((data: any) => {
-      this.product = data.products;
+  getProductId(IdProduct: string) {
+    this.productService.getProductId(`${apiURL}/usuario/ver/producto/${IdProduct}`).subscribe((data: any) => {
+      this.product = data.product;
     });
   }
 }
