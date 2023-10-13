@@ -21,7 +21,7 @@
                     <div class="col-md-4" *ngFor="let i of [0, 1, 2]">
                         <ul class="footer_ul_amrc">
                             <li *ngFor="let categoria of category.slice(i * categoriesPerColumn, (i + 1) * categoriesPerColumn)">
-                                <a [routerLink]="['/products/category', categoria.id]">{{ categoria.Nombre_Categoria }}</a>
+                                <a [routerLink]="['/products/category', categoria.id]" (click)="scrollToTop()">{{ categoria.Nombre_Categoria }}</a>
                             </li>
                         </ul>
                     </div>
@@ -46,10 +46,10 @@
 
     <div class="container">
         <ul class="foote_bottom_ul_amrc">
-            <li><a [routerLink]="['/home']">Inicio</a></li>
-            <li><a [routerLink]="['/products']">Productos</a></li>
-            <li><a [routerLink]="['/about']">Nosotros</a></li>
-            <li><a [routerLink]="['/contact-us']">Contáctanos</a></li>
+            <li><a [routerLink]="['/home']" (click)="scrollToTop()">Inicio</a></li>
+            <li><a [routerLink]="['/products']" (click)="scrollToTop()">Productos</a></li>
+            <li><a [routerLink]="['/about']" (click)="scrollToTop()">Nosotros</a></li>
+            <li><a [routerLink]="['/contact-us']" (click)="scrollToTop()">Contáctanos</a></li>
         </ul>
         <p class="text-center">© 2023 Copyright | Ing. Hector García</p>
 
