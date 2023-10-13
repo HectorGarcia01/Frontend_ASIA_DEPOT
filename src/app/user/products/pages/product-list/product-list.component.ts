@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/user/services/product.service';
 import { Product, Products } from 'src/app/user/interfaces/product.interface';
 import { apiURL } from 'src/app/config/config';
@@ -8,7 +8,7 @@ import { apiURL } from 'src/app/config/config';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
   product: Product[] = [];
   prducts: Products[] = [];
 

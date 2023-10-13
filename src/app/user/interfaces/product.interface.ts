@@ -1,7 +1,7 @@
 import { Category } from "./category.interface";
 import { ProductBrand } from "./product_brand.interface";
 
-export interface Product {
+export interface Product { //***********************************Pendiente revisar la estructra de como lo envio y mandar también a que categoría pertenerce y marca si tiene */
     id: number;
     Nombre_Producto: string;
     Descripcion_Categoria?: string;

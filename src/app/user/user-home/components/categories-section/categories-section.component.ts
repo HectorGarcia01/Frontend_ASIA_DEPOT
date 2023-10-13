@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/user/services/category.service';
-import { Category, Categories } from 'src/app/user/interfaces/category.interface';
+import { Category, CategoryResponse } from 'src/app/user/interfaces/category.interface';
 import { apiURL } from 'src/app/config/config';
 
 @Component({
@@ -10,8 +10,10 @@ import { apiURL } from 'src/app/config/config';
 })
 export class CategoriesSectionComponent implements OnInit {
   category: Category[] = [];
-  categories: Categories[] = [];
-  
+  totalPages: number = 0;
+  currentPage: number = 1;
+  pageSize: number = 6;
+
   constructor(
     private categoryService: CategoryService
   ) { }
@@ -29,8 +31,26 @@ export class CategoriesSectionComponent implements OnInit {
    */
   
   getCategories() {
-    this.categoryService.getCategories(`${apiURL}/usuario/ver/categorias`).subscribe((data: any) => {
-      this.category = data.categories;
-    });
+    this.categoryService.getCategories(`${apiURL}/usuario/ver/categorias/paginacion`, this.currentPage, this.pageSize)
+      .subscribe((data: CategoryResponse) => {
+        this.category = data.categories;
+        this.totalPages = data.totalPages;
+        this.currentPage = data.currentPage;
+      });
+  }
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.getCategories();
+    }
+  }
+
+  getPagesArray(): number[] {
+    const pagesArray = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pagesArray.push(i);
+    }
+    return pagesArray;
   }
 }
