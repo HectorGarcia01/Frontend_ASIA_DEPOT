@@ -6,16 +6,16 @@ import { CustomAlertService } from 'src/app/services/custom-alert.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuardService implements CanActivate {
+export class NeutralRouteGuardService {
 
   constructor(
-    private authService: AuthService, 
+    private authService: AuthService,
     private customAlertService: CustomAlertService,
     private router: Router
   ) { }
 
   /**
-   * Función para validar la protección de rutas del admin/superAdmin
+   * Función para validar la protección de rutas neutras
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    * Referencias:
@@ -29,16 +29,11 @@ export class AuthGuardService implements CanActivate {
       const userRole = this.authService.getCookieRole();
 
       if (userRole === 'Admin' || userRole === 'SuperAdmin') {
-        return true;
-      } else {
         this.customAlertService.sweetAlertPersonalizada('error', "Permisos denegados", "No posees los permisos necesarios");
-        this.router.navigate(['/home']);
+        this.router.navigate(['/admin']);
         return false;
       }
-    } else {
-      this.customAlertService.sweetAlertPersonalizada('error', "Error de autenticación", "Primero debes de iniciar sesión");
-      this.router.navigate(['/login']);
-      return false;
     }
+    return true;
   }
 }

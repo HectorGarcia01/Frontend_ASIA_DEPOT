@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   /**
-   * Función para guardar la cookie
+   * Función para guardar la cookie de autenticación
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    */
@@ -41,6 +41,26 @@ export class AuthService {
   saveCookieAuth() {
     const token = this.cookieService.get('authCookie');
     this.cookieService.set('authCookie', token);
+  }
+
+  /**
+   * Función para guardar la cookie del rol de usuario
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
+
+  saveCookieRole(userRole: string) {
+    this.cookieService.set('roleCookie', userRole);
+  }
+
+  /**
+   * Función para obtener la cookie del rol de usuario
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
+
+  getCookieRole() {
+    return this.cookieService.get('roleCookie');
   }
 
   /**
@@ -54,23 +74,14 @@ export class AuthService {
   }
 
   /**
-   * Función para obtener el rol del usuario
-   * Fecha creación: 06/10/2023
-   * Autor: Hector Armando García González
-   */
-
-  getRole(): string {
-    return this.roleSubject.value;
-  }
-
-  /**
-   * Función para cerrar sesión (eliminar cookie)
+   * Función para cerrar sesión (eliminar cookies)
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    */
 
   logout(): void {
     this.cookieService.delete('authCookie');
+    this.cookieService.delete('roleCookie');
     this.router.navigate(['/home']);
   }
 }

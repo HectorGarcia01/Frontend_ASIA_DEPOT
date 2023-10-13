@@ -26,13 +26,14 @@ export class AuthUserGuardService {
 
   canActivate(): boolean {
     if (this.authService.isAuthenticated()) {
-      const userRole = this.authService.getRole();
-      if (userRole === 'User') {
-        return true;
-      } else {
+      const userRole = this.authService.getCookieRole();
+
+      if (userRole === 'Admin' || userRole === 'SuperAdmin') {
         this.customAlertService.sweetAlertPersonalizada('error', "Permisos denegados", "No posees los permisos necesarios");
         this.router.navigate(['/admin']);
         return false;
+      } else {
+        return true;
       }
     } else {
       this.customAlertService.sweetAlertPersonalizada('error', "Error de autenticación", "Primero debes de iniciar sesión");
