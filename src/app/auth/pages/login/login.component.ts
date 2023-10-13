@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
 
       this.authService.singIn(`${apiURL}/usuario/login`, signIn).subscribe((data: any) => {
           this.authService.saveCookieAuth();
+          this.authService.saveCookieRole(data.userRole);
           if (data.userRole === 'Admin' || data.userRole === 'SuperAdmin') {
             // this.employeeData = data.user;
             this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", `Bienvenido ${data.user.Nombre_Empleado} ${data.user.Apellido_Empleado}`);
