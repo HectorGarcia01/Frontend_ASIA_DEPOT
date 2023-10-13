@@ -23,7 +23,7 @@ export class AuthRedirectGuardService {
 
   canActivate(): boolean {
     if (this.authService.isAuthenticated()) {
-      const userRole = this.authService.getRole();
+      const userRole = this.authService.getCookieRole();
       
       if (userRole === 'Admin' || userRole === 'SuperAdmin') {
         this.router.navigate(['/admin']);        

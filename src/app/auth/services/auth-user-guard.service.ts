@@ -26,7 +26,7 @@ export class AuthUserGuardService {
 
   canActivate(): boolean {
     if (this.authService.isAuthenticated()) {
-      const userRole = this.authService.getRole();
+      const userRole = this.authService.getCookieRole();
 
       if (userRole === 'Admin' || userRole === 'SuperAdmin') {
         this.customAlertService.sweetAlertPersonalizada('error', "Permisos denegados", "No posees los permisos necesarios");
