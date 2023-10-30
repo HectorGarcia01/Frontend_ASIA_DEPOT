@@ -55,8 +55,10 @@ export class UserServicesService {
    * Autor: Hector Armando García González
    */
 
-  uploadProfilePhoto(url: string, avatar: any): Observable<any> {
-    return this.http.post<any>(url, avatar);
+  uploadProfilePhoto(url: string, avatar: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('avatar', avatar);
+    return this.http.post<any>(url, formData);
   }
 
   /**
