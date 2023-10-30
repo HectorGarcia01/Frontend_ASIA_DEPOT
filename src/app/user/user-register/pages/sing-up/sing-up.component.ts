@@ -77,13 +77,13 @@ export class SingUpComponent implements OnInit {
       nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/), Validators.minLength(3), Validators.maxLength(30)]),
       apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/), Validators.minLength(3), Validators.maxLength(30)]),
       telefono: new FormControl('', [Validators.required, Validators.pattern(/^[345][0-9]{7}$/)]),
-      nit: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
+      nit: new FormControl('', [Validators.pattern('^[0-9]+$')]),
       direccion: new FormControl('', [Validators.pattern(/^[^[\]<>(){}_=\\|';]+$/), Validators.minLength(10), Validators.maxLength(100)]),
       correo: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(40)]),
       password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?!.*\s).*$/), Validators.minLength(8), Validators.maxLength(25)]),
       repetir_password: new FormControl('', [Validators.required]),
-      departamento: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]+$')]),
-      municipio: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]+$')])
+      departamento: new FormControl(null, [Validators.pattern('^[0-9]+$')]),
+      municipio: new FormControl(null, [Validators.pattern('^[0-9]+$')])
     }, {
       validators: [this.passwordMatchValidator]
     });

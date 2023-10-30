@@ -55,9 +55,6 @@
                         <div class="form-floating mb-3">
                             <input type="number" formControlName="nit" class="form-control" placeholder="Ingresa tu NIT">
                             <label for="registerNIT">NIT</label>
-                            <div *ngIf="registerForm.get('nit')?.hasError('required') && registerForm.get('nit')?.touched" class="text-danger">
-                                El NIT es obligatorio.
-                            </div>
                             <div *ngIf="registerForm.get('nit')?.hasError('pattern') && registerForm.get('nit')?.touched" class="text-danger">
                                 El NIT no es válido.
                             </div>
