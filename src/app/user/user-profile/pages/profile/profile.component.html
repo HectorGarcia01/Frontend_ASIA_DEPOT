@@ -1,3 +1,31 @@
 <app-nav-bar></app-nav-bar>
-<p>profile works!</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="assets/Logo_ASIA_DEPOT.png" alt="Foto de Perfil" class="img-fluid rounded-circle">
+            <form (ngSubmit)="onUploadAvatar()">
+                <div class="mt-3">
+                    <div class="form-group">
+                        <label for="avatar">Subir Foto de Perfil</label>
+                        <input type="file" accept=".png, .jpg, .jpeg" id="avatar" name="avatar" (change)="onFileSelected($event)"
+                            required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" [disabled]="uploading">Subir Foto</button>
+                    <button class="btn btn-danger">Eliminar Foto</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-8">
+            <h2>Nombre del Usuario</h2>
+            <p>Departamento: <span id="departamento">Nombre del Departamento</span></p>
+            <p>Municipio: <span id="municipio">Nombre del Municipio</span></p>
+            <p>Correo: <span id="correo">correo@ejemplo.com</span></p>
+            <p>Teléfono: <span id="telefono">1234567890</span></p>
+            <p>NIT: <span id="nit">123-456-789</span></p>
+            <a class="btn btn-primary" [routerLink]="'/profile/update'">Actualizar Datos</a>
+        </div>
+    </div>
+</div>
+
 <app-footer></app-footer>
