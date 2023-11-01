@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { UserServicesService } from 'src/app/user/services/user-services.service';
+import { SharedService } from 'src/app/user/services/shared.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { apiURL } from 'src/app/config/config';
 
@@ -10,16 +11,20 @@ import { apiURL } from 'src/app/config/config';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-  image: any;
+  image: any = 'assets/transparent.png';
 
   constructor(
     private authService: AuthService,
     private userService: UserServicesService,
+    private sharedService: SharedService,
     private customAlertService: CustomAlertService
   ) { }
 
   ngOnInit() {
     this.getProfilePicture();
+    this.sharedService.profileImageUpdated.subscribe((imageUrl: string | null) => {
+      this.image = imageUrl
+    });
   }
 
   /**
