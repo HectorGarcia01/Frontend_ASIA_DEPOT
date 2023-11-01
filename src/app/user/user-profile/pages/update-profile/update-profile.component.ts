@@ -19,7 +19,7 @@ export class UpdateProfileComponent implements OnInit {
   selectedDepartmentId: number | null = null;
   selectedMunicipalityId: number | null = null;
   municipalities: Municipalities[] = [];
-  image: any;
+  image: any = 'assets/transparent.png';
   selectedFile: File | undefined;
   uploading: boolean = false;
   previewImage: string | ArrayBuffer | null = null;
@@ -231,7 +231,7 @@ export class UpdateProfileComponent implements OnInit {
           reader.onload = (e) => {
             this.previewImage = e.target?.result as string;
           };
-          
+
           reader.readAsDataURL(selectedFile);
         } else {
           this.customAlertService.sweetAlertPersonalizada('error', "Archivo no válido", "Selecciona un archivo con una extensión válida (.jpg, .jpeg o .png).");
