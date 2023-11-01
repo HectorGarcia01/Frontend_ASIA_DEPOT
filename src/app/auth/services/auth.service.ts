@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
@@ -84,18 +84,28 @@ export class AuthService {
   }
 
   /**
-   * Función para cerrar sesión (eliminar cookies)
+   * Función para eliminar las cookies
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
+
+  deleteCookie() {
+    this.cookieService.delete('authCookie');
+    this.cookieService.delete('roleCookie');
+    this.router.navigate(['/home']);
+  }
+
+  /**
+   * Función para realizar una solicitud post para cerrar la sesión actual
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    */
 
   logout(): Observable<any> {
-    return this.http.post<any>(`${apiURL}/usuario/logout`, null, { withCredentials: true }).pipe(
-      tap((data: any) => {
-        this.cookieService.delete('authCookie');
-        this.cookieService.delete('roleCookie');
-        this.router.navigate(['/home']);
-      })
-    );
+    const token = this.getCookieAuth();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.http.post<any>(`${apiURL}/usuario/logout`, null, { headers });
   }
 }
