@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
-
+import { CustomAlertService } from 'src/app/services/custom-alert.service';
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
@@ -9,7 +9,8 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 export class NavBarComponent implements OnInit {
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private customAlertService: CustomAlertService
   ) { }
 
   ngOnInit() {
@@ -37,6 +38,18 @@ export class NavBarComponent implements OnInit {
    */
 
   logout(): void {
-    this.authService.logout();
+    try {
+      this.authService.logout().subscribe({
+        next: (data: any) => {
+          this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
+          this.authService.deleteCookie();
+        },
+        error: (error: any) => {
+          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+        }
+      });
+    } catch (error: any) {
+      console.log(error.error);
+    }
   }
 }
