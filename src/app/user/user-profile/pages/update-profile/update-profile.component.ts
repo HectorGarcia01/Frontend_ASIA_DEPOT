@@ -22,6 +22,7 @@ export class UpdateProfileComponent implements OnInit {
   image: any;
   selectedFile: File | undefined;
   uploading: boolean = false;
+  previewImage: string | ArrayBuffer | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -225,6 +226,13 @@ export class UpdateProfileComponent implements OnInit {
 
         if (allowedExtensions.includes(fileExtension)) {
           this.selectedFile = selectedFile;
+          const reader = new FileReader();
+
+          reader.onload = (e) => {
+            this.previewImage = e.target?.result as string;
+          };
+          
+          reader.readAsDataURL(selectedFile);
         } else {
           this.customAlertService.sweetAlertPersonalizada('error', "Archivo no válido", "Selecciona un archivo con una extensión válida (.jpg, .jpeg o .png).");
         }
