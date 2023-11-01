@@ -4,6 +4,7 @@ import { Observable, tap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { apiURL } from 'src/app/config/config';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class AuthService {
         this.roleSubject.next(data.userRole);
       })
     );
-  }
+  };
 
   /**
    * Función para guardar la cookie de autenticación
@@ -38,9 +39,8 @@ export class AuthService {
    * Autor: Hector Armando García González
    */
 
-  saveCookieAuth() {
-    const token = this.cookieService.get('authCookie');
-    this.cookieService.set('authCookie', token);
+  saveCookieAuth(userToken: string) {
+    this.cookieService.set('authCookie', userToken);
   }
 
   /**
@@ -51,6 +51,16 @@ export class AuthService {
 
   saveCookieRole(userRole: string) {
     this.cookieService.set('roleCookie', userRole);
+  }
+
+  /**
+   * Función para obtener la cookie de autenticación de usuario
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
+
+  getCookieAuth() {
+    return this.cookieService.get('authCookie');
   }
 
   /**
@@ -79,9 +89,13 @@ export class AuthService {
    * Autor: Hector Armando García González
    */
 
-  logout(): void {
-    this.cookieService.delete('authCookie');
-    this.cookieService.delete('roleCookie');
-    this.router.navigate(['/home']);
+  logout(): Observable<any> {
+    return this.http.post<any>(`${apiURL}/usuario/logout`, null, { withCredentials: true }).pipe(
+      tap((data: any) => {
+        this.cookieService.delete('authCookie');
+        this.cookieService.delete('roleCookie');
+        this.router.navigate(['/home']);
+      })
+    );
   }
 }
