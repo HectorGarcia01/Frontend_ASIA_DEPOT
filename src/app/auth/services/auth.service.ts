@@ -106,6 +106,22 @@ export class AuthService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
+
     return this.http.post<any>(`${apiURL}/usuario/logout`, null, { headers });
+  }
+
+  /**
+   * Función para realizar una solicitud post para cerrar todas las sesiones
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
+
+  logoutAll(): Observable<any> {
+    const token = this.getCookieAuth();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.post<any>(`${apiURL}/usuario/logoutAll`, null, { headers });
   }
 }
