@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserServicesService } from 'src/app/user/services/user-services.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { SharedService } from 'src/app/user/services/shared.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { apiURL } from 'src/app/config/config';
 import { getCustomer } from 'src/app/user/interfaces/customer.interface';
@@ -12,12 +13,13 @@ import { getCustomer } from 'src/app/user/interfaces/customer.interface';
 })
 export class ProfileComponent implements OnInit {
   customer: getCustomer = {} as getCustomer;
-  image: any;
+  image: any = 'assets/transparent.png';
 
   constructor(
     private authService: AuthService,
     private userService: UserServicesService,
-    private customAlertService: CustomAlertService
+    private sharedService: SharedService,
+    private customAlertService: CustomAlertService,
   ) { }
 
   ngOnInit(){
@@ -35,9 +37,18 @@ export class ProfileComponent implements OnInit {
    */
 
   viewProfile() {
-    this.userService.getCustomerProfile(`${apiURL}/usuario/ver/perfil`).subscribe((data: any) => {
-      this.customer = data.customer;
-    });
+    try {
+      this.userService.getCustomerProfile(`${apiURL}/usuario/ver/perfil`).subscribe({
+        next: (data: any) => {
+          this.customer = data.customer;
+        },
+        error: (error: any) => {
+          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+        }
+      });
+    } catch (error: any) {
+      console.log(error.error);
+    }
   }
 
   /**
@@ -83,6 +94,7 @@ export class ProfileComponent implements OnInit {
         next: (data: any) => {
           this.image = 'assets/perfil_picture.png';
           this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
+          this.sharedService.profileImageUpdated.emit('assets/perfil_picture.png');
         },
         error: (error: any) => {
           this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
