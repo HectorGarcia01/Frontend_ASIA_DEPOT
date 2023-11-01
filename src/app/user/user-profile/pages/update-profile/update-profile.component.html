@@ -96,7 +96,7 @@
                 
                         <!-- Address input -->
                         <div class="form-floating mb-3">
-                            <input type="text" formControlName="direccion" class="form-control" placeholder="Ingresa tu dirección general">
+                            <textarea id="floatingTextarea2" minlength="10" maxlength="101" style="max-height: 100px;" formControlName="direccion" class="form-control" placeholder="Ingresa tu dirección general"></textarea>
                             <label for="registerAddress">Dirección general</label>
                             <div *ngIf="updateForm.get('direccion')?.hasError('pattern') && updateForm.get('direccion')?.touched" class="text-danger">
                                 La dirección no es válida, no use carácteres especiales.
