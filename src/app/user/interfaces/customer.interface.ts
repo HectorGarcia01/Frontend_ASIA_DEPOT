@@ -1,5 +1,3 @@
-import { MunicipalityCustomer } from "./address.interface";
-
 export interface addCustomer {
     [key: string]: any;
     Nombre_Cliente: string;
@@ -29,11 +27,11 @@ export interface getCustomer {
             id?: number;
             Nombre_Departamento?: string;
         }
-    };    estado: customerStatus[];
-}
-
-export interface customerStatus {
-    Tipo_Estado: string;
+    };    
+    estado: {
+        id: number;
+        Tipo_Estado: string;
+    };
 }
 
 export interface updateCustomer {
