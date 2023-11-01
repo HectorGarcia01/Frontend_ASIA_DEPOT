@@ -18,7 +18,6 @@ export class UpdateProfileComponent implements OnInit {
   selectedDepartmentId: number | null = null;
   selectedMunicipalityId: number | null = null;
   municipalities: Municipalities[] = [];
-  submitted = false;
   selectedFile: File | undefined;
   uploading: boolean = false;
 
@@ -129,8 +128,6 @@ export class UpdateProfileComponent implements OnInit {
 
   onSubmit() {
     try {
-      this.submitted = true;
-
       if (this.updateForm.valid) {
         const userData = this.getUserData();
 
