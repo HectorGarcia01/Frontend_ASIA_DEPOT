@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { UserProfileRoutingModule } from './user-profile-routing.module';
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -13,6 +14,8 @@ import { UserSharedModule } from '../shared/user-shared.module';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
     UserProfileRoutingModule,
     UserSharedModule
   ]

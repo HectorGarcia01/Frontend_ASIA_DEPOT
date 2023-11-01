@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserServicesService } from 'src/app/user/services/user-services.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { apiURL } from 'src/app/config/config';
 import { getCustomer } from 'src/app/user/interfaces/customer.interface';
 
@@ -10,13 +11,16 @@ import { getCustomer } from 'src/app/user/interfaces/customer.interface';
 })
 export class ProfileComponent implements OnInit {
   customer: getCustomer = {} as getCustomer;
-  selectedFile: File | undefined;
-  uploading: boolean = false;
+  image: any;
 
-  constructor(private userService: UserServicesService) { }
+  constructor(
+    private authService: AuthService,
+    private userService: UserServicesService
+  ) { }
 
   ngOnInit(){
     this.viewProfile();
+    this.getProfilePicture();
   }
 
   /**
@@ -33,29 +37,22 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  onUploadAvatar() {
-    if (this.selectedFile) {
-      // const formData = new FormData();
-      // formData.append('avatar', this.selectedFile);
-
-      this.uploading = true;
-      this.userService.uploadProfilePhoto(`${apiURL}/usuario/subir/avatar`, this.selectedFile).subscribe(
-        (response) => {
-          alert("todo bien")
-          this.uploading = false;
-        },
-        (error) => {
-          alert(error.message)
-          this.uploading = false;
-        }
-      );
-    }
-  }
-
-  onFileSelected(event: Event) {
-    const inputElement = event.target as HTMLInputElement;
-    if (inputElement.files && inputElement.files.length > 0) {
-      this.selectedFile = inputElement.files[0];
+  getProfilePicture() {
+    try {
+      if (this.authService.isAuthenticated()) {
+        this.userService.getProfilePhoto(`${apiURL}/usuario/ver/avatar`).subscribe({
+          next: (data: Blob) => {
+            this.image = URL.createObjectURL(data);
+          },
+          error: (error: any) => {
+            this.image = 'assets/perfil_picture.png';
+          }
+        })
+      } else {
+        this.image = 'assets/perfil_picture.png';
+      }
+    } catch (error: any) {
+      console.log(error.error);
     }
   }
 }
