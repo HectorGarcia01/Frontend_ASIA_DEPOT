@@ -14,8 +14,8 @@ import { getCustomer } from 'src/app/user/interfaces/customer.interface';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  // employeeData: getEmployee[] = [];
-  customerData: getCustomer[] = [];
+  // employeeData!: getEmployee;
+  customerData!: getCustomer;
 
   constructor(
     private fb: FormBuilder,
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
       }
 
       this.authService.singIn(`${apiURL}/usuario/login`, signIn).subscribe((data: any) => {
-          this.authService.saveCookieAuth();
+          this.authService.saveCookieAuth(data.userToken);
           this.authService.saveCookieRole(data.userRole);
           if (data.userRole === 'Admin' || data.userRole === 'SuperAdmin') {
             // this.employeeData = data.user;
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/admin']);
           } else {
             this.customerData = data.user;
-            this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", `Bienvenido ${data.user.Nombre_Cliente} ${data.user.Apellido_Cliente}`);
+            this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", `Bienvenido ${this.customerData.Nombre_Cliente} ${this.customerData.Apellido_Cliente}`);
             this.router.navigate(['/home']);
           }
       }, (error:any) => {
