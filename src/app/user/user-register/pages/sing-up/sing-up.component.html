@@ -19,6 +19,12 @@
                         <div class="form-floating mb-3">
                             <input type="text" formControlName="nombre" class="form-control" placeholder="Ingresa tu nombre">
                             <label for="registerName">Nombre</label>
+                            <div *ngIf="registerForm.get('nombre')?.hasError('minlength') && registerForm.get('nombre')?.touched" class="text-danger">
+                                El nombre es demasiado corto (mínimo 3 carácteres).
+                            </div>
+                            <div *ngIf="registerForm.get('nombre')?.hasError('maxlength') && registerForm.get('nombre')?.touched" class="text-danger">
+                                El nombre es demasiado largo (máximo 30 carácteres).
+                            </div>
                             <div *ngIf="registerForm.get('nombre')?.hasError('required') && registerForm.get('nombre')?.touched" class="text-danger">
                                 El nombre es obligatorio.
                             </div>
@@ -31,6 +37,12 @@
                         <div class="form-floating mb-3">
                             <input type="text" formControlName="apellido" class="form-control" placeholder="Ingresa tu apellido">
                             <label for="registerUsername">Apellido</label>
+                            <div *ngIf="registerForm.get('nombre')?.hasError('minlength') && registerForm.get('nombre')?.touched" class="text-danger">
+                                El apellido es demasiado corto (mínimo 3 carácteres).
+                            </div>
+                            <div *ngIf="registerForm.get('nombre')?.hasError('maxlength') && registerForm.get('nombre')?.touched" class="text-danger">
+                                El apellido es demasiado largo (máximo 30 carácteres).
+                            </div>
                             <div *ngIf="registerForm.get('apellido')?.hasError('required') && registerForm.get('apellido')?.touched" class="text-danger">
                                 El apellido es obligatorio.
                             </div>
