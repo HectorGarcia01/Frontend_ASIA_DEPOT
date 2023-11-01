@@ -60,6 +60,31 @@ export class ProfileComponent implements OnInit {
   }
 
   /**
+   * Función para eliminar la foto de perfil
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función deleteProfilePhoto() del servicio del cliente (user-services.service),
+   *            Función del servicio de alerta personalizada (custom-alert.service)
+   */
+
+  deleteProfilePicture() {
+    try {
+      this.userService.deleteProfilePhoto(`${apiURL}/usuario/eliminar/avatar`).subscribe({
+        next: (data: any) => {
+          this.image = 'assets/perfil_picture.png';
+          this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
+        },
+        error: (error: any) => {
+          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+        }
+      });
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  /**
    * Función para cerrar la sesión del cliente
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González

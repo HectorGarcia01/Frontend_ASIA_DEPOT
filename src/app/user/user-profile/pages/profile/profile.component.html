@@ -16,7 +16,7 @@
         <div class="col-md-9 mb-5">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
                 <div class="col-md-6 bg-light p-5 mb-5">
-                    <h3>Información personal</h3>
+                    <h3 class="mb-4">Información personal</h3>
                     <div class="mb-3">
                         <label for="nombre"><strong>Nombre</strong></label>
                         <p id="nombre">{{ customer.Nombre_Cliente }}</p>
@@ -45,9 +45,13 @@
                         <label for="municipio"><strong>Municipio</strong></label>
                         <p id="municipio">{{ customer.municipio?.Nombre_Municipio }}</p>
                     </div>
+                    <div class="mb-3">
+                        <label for="municipio"><strong>Dirección general</strong></label>
+                        <p id="municipio">{{ customer.Direccion_General }}</p>
+                    </div>
                 </div>
                 <div class="col-md-5 bg-light p-5">
-                    <h3>Acciones</h3>
+                    <h3 class="mb-4">Acciones</h3>
                     <div class="mb-3">
                         <a class="btn btn-primary" [routerLink]="'/profile/update'">Actualizar Datos</a>
                     </div>
@@ -58,7 +62,7 @@
                         <a class="btn btn-info">Historial de Compras</a>
                     </div>
                     <div class="mb-3">
-                        <a class="btn btn-danger">Borrar Foto de Perfil</a>
+                        <a class="btn btn-danger" (click)="deleteProfilePicture()">Borrar Foto de Perfil</a>
                     </div>
                     <div class="mb-3">
                         <a class="btn btn-danger" (click)="logout()">Cerrar Sesión</a>
