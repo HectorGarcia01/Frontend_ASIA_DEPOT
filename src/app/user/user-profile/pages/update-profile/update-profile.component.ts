@@ -131,6 +131,10 @@ export class UpdateProfileComponent implements OnInit {
       if (this.updateForm.valid) {
         const userData = this.getUserData();
 
+        if (userData?.ID_Departamento_FK && !userData?.ID_Municipio_FK) {
+          return this.customAlertService.sweetAlertPersonalizada('error', "Datos incompletos", "Debes escoger un municipio.");
+        }
+
         this.userService.updateCustomer(`${apiURL}/usuario/actualizar/perfil`, userData).subscribe({
           next: (response: any) => {
             this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
