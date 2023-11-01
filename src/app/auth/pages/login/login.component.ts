@@ -6,6 +6,7 @@ import { apiURL } from 'src/app/config/config';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { SingIn } from '../../interfaces/login.interface';
 import { getCustomer } from 'src/app/user/interfaces/customer.interface';
+import { getEmployee } from 'src/app/admin/interfaces/employee.interface';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ import { getCustomer } from 'src/app/user/interfaces/customer.interface';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  // employeeData!: getEmployee;
+  employeeData!: getEmployee;
   customerData!: getCustomer;
 
   constructor(
@@ -66,8 +67,8 @@ export class LoginComponent implements OnInit {
             this.authService.saveCookieAuth(data.userToken);
             this.authService.saveCookieRole(data.userRole);
             if (data.userRole === 'Admin' || data.userRole === 'SuperAdmin') {
-              // this.employeeData = data.user;
-              this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", `Bienvenido ${data.user.Nombre_Empleado} ${data.user.Apellido_Empleado}`);
+              this.employeeData = data.user;
+              this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", `Bienvenido ${this.employeeData.Nombre_Empleado} ${this.employeeData.Apellido_Empleado}`);
               this.router.navigate(['/admin']);
             } else {
               this.customerData = data.user;
@@ -79,6 +80,8 @@ export class LoginComponent implements OnInit {
             this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
           }
         });
+      } else {
+        this.customAlertService.sweetAlertPersonalizada('error', "Error", "Todos los campos son obligatorios");
       }
     } catch (error: any) {
       console.log(error.error);
