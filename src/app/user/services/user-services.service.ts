@@ -44,6 +44,7 @@ export class UserServicesService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
+    
     return this.http.get<any>(url, { headers });
   }
 
@@ -58,6 +59,7 @@ export class UserServicesService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
+
     return this.http.patch<any>(url, customer, { headers });
   }
 
@@ -68,9 +70,15 @@ export class UserServicesService {
    */
 
   uploadProfilePhoto(url: string, avatar: File): Observable<any> {
+    const token = this.authService.getCookieAuth();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
     const formData = new FormData();
     formData.append('avatar', avatar);
-    return this.http.post<any>(url, formData);
+
+    return this.http.post<any>(url, formData, { headers });
   }
 
   /**
@@ -84,6 +92,7 @@ export class UserServicesService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
+
     return this.http.get(url, { headers, responseType: 'blob' });
   }
 
@@ -94,6 +103,11 @@ export class UserServicesService {
    */
 
   deleteProfilePhoto(url: string): Observable<any> {
-    return this.http.delete<any>(url);
+    const token = this.authService.getCookieAuth();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.delete<any>(url, { headers });
   }
 }
