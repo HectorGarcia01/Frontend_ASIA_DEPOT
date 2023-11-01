@@ -35,11 +35,12 @@ export interface getCustomer {
 }
 
 export interface updateCustomer {
-    nombre: string;
-    apellido: string;
-    telefono: string;
-    nit: string;
-    direccionGeneral: string;
-    departamento: number;
-    municipio: number;
+    [key: string]: any;
+    Nombre_Cliente?: string;
+    Apellido_Cliente?: string;
+    Telefono_Cliente?: string;
+    NIT_Cliente?: number;
+    Direccion_General?: string;
+    ID_Departamento_FK?: number;
+    ID_Municipio_FK?: number;
 }
