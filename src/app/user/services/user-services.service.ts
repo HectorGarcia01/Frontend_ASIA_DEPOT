@@ -48,13 +48,17 @@ export class UserServicesService {
   }
 
   /**
-   * Función para realizar una solicitud put para actualizar datos del cliente
+   * Función para realizar una solicitud patch para actualizar datos del cliente
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    */
 
   updateCustomer(url: string, customer: any): Observable<any> {
-    return this.http.put<any>(url, customer);
+    const token = this.authService.getCookieAuth();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.http.patch<any>(url, customer, { headers });
   }
 
   /**
@@ -75,8 +79,12 @@ export class UserServicesService {
    * Autor: Hector Armando García González
    */
 
-  getProfilePhoto(url: string): Observable<any> {
-    return this.http.get<any>(url);
+  getProfilePhoto(url: string): Observable<Blob> {
+    const token = this.authService.getCookieAuth();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.http.get(url, { headers, responseType: 'blob' });
   }
 
   /**
