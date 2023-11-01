@@ -22,8 +22,14 @@ export interface getCustomer {
     NIT_Cliente?: string;
     Direccion_General?: string;
     Correo_Cliente: string;
-    municipio?: MunicipalityCustomer[];
-    estado: customerStatus[];
+    municipio?: {
+        id?: number;
+        Nombre_Municipio?: string;
+        departamento?: {
+            id?: number;
+            Nombre_Departamento?: string;
+        }
+    };    estado: customerStatus[];
 }
 
 export interface customerStatus {
