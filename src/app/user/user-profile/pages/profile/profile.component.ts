@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserServicesService } from 'src/app/user/services/user-services.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { apiURL } from 'src/app/config/config';
 import { getCustomer } from 'src/app/user/interfaces/customer.interface';
 
@@ -15,10 +16,12 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private userService: UserServicesService
+    private userService: UserServicesService,
+    private customAlertService: CustomAlertService
   ) { }
 
   ngOnInit(){
+    this.scrollToTop();
     this.viewProfile();
     this.getProfilePicture();
   }
@@ -54,5 +57,59 @@ export class ProfileComponent implements OnInit {
     } catch (error: any) {
       console.log(error.error);
     }
+  }
+
+  /**
+   * Función para cerrar la sesión del cliente
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función logout() del servicio de autenticación (auth.service),
+   *            Función del servicio de alerta personalizada (custom-alert.service)
+   */
+
+  logout() {
+    try {
+      this.authService.logout().subscribe({
+        next: (data: any) => {
+          this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
+          this.authService.deleteCookie();
+        },
+        error: (error: any) => {
+          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+        }
+      });
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  /**
+   * Función para cerrar todas las sesiones del cliente
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función logoutAll() del servicio de autenticación (auth.service),
+   *            Función del servicio de alerta personalizada (custom-alert.service)
+   */
+
+  logoutAll() {
+    try {
+      this.authService.logoutAll().subscribe({
+        next: (data: any) => {
+          this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
+          this.authService.deleteCookie();
+        },
+        error: (error: any) => {
+          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+        }
+      });
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
