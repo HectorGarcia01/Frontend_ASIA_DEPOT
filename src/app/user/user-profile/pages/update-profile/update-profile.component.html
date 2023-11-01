@@ -9,7 +9,7 @@
                     <form (ngSubmit)="onUploadAvatar()">
                         <div class="mt-3">
                             <div class="form-group">
-                                <input class="mt-3" type="file" accept=".png, .jpg, .jpeg" id="avatar" name="avatar" (change)="onFileSelected($event)" required>
+                                <input class="mt-3 form-control" id="formFile" type="file" accept=".png, .jpg, .jpeg" name="avatar" (change)="onFileSelected($event)" required>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-md-12 d-flex justify-content-center mt-4">
