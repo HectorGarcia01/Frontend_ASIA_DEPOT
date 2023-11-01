@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.scrollToTop();
   }
 
   /**
@@ -86,5 +86,9 @@ export class LoginComponent implements OnInit {
     } catch (error: any) {
       console.log(error.error);
     }
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
