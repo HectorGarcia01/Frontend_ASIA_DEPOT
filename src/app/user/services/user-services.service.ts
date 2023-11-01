@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/auth/services/auth.service'; 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserServicesService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+) { }
 
   /**
    * Función para realizar una solicitud get para listar todas las direcciones
@@ -36,7 +40,11 @@ export class UserServicesService {
    */
 
   getCustomerProfile(url: string): Observable<any> {
-    return this.http.get<any>(url);
+    const token = this.authService.getCookieAuth();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+    return this.http.get<any>(url, { headers });
   }
 
   /**
