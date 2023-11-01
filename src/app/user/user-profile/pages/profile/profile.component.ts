@@ -40,6 +40,15 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  /**
+   * Función para consumir el servicio de ver la foto de perfil
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función isAuthenticated del servicio de autenticación (auth.service),
+   *            Función getProfilePhoto del servicio de usuarios (user-services.service)   
+   */
+
   getProfilePicture() {
     try {
       if (this.authService.isAuthenticated()) {
