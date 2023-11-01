@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
 import { UserServicesService } from 'src/app/user/services/user-services.service';
+import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { Department, Municipalities } from 'src/app/user/interfaces/address.interface';
 import { addCustomer } from 'src/app/user/interfaces/customer.interface';
 import { apiURL } from 'src/app/config/config';
@@ -21,7 +22,8 @@ export class SingUpComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserServicesService
+    private userService: UserServicesService,
+    private customAlertService: CustomAlertService
   ) { 
     this.validateForm();
   }
@@ -158,12 +160,14 @@ export class SingUpComponent implements OnInit {
         const userData = this.getUserData(); 
 
         this.userService.addCustomer(`${apiURL}/nuevo/cliente`, userData).subscribe((response) => {
-          alert(response.msg);
           this.registerForm.reset();
+          this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
         });
       } else {
         this.registerForm.get('repetir_password')?.setErrors({ passwordsNotMatch: true });
       }
+    } else {
+      this.customAlertService.sweetAlertPersonalizada('error', "Error", "Por favor, verifica los campos del formulario.");
     }
   }
 } 
