@@ -135,6 +135,11 @@ export class UpdateProfileComponent implements OnInit {
           return this.customAlertService.sweetAlertPersonalizada('error', "Datos incompletos", "Debes escoger un municipio.");
         }
 
+        if (!userData) {
+          this.customAlertService.sweetAlertPersonalizada('success', "Sin cambios", "No has realizado ningún cambio.");
+          return this.router.navigate(['/profile']);
+        }
+
         this.userService.updateCustomer(`${apiURL}/usuario/actualizar/perfil`, userData).subscribe({
           next: (response: any) => {
             this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
@@ -145,6 +150,8 @@ export class UpdateProfileComponent implements OnInit {
             this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
           }
         });
+      } else {
+        this.customAlertService.sweetAlertPersonalizada('error', "Error", "Por favor, verifica los campos del formulario.");
       }
     } catch (error: any) {
       console.log(error.error);
