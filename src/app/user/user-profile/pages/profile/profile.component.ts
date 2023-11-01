@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserServicesService } from 'src/app/user/services/user-services.service';
 import { apiURL } from 'src/app/config/config';
+import { getCustomer } from 'src/app/user/interfaces/customer.interface';
 
 @Component({
   selector: 'app-profile',
@@ -8,13 +9,28 @@ import { apiURL } from 'src/app/config/config';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  customer: getCustomer = {} as getCustomer;
   selectedFile: File | undefined;
   uploading: boolean = false;
 
   constructor(private userService: UserServicesService) { }
 
   ngOnInit(){
-    
+    this.viewProfile();
+  }
+
+  /**
+   * Función para consumir el servicio de ver perfil
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getCustomerProfile del servicio de usuarios (user-services.service)   
+   */
+
+  viewProfile() {
+    this.userService.getCustomerProfile(`${apiURL}/usuario/ver/perfil`).subscribe((data: any) => {
+      this.customer = data.customer;
+    });
   }
 
   onUploadAvatar() {
