@@ -41,10 +41,10 @@
                         <div class="form-floating mb-3">
                             <input type="text" formControlName="apellido" class="form-control" placeholder="Ingresa tu apellido">
                             <label for="registerUsername">Apellido</label>
-                            <div *ngIf="updateForm.get('nombre')?.hasError('minlength') && updateForm.get('nombre')?.touched" class="text-danger">
+                            <div *ngIf="updateForm.get('apellido')?.hasError('minlength') && updateForm.get('apellido')?.touched" class="text-danger">
                                 El apellido es demasiado corto (mínimo 3 carácteres).
                             </div>
-                            <div *ngIf="updateForm.get('nombre')?.hasError('maxlength') && updateForm.get('nombre')?.touched" class="text-danger">
+                            <div *ngIf="updateForm.get('apellido')?.hasError('maxlength') && updateForm.get('apellido')?.touched" class="text-danger">
                                 El apellido es demasiado largo (máximo 30 carácteres).
                             </div>
                             <div *ngIf="updateForm.get('apellido')?.hasError('pattern') && updateForm.get('apellido')?.touched" class="text-danger">
