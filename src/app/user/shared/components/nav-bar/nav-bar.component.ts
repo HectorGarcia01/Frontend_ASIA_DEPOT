@@ -1,20 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { UserServicesService } from 'src/app/user/services/user-services.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
+import { apiURL } from 'src/app/config/config';
+
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
+  image: any;
 
   constructor(
     private authService: AuthService,
+    private userService: UserServicesService,
     private customAlertService: CustomAlertService
   ) { }
 
   ngOnInit() {
-    
+    this.getProfilePicture();
   }
 
   /**
@@ -48,6 +53,25 @@ export class NavBarComponent implements OnInit {
           this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
         }
       });
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  getProfilePicture() {
+    try {
+      if (this.authService.isAuthenticated()) {
+        this.userService.getProfilePhoto(`${apiURL}/usuario/ver/avatar`).subscribe({
+          next: (data: Blob) => {
+            this.image = URL.createObjectURL(data);
+          },
+          error: (error: any) => {
+            this.image = 'assets/perfil_picture.png';
+          }
+        })
+      } else {
+        this.image = 'assets/perfil_picture.png';
+      }
     } catch (error: any) {
       console.log(error.error);
     }
