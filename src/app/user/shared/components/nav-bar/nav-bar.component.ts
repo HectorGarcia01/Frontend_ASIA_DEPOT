@@ -39,7 +39,8 @@ export class NavBarComponent implements OnInit {
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    * Referencias: 
-   *            Función logout() del servicio de autenticación (auth.service)
+   *            Función logout() del servicio de autenticación (auth.service),
+   *            Función del servicio de alerta personalizada (custom-alert.service)
    */
 
   logout(): void {
