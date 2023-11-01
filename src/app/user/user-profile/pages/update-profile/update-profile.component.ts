@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { UserServicesService } from 'src/app/user/services/user-services.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { Department, Municipalities } from 'src/app/user/interfaces/address.interface';
@@ -18,11 +19,13 @@ export class UpdateProfileComponent implements OnInit {
   selectedDepartmentId: number | null = null;
   selectedMunicipalityId: number | null = null;
   municipalities: Municipalities[] = [];
+  image: any;
   selectedFile: File | undefined;
   uploading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
+    private authService: AuthService,
     private userService: UserServicesService,
     private customAlertService: CustomAlertService,
     private router: Router
@@ -32,7 +35,36 @@ export class UpdateProfileComponent implements OnInit {
 
   ngOnInit() {
     this.scrollToTop();
+    this.getProfilePicture();
     this.getAddresses();
+  }
+
+  /**
+   * Función para consumir el servicio de ver la foto de perfil
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función isAuthenticated del servicio de autenticación (auth.service),
+   *            Función getProfilePhoto del servicio de usuarios (user-services.service)   
+   */
+
+  getProfilePicture() {
+    try {
+      if (this.authService.isAuthenticated()) {
+        this.userService.getProfilePhoto(`${apiURL}/usuario/ver/avatar`).subscribe({
+          next: (data: Blob) => {
+            this.image = URL.createObjectURL(data);
+          },
+          error: (error: any) => {
+            this.image = 'assets/perfil_picture.png';
+          }
+        })
+      } else {
+        this.image = 'assets/perfil_picture.png';
+      }
+    } catch (error: any) {
+      console.log(error.error);
+    }
   }
 
   /**
@@ -160,28 +192,45 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   onUploadAvatar() {
-    if (this.selectedFile) {
-      // const formData = new FormData();
-      // formData.append('avatar', this.selectedFile);
-
-      this.uploading = true;
-      this.userService.uploadProfilePhoto(`${apiURL}/usuario/subir/avatar`, this.selectedFile).subscribe(
-        (response) => {
-          alert("todo bien")
-          this.uploading = false;
-        },
-        (error) => {
-          alert(error.message)
-          this.uploading = false;
-        }
-      );
+    try {
+      if (this.selectedFile) {
+        this.uploading = true;
+        this.userService.uploadProfilePhoto(`${apiURL}/usuario/subir/avatar`, this.selectedFile).subscribe({
+          next: (response: any) => {
+            this.uploading = false;
+            this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
+            this.router.navigate(['/profile']);
+          },
+          error: (error: any) => {
+            this.uploading = false;
+            this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+          }
+        });
+      } else {
+        this.customAlertService.sweetAlertPersonalizada('error', "Imágen no seleccionada", "Por favor selecciona una imágen.");
+      }
+    } catch (error: any) {
+      console.log(error.error);
     }
   }
 
   onFileSelected(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files && inputElement.files.length > 0) {
-      this.selectedFile = inputElement.files[0];
+      const selectedFile = inputElement.files[0];
+      const fileExtension = selectedFile.name.split('.').pop()?.toLowerCase();
+      
+      if (fileExtension) {
+        const allowedExtensions = ['jpg', 'jpeg', 'png'];
+
+        if (allowedExtensions.includes(fileExtension)) {
+          this.selectedFile = selectedFile;
+        } else {
+          this.customAlertService.sweetAlertPersonalizada('error', "Archivo no válido", "Selecciona un archivo con una extensión válida (.jpg, .jpeg o .png).");
+        }
+      } else {
+        this.customAlertService.sweetAlertPersonalizada('error', "Archivo no válido", "No se pudo determinar la extensión del archivo.");
+      }
     }
   }
 
