@@ -31,6 +31,7 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.scrollToTop();
     this.getAddresses();
   }
 
@@ -182,5 +183,9 @@ export class UpdateProfileComponent implements OnInit {
     if (inputElement.files && inputElement.files.length > 0) {
       this.selectedFile = inputElement.files[0];
     }
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
