@@ -159,9 +159,14 @@ export class SingUpComponent implements OnInit {
       if (password === repeatPassword) {
         const userData = this.getUserData(); 
 
-        this.userService.addCustomer(`${apiURL}/nuevo/cliente`, userData).subscribe((response) => {
-          this.registerForm.reset();
-          this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
+        this.userService.addCustomer(`${apiURL}/nuevo/cliente`, userData).subscribe({
+          next: (response: any) => {
+            this.registerForm.reset();
+            this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
+          },
+          error: (error: any) => {
+            this.customAlertService.sweetAlertPersonalizada('error', error.error.error, "Por favor, intenta con otro correo.");
+          }
         });
       } else {
         this.registerForm.get('repetir_password')?.setErrors({ passwordsNotMatch: true });
