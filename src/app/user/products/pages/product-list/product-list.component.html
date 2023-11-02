@@ -2,6 +2,12 @@
 <!-- Products Start -->
 <div class="container-fluid pt-5 pb-3">
     <h2 class="mx-xl-5 mb-4">Productos</h2>
+    <div class="col-md-12 mb-5 d-flex justify-content-center">
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Bucar producto" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+    </div>
     <div class="row px-xl-5">
         <div class="col-lg-3 col-md-4 col-sm-6 pb-1" *ngFor="let producto of product">
             <div class="product-item bg-light mb-4">
@@ -9,16 +15,16 @@
                     <img class="img-fluid w-100" src="assets/Logo_ASIA_DEPOT.png" alt="Logo productos ASIA DEPOT">
                     <div class="product-action">
                         <a class="btn btn-outline-dark btn-square"><i class="fa fa-shopping-cart"></i></a>
-                        <a class="btn btn-outline-dark btn-square"><i class="fa fa-heart"></i></a>
+                        <a class="btn btn-outline-dark btn-square" (click)="addFavoriteProduct(producto.id)"><i class="fa fa-heart"></i></a>
                         <a class="btn btn-outline-dark btn-square"><i class="fa fa-sync-alt"></i></a>
-                        <a class="btn btn-outline-dark btn-square"><i class="fa fa-search"></i></a>
+                        <a class="btn btn-outline-dark btn-square" [routerLink]="['/product/detail', producto.id]"><i class="fa fa-search"></i></a>
                     </div>
                 </div>
                 <div class="text-center py-4">
                     <a class="text-decoration-none text-truncate productName" [routerLink]="['/product/detail', producto.id]"><h4>{{ producto.Nombre_Producto }}</h4></a>
                     <h5>Cantidad disponible: {{ producto.Cantidad_Stock }}</h5>
                     <div class="d-flex align-items-center justify-content-center mt-2">
-                        <h5>Q{{ producto.Precio_Venta }}</h5>
+                        <h5 style="margin-right: 6px;">Q{{ producto.Precio_Venta }}</h5>
                         <h6 class="text-muted ml-2"><del>Q{{ producto.Precio_Venta }}</del></h6>
                     </div>
                     <div class="d-flex align-items-center justify-content-center mb-1">
@@ -30,7 +36,7 @@
                         <small>(99)</small>
                     </div>
                     <div class="container-btn">
-                        <a class="btn btn-primary" [routerLink]="['/product/detail', producto.id]" (click)="scrollToTop()">Ver detalles</a>
+                        <a class="btn btn-primary" [routerLink]="['/product/detail', producto.id]">Ver detalles</a>
                     </div>
                 </div>
             </div>
