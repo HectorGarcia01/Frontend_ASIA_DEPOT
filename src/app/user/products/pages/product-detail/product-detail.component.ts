@@ -19,6 +19,7 @@ export class ProductDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.scrollToTop();
     this.getParamsId();
   }
 
@@ -52,5 +53,9 @@ export class ProductDetailComponent implements OnInit {
     this.productService.getProductId(`${apiURL}/usuario/ver/producto/${IdProduct}`).subscribe((data: any) => {
       this.product = data.product;
     });
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
