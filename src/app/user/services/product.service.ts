@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
@@ -19,8 +19,14 @@ export class ProductService {
    * Autor: Hector Armando García González
    */
 
-  getProducts(url: string) {
-    return this.http.get(url);
+  getProducts(url: string, page?: number, pageSize?: number) {
+    let params = new HttpParams();
+
+    if (page && pageSize) {
+      params = params.set('page', page.toString()).set('pageSize', pageSize.toString());
+    }
+
+    return this.http.get(url, { params });
   }
 
   /**
