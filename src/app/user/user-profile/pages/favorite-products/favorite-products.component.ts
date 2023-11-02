@@ -32,7 +32,11 @@ export class FavoriteProductsComponent implements OnInit {
     this.productService.getFavoriteProducts(`${apiURL}/usuario/ver/productos/favorito`).subscribe({
       next: (data: any) => {
         this.product = data.favoriteProduct;
-        console.log(this.product);
+
+        this.product = this.product.filter((favoriteProduct: FavoriteProduct) => {
+          return favoriteProduct.producto.estado.Tipo_Estado === 'Activo';
+        });
+        
         this.noneProducts = true;
       },
       error: (error: any) => {
