@@ -43,6 +43,7 @@ export class FavoriteProductsComponent implements OnInit {
         this.noneProducts = true;
       },
       error: (error: any) => {
+        this.product = [];
         this.noneProducts = false;
       }
     });

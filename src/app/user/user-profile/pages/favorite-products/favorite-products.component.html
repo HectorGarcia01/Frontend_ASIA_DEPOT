@@ -1,15 +1,22 @@
 <app-nav-bar></app-nav-bar>
 <!-- Products Start -->
 <div class="container-fluid pt-5 pb-3">
-    <h2 class="mx-xl-5 mb-4">Productos Favoritos</h2>
-    <div class="col-md-12 mb-5 d-flex justify-content-center">
+    <h2 class="mx-xl-5 mb-4 text-center">Productos Favoritos</h2>
+    <div class="col-md-12 mb-5 d-flex justify-content-center mt-4">
         <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="Bucar producto" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Buscar</button>
         </form>
     </div>
     <div class="row px-xl-5">
-        <h3 *ngIf="noneProducts == false">No posees ningún producto en favoritos...</h3>
+        <div *ngIf="noneProducts == false" class="row justify-content-center align-items-center">
+            <div class="col-12 text-center">
+                <h5>
+                    No posees ningún producto en favoritos, intenta agregar unos.
+                </h5>
+                <img width="300" height="300" src="assets/404.jpg" class="img-fluid rounded-circle" alt="Error 404">
+            </div>
+        </div>
         <div class="col-lg-3 col-md-4 col-sm-6 pb-1" *ngFor="let producto of product">
             <div class="product-item bg-light mb-4">
                 <div class="product-img position-relative overflow-hidden">
@@ -18,14 +25,12 @@
                         <button *ngIf="producto.producto.Cantidad_Stock > 0" class="btn btn-outline-dark btn-square"><i class="fa fa-shopping-cart"></i></button>
                         <button *ngIf="producto.producto.Cantidad_Stock == 0" class="btn btn-outline-dark btn-square" disabled><i class="fa fa-shopping-cart"></i></button>
                         <button class="btn btn-outline-dark btn-square" (click)="deleteFavoriteProduct(producto.id)"><i class="fa fa-heart"></i></button>
-                        <button class="btn btn-outline-dark btn-square"><i class="fa fa-sync-alt"></i></button>
                         <button *ngIf="producto.producto.Cantidad_Stock > 0" class="btn btn-outline-dark btn-square" [routerLink]="['/product/detail', producto.producto.id]"><i class="fa fa-search"></i></button>
                         <button *ngIf="producto.producto.Cantidad_Stock == 0" class="btn btn-outline-dark btn-square" disabled><i class="fa fa-search"></i></button>
                     </div>
                 </div>
                 <div class="text-center py-4">
-                    <a class="text-decoration-none text-truncate productName"
-                        [routerLink]="['/product/detail', producto.id]">
+                    <a class="text-decoration-none text-truncate productName" [routerLink]="['/product/detail', producto.id]">
                         <h4>{{ producto.producto.Nombre_Producto }}</h4>
                     </a>
                     <h5>Cantidad disponible: {{ producto.producto.Cantidad_Stock }}</h5>
