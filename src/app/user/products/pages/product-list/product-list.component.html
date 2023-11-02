@@ -14,10 +14,12 @@
                 <div class="product-img position-relative overflow-hidden">
                     <img class="img-fluid w-100" src="assets/Logo_ASIA_DEPOT.png" alt="Logo productos ASIA DEPOT">
                     <div class="product-action">
-                        <a class="btn btn-outline-dark btn-square"><i class="fa fa-shopping-cart"></i></a>
-                        <a class="btn btn-outline-dark btn-square" (click)="addFavoriteProduct(producto.id)"><i class="fa fa-heart"></i></a>
-                        <a class="btn btn-outline-dark btn-square"><i class="fa fa-sync-alt"></i></a>
-                        <a class="btn btn-outline-dark btn-square" [routerLink]="['/product/detail', producto.id]"><i class="fa fa-search"></i></a>
+                        <button *ngIf="producto.Cantidad_Stock > 0" class="btn btn-outline-dark btn-square"><i class="fa fa-shopping-cart"></i></button>
+                        <button *ngIf="producto.Cantidad_Stock == 0" class="btn btn-outline-dark btn-square" disabled><i class="fa fa-shopping-cart"></i></button>
+                        <button class="btn btn-outline-dark btn-square" (click)="addFavoriteProduct(producto.id)"><i class="fa fa-heart"></i></button>
+                        <button class="btn btn-outline-dark btn-square"><i class="fa fa-sync-alt"></i></button>
+                        <button *ngIf="producto.Cantidad_Stock > 0" class="btn btn-outline-dark btn-square" [routerLink]="['/product/detail', producto.id]"><i class="fa fa-search"></i></button>
+                        <button *ngIf="producto.Cantidad_Stock == 0" class="btn btn-outline-dark btn-square" disabled><i class="fa fa-search"></i></button>
                     </div>
                 </div>
                 <div class="text-center py-4">
@@ -37,6 +39,7 @@
                     </div>
                     <div class="container-btn">
                         <a class="btn btn-primary" [routerLink]="['/product/detail', producto.id]">Ver detalles</a>
+                        <button *ngIf="producto.Cantidad_Stock == 0" class="btn btn-danger" disabled>Agotado</button>
                     </div>
                 </div>
             </div>

@@ -42,7 +42,8 @@ export class ProductListComponent implements OnInit {
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    * Referencias:
-   *            Función addFavoriteProduct del servicio de productos (product.service)
+   *            Función addFavoriteProduct del servicio de productos (product.service),
+   *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)
    */
 
   addFavoriteProduct(id: number) {
