@@ -3,14 +3,14 @@
         <h2 class="mb-4">Productos destacados</h2>
         <div class="row row-cols-1 row-cols-md-3 g-2">
             <div class="col-lg-3 col-md-4 col-sm-6 pb-1" *ngFor="let producto of product">
-                <div class="product-item bg-light mb-4">
+                <div class="product-item bg-light mb-4" *ngIf="producto.Producto_Destacado == true && producto.estado.Tipo_Estado == 'Activo'">
                     <div class="product-img position-relative overflow-hidden">
                         <img class="img-fluid w-100" src="assets/Logo_ASIA_DEPOT.png" alt="Logo productos ASIA DEPOT">
                         <div class="product-action">
                             <a class="btn btn-outline-dark btn-square"><i class="fa fa-shopping-cart"></i></a>
                             <a class="btn btn-outline-dark btn-square"><i class="fa fa-heart"></i></a>
                             <a class="btn btn-outline-dark btn-square"><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square"><i class="fa fa-search"></i></a>
+                            <a class="btn btn-outline-dark btn-square" [routerLink]="['/product/detail', producto.id]"><i class="fa fa-search"></i></a>
                         </div>
                     </div>
                     <div class="text-center py-4">
@@ -19,7 +19,7 @@
                             <h4>{{ producto.Nombre_Producto }}</h4>
                         </a>
                         <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>Q{{ producto.Precio_Venta }}</h5>
+                            <h5 style="margin-right: 6px;">Q{{ producto.Precio_Venta }}</h5>
                             <h6 class="text-muted ml-2"><del>Q{{ producto.Precio_Venta }}</del></h6>
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-1">

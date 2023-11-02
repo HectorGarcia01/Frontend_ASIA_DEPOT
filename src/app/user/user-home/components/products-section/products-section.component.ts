@@ -29,7 +29,7 @@ export class ProductsSectionComponent {
    */
 
   getProducts() {
-    this.productService.getProducts(`${apiURL}/usuario/ver/productos`).subscribe((data: any) => {
+    this.productService.getProducts(`${apiURL}/usuario/ver/productos?estado=Activo`).subscribe((data: any) => {
       this.product = data.products;
     });
   }
