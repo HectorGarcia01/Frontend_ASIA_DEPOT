@@ -6,11 +6,13 @@ import { UserProfileRoutingModule } from './user-profile-routing.module';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { UpdateProfileComponent } from './pages/update-profile/update-profile.component';
 import { UserSharedModule } from '../shared/user-shared.module';
+import { FavoriteProductsComponent } from './pages/favorite-products/favorite-products.component';
 
 @NgModule({
   declarations: [
     ProfileComponent,
-    UpdateProfileComponent
+    UpdateProfileComponent,
+    FavoriteProductsComponent
   ],
   imports: [
     CommonModule,
