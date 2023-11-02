@@ -38,7 +38,7 @@
                         <small>(99)</small>
                     </div>
                     <div class="container-btn">
-                        <a class="btn btn-primary" [routerLink]="['/product/detail', producto.id]">Ver detalles</a>
+                        <a *ngIf="producto.Cantidad_Stock > 0" class="btn btn-primary" [routerLink]="['/product/detail', producto.id]">Ver detalles</a>
                         <button *ngIf="producto.Cantidad_Stock == 0" class="btn btn-danger" disabled>Agotado</button>
                     </div>
                 </div>
