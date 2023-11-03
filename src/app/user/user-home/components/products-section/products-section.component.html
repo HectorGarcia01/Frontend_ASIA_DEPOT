@@ -1,40 +1,55 @@
 <section>
     <div class="container pt-5 pb-3">
         <h2 class="mb-4">Productos destacados</h2>
-        <div class="row row-cols-1 row-cols-md-3 g-2">
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1" *ngFor="let producto of product">
-                <div class="product-item bg-light mb-4" *ngIf="producto.Producto_Destacado == true && producto.estado.Tipo_Estado == 'Activo'">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="assets/Logo_ASIA_DEPOT.png" alt="Logo productos ASIA DEPOT">
-                        <div class="product-action">
-                            <button *ngIf="producto.Cantidad_Stock > 0" class="btn btn-outline-dark btn-square"><i class="fa fa-shopping-cart"></i></button>
-                            <button *ngIf="producto.Cantidad_Stock == 0" class="btn btn-outline-dark btn-square" disabled><i class="fa fa-shopping-cart"></i></button>
-                            <button class="btn btn-outline-dark btn-square" (click)="addFavoriteProduct(producto.id)"><i class="fa fa-heart"></i></button>
-                            <button class="btn btn-outline-dark btn-square"><i class="fa fa-sync-alt"></i></button>
-                            <button *ngIf="producto.Cantidad_Stock > 0" class="btn btn-outline-dark btn-square" [routerLink]="['/product/detail', producto.id]"><i class="fa fa-search"></i></button>
-                            <button *ngIf="producto.Cantidad_Stock == 0" class="btn btn-outline-dark btn-square" disabled><i class="fa fa-search"></i></button>
-                        </div>
+        <div data-spy="scroll" data-target="#reviewsNav" data-offset="50" style="height: 500px; overflow-y: auto;">
+            <div class="row row-cols-1 row-cols-md-3 g-2">
+                <div *ngIf="noneProducts == false" class="row justify-content-center align-items-center">
+                    <div class="col-12 text-center">
+                        <h5>
+                            Lo sentimos, actualmente no poseemos productos destacados, vuelve más tarde!
+                        </h5>
+                        <img width="300" height="300" src="assets/404.jpg" class="img-fluid rounded-circle" alt="Error 404">
                     </div>
-                    <div class="text-center py-4">
-                        <a class="text-decoration-none text-truncate productName"
-                            [routerLink]="['/product/detail', producto.id]">
-                            <h4>{{ producto.Nombre_Producto }}</h4>
-                        </a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5 style="margin-right: 6px;">Q{{ producto.Precio_Venta }}</h5>
-                            <h6 class="text-muted ml-2"><del>Q{{ producto.Precio_Venta }}</del></h6>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1" *ngFor="let producto of product">
+                    <div class="product-item bg-light mb-4">
+                        <div class="product-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100" src="assets/Logo_ASIA_DEPOT.png" alt="Logo productos ASIA DEPOT">
+                            <div class="product-action">
+                                <button *ngIf="producto.Cantidad_Stock > 0" class="btn btn-outline-dark btn-square"><i
+                                        class="fa fa-shopping-cart"></i></button>
+                                <button *ngIf="producto.Cantidad_Stock == 0" class="btn btn-outline-dark btn-square" disabled><i
+                                        class="fa fa-shopping-cart"></i></button>
+                                <button class="btn btn-outline-dark btn-square" (click)="addFavoriteProduct(producto.id)"><i
+                                        class="fa fa-heart"></i></button>
+                                <button *ngIf="producto.Cantidad_Stock > 0" class="btn btn-outline-dark btn-square"
+                                    [routerLink]="['/product/detail', producto.id]"><i class="fa fa-search"></i></button>
+                                <button *ngIf="producto.Cantidad_Stock == 0" class="btn btn-outline-dark btn-square" disabled><i
+                                        class="fa fa-search"></i></button>
+                            </div>
                         </div>
-                        <!-- <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div> -->
-                        <div class="container-btn">
-                            <a *ngIf="producto.Cantidad_Stock > 0" class="btn btn-primary" [routerLink]="['/product/detail', producto.id]">Ver detalles</a>
-                            <button *ngIf="producto.Cantidad_Stock == 0" class="btn btn-danger" disabled>Agotado</button>
+                        <div class="text-center py-4">
+                            <a class="text-decoration-none text-truncate productName"
+                                [routerLink]="['/product/detail', producto.id]">
+                                <h4>{{ producto.Nombre_Producto }}</h4>
+                            </a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                <h5 style="margin-right: 6px;">Q{{ producto.Precio_Venta }}</h5>
+                                <h6 class="text-muted ml-2"><del>Q{{ producto.Precio_Venta }}</del></h6>
+                            </div>
+                            <!-- <div class="d-flex align-items-center justify-content-center mb-1">
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small>(99)</small>
+                                    </div> -->
+                            <div class="container-btn">
+                                <a *ngIf="producto.Cantidad_Stock > 0" class="btn btn-primary"
+                                    [routerLink]="['/product/detail', producto.id]">Ver detalles</a>
+                                <button *ngIf="producto.Cantidad_Stock == 0" class="btn btn-danger" disabled>Agotado</button>
+                            </div>
                         </div>
                     </div>
                 </div>

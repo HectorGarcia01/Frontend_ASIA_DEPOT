@@ -12,6 +12,7 @@ import { apiURL } from 'src/app/config/config';
 export class ProductsSectionComponent {
   product: Product[] = [];
   prducts: Products[] = [];
+  noneProducts: boolean = false;
 
   constructor(
     private productService: ProductService,
@@ -31,8 +32,20 @@ export class ProductsSectionComponent {
    */
 
   getProducts() {
-    this.productService.getProducts(`${apiURL}/usuario/ver/productos?estado=Activo`).subscribe((data: any) => {
-      this.product = data.products;
+    this.productService.getProducts(`${apiURL}/usuario/ver/productos?estado=Activo`).subscribe({
+      next: (data: any) => {
+        this.product = data.products;
+
+        this.product = this.product.filter((FeaturedProducts: Product) => {
+          return FeaturedProducts.Producto_Destacado === true;
+        });
+
+        this.noneProducts = true;
+      },
+      error: (error: any) => {
+        this.product = [];
+        this.noneProducts = false;
+      }
     });
   }
 
