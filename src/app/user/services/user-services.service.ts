@@ -37,6 +37,8 @@ export class UserServicesService {
    * Función para realizar una solicitud get para ver el perfil del cliente
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
+   * Referencias:
+   *              Función getCookieAuth del servicio de autenticación (auth.service)
    */
 
   getCustomerProfile(url: string): Observable<any> {
@@ -52,6 +54,8 @@ export class UserServicesService {
    * Función para realizar una solicitud patch para actualizar datos del cliente
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
+   * Referencias:
+   *              Función getCookieAuth del servicio de autenticación (auth.service)
    */
 
   updateCustomer(url: string, customer: any): Observable<any> {
@@ -67,6 +71,8 @@ export class UserServicesService {
    * Función para realizar una solicitud post para subir una foto de perfil
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
+   * Referencias:
+   *              Función getCookieAuth del servicio de autenticación (auth.service)
    */
 
   uploadProfilePhoto(url: string, avatar: File): Observable<any> {
@@ -85,6 +91,8 @@ export class UserServicesService {
    * Función para realizar una solicitud get para ver la foto de perfil
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
+   * Referencias:
+   *              Función getCookieAuth del servicio de autenticación (auth.service)
    */
 
   getProfilePhoto(url: string): Observable<Blob> {
@@ -100,6 +108,8 @@ export class UserServicesService {
    * Función para realizar una solicitud delete para borrar la foto de perfil
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
+   * Referencias:
+   *              Función getCookieAuth del servicio de autenticación (auth.service)
    */
 
   deleteProfilePhoto(url: string): Observable<any> {
