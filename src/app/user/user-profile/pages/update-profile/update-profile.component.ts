@@ -157,7 +157,8 @@ export class UpdateProfileComponent implements OnInit {
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    * Referencias: 
-   *            Función getAddress del servicio de usuario (user-services.service)
+   *            Función updateCustomer del servicio de usuario (user-services.service),
+   *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)
    */
 
   onSubmit() {
