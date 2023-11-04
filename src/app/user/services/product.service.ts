@@ -33,6 +33,8 @@ export class ProductService {
    * Función para realizar una solicitud post para agregar un producto a favoritos
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
+   * Referencias:
+   *              Función getCookieAuth del servicio de autenticación (auth.service)
    */
 
   addFavoriteProduct(url: string, id: number): Observable<any> {
@@ -50,6 +52,8 @@ export class ProductService {
    * Función para realizar una solicitud get para listar productos favoritos
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
+   * Referencias:
+   *              Función getCookieAuth del servicio de autenticación (auth.service)
    */
 
   getFavoriteProducts(url: string): Observable<any> {
@@ -65,6 +69,8 @@ export class ProductService {
    * Función para realizar una solicitud delete para eliminar un producto de favoritos
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
+   * Referencias:
+   *              Función getCookieAuth del servicio de autenticación (auth.service)
    */
 
   deleteFavoriteProduct(url: string, id: number): Observable<any> {
