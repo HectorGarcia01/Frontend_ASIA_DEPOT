@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserServicesService } from 'src/app/user/services/user-services.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { SharedService } from 'src/app/user/services/shared.service';
+import { NewsletterService } from 'src/app/user/services/newsletter.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { apiURL } from 'src/app/config/config';
 import { getCustomer } from 'src/app/user/interfaces/customer.interface';
@@ -19,6 +20,7 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private userService: UserServicesService,
     private sharedService: SharedService,
+    private newsletterService: NewsletterService,
     private customAlertService: CustomAlertService,
   ) { }
 
@@ -100,6 +102,21 @@ export class ProfileComponent implements OnInit {
           this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
         }
       });
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  unsubscriptionNewsletter() {
+    try {
+      this.newsletterService.unsubscriptionNewsletter(`${apiURL}/usuario/anular/suscripcion/newsletter`).subscribe({
+        next: (data: any) => {
+          this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
+        },
+        error: (error: any) => {
+          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+        }
+      })
     } catch (error: any) {
       console.log(error.error);
     }
