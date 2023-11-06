@@ -75,25 +75,23 @@
                             </div>
                         </div>
                         
-                        <div class="row">
-                            <!-- Departamento input -->
-                            <div class="col form-floating mb-3">
-                                <select class="form-select" aria-label="Default select example" (change)="onDepartmentSelected($event)" formControlName="departamento">
-                                    <option value="null">Selecciona un departamento</option>
-                                    <option *ngFor="let department of departments" [value]="department.id">{{ department.Nombre_Departamento }}
-                                    </option>
-                                </select>
-                                <label for="registerDepartamento">Departamento</label>
-                            </div>
-                            
-                            <!-- Municipio input -->
-                            <div class="col form-floating mb-3">
-                                <select class="form-select" aria-label="Default select example" formControlName="municipio">
-                                    <option value="null">Selecciona un municipio</option>
-                                    <option *ngFor="let municipality of municipalities" [value]="municipality.id">{{ municipality.Nombre_Municipio }}</option>
-                                </select>
-                                <label for="registerMunicipio">Municipio</label>
-                            </div>
+                        <!-- Departamento input -->
+                        <div class="form-floating mb-3">
+                            <select class="form-select" aria-label="Default select example" (change)="onDepartmentSelected($event)" formControlName="departamento">
+                                <option value="null">Selecciona un departamento</option>
+                                <option *ngFor="let department of departments" [value]="department.id">{{ department.Nombre_Departamento }}
+                                </option>
+                            </select>
+                            <label for="registerDepartamento">Departamento</label>
+                        </div>
+                        
+                        <!-- Municipio input -->
+                        <div class="form-floating mb-3">
+                            <select class="form-select" aria-label="Default select example" formControlName="municipio">
+                                <option value="null">Selecciona un municipio</option>
+                                <option *ngFor="let municipality of municipalities" [value]="municipality.id">{{ municipality.Nombre_Municipio }}</option>
+                            </select>
+                            <label for="registerMunicipio">Municipio</label>
                         </div>
 
                         <!-- Address input -->
