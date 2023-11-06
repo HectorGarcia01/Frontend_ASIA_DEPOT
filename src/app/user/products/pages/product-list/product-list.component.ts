@@ -161,6 +161,15 @@ export class ProductListComponent implements OnInit {
     return pagesArray;
   }
 
+  /**
+   * Función para consumir servicio para agregar un producto al carrito de compras
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *            Función addProductCart del servicio de productos (shopping-cart.service),
+   *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)
+   */
+
   addProductCart(ID_Producto_FK: number) {
     try {
       const body = { ID_Producto_FK, Cantidad_Producto: 1 };
