@@ -1,3 +1,76 @@
 <app-nav-bar></app-nav-bar>
-<p>contact-us works!</p>
+
+<!-- Contenedor gris para centrar el formulario -->
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="bg-light p-4">
+                <h1 class="mx-xl-5 mb-4 text-center">Contáctanos</h1>
+                <form name="sentMessage" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group mb-2">
+                        <input type="text" formControlName="Nombre" class="form-control" id="name" placeholder="Ingresa tu nombre" />
+                        <div *ngIf="contactForm.get('Nombre')?.hasError('minlength') && contactForm.get('Nombre')?.touched" class="text-danger">
+                            El nombre es demasiado corto (mínimo 3 carácteres).
+                        </div>
+                        <div *ngIf="contactForm.get('Nombre')?.hasError('maxlength') && contactForm.get('Nombre')?.touched" class="text-danger">
+                            El nombre es demasiado largo (máximo 30 carácteres).
+                        </div>
+                        <div *ngIf="contactForm.get('Nombre')?.hasError('required') && contactForm.get('Nombre')?.touched" class="text-danger">
+                            El nombre es obligatorio.
+                        </div>
+                        <div *ngIf="contactForm.get('Nombre')?.hasError('pattern') && contactForm.get('Nombre')?.touched" class="text-danger">
+                            El nombre no es válido, no use carácteres especiales.
+                        </div>
+                    </div>
+                    <div class="form-group mb-2">
+                        <input type="email" formControlName="Correo" class="form-control" id="email" placeholder="Tu correo electrónico" />
+                        <div *ngIf="contactForm.get('Correo')?.hasError('required') && contactForm.get('Correo')?.touched" class="text-danger">
+                            El correo es obligatorio.
+                        </div>
+                        <div *ngIf="contactForm.get('Correo')?.hasError('email') && contactForm.get('Correo')?.touched" class="text-danger">
+                            El correo no es válido.
+                        </div>
+                        <div *ngIf="contactForm.get('Correo')?.hasError('maxlength') && contactForm.get('Correo')?.touched" class="text-danger">
+                            El correo es demasiado largo (máximo 40 carácteres).
+                        </div>
+                    </div>
+                    <div class="form-group mb-2">
+                        <input type="text" formControlName="Asunto" class="form-control" id="subject" placeholder="Asunto" />
+                        <div *ngIf="contactForm.get('Asunto')?.hasError('minlength') && contactForm.get('Asunto')?.touched" class="text-danger">
+                            El asunto es demasiado corto (mínimo 10 carácteres).
+                        </div>
+                        <div *ngIf="contactForm.get('Asunto')?.hasError('maxlength') && contactForm.get('Asunto')?.touched" class="text-danger">
+                            El asunto es demasiado largo (máximo 50 carácteres).
+                        </div>
+                        <div *ngIf="contactForm.get('Asunto')?.hasError('required') && contactForm.get('Asunto')?.touched" class="text-danger">
+                            El asunto es obligatorio.
+                        </div>
+                        <div *ngIf="contactForm.get('Asunto')?.hasError('pattern') && contactForm.get('Asunto')?.touched" class="text-danger">
+                            El asunto no es válido, no use carácteres especiales.
+                        </div>
+                    </div>
+                    <div class="form-group mb-2">
+                        <textarea id="floatingTextarea2" minlength="10" maxlength="201" style="max-height: 140px;" formControlName="Mensaje" class="form-control" placeholder="Mensaje"></textarea>
+                        <div *ngIf="contactForm.get('Mensaje')?.hasError('minlength') && contactForm.get('Mensaje')?.touched" class="text-danger">
+                            El mensaje es demasiado corto (mínimo 10 carácteres).
+                        </div>
+                        <div *ngIf="contactForm.get('Mensaje')?.hasError('maxlength') && contactForm.get('Mensaje')?.touched" class="text-danger">
+                            El mensaje es demasiado largo (máximo 200 carácteres).
+                        </div>
+                        <div *ngIf="contactForm.get('Mensaje')?.hasError('required') && contactForm.get('Mensaje')?.touched" class="text-danger">
+                            El mensaje es obligatorio.
+                        </div>
+                        <div *ngIf="contactForm.get('Asunto')?.hasError('pattern') && contactForm.get('Asunto')?.touched" class="text-danger">
+                            El mensaje no es válido, no use carácteres especiales.
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Enviar correo</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <app-footer></app-footer>
