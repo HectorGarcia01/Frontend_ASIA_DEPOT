@@ -4,6 +4,7 @@ import { Observable, tap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { apiURL } from 'src/app/config/config';
 
 @Injectable({
@@ -16,6 +17,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
+    private customAlertService: CustomAlertService,
     private router: Router
   ) { }
 
@@ -60,6 +62,16 @@ export class AuthService {
    */
 
   getCookieAuth() {
+    const authCookie = this.cookieService.get('authCookie');
+    const tokenData = JSON.parse(atob(authCookie.split('.')[1]));
+    const expirationDate = new Date(tokenData.exp * 1000); 
+    const currentDate = new Date();
+
+    if (currentDate > expirationDate) {
+      this.customAlertService.sweetAlertPersonalizada('error', "Sesión caducada", "Tu sesión ha sido caducada, vuelve a iniciar sesión.");
+      return this.deleteCookie();
+    }
+
     return this.cookieService.get('authCookie');
   }
 
