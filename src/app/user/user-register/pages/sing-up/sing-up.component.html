@@ -1,19 +1,20 @@
 <app-nav-bar></app-nav-bar>
 
-<div class="container mt-2 mb-5">
+<div class="container mt-2 mb-4">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
                     <form class="border border-2 border-dark p-5" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                        <div class="text-center mb-3">
+                        <h1 class="text-center mb-5">Regístrate</h1>
+                        <!-- <div class="text-center mb-3">
                             <p>Regístrate con:</p>
                             <button type="button" class="btn btn-secondary btn-floating mx-1">
                                 <i class="fab fa-google"></i>
                             </button>
                         </div>
 
-                        <p class="text-center">o:</p>
+                        <p class="text-center">o:</p> -->
 
                         <!-- Name input -->
                         <div class="form-floating mb-3">
@@ -51,43 +52,48 @@
                             </div>
                         </div>
 
-                        <!-- Tel input -->
-                        <div class="form-floating mb-3">
-                            <input type="text" formControlName="telefono" class="form-control" placeholder="Ingresa tu número de teléfono">
-                            <label for="registerTel">Teléfono</label>
-                            <div *ngIf="registerForm.get('telefono')?.hasError('required') && registerForm.get('telefono')?.touched" class="text-danger">
-                                El teléfono es obligatorio.
+                        <div class="row">
+                            <!-- Tel input -->
+                            <div class="col form-floating mb-3">
+                                <input type="text" formControlName="telefono" class="form-control" placeholder="Ingresa tu número de teléfono">
+                                <label for="registerTel">Teléfono</label>
+                                <div *ngIf="registerForm.get('telefono')?.hasError('required') && registerForm.get('telefono')?.touched" class="text-danger">
+                                    El teléfono es obligatorio.
+                                </div>
+                                <div *ngIf="registerForm.get('telefono')?.hasError('pattern') && registerForm.get('telefono')?.touched" class="text-danger">
+                                    El teléfono no es válido, debe de poseer 8 dígitos.
+                                </div>
                             </div>
-                            <div *ngIf="registerForm.get('telefono')?.hasError('pattern') && registerForm.get('telefono')?.touched" class="text-danger">
-                                El teléfono no es válido, debe de poseer 8 dígitos.
-                            </div>
-                        </div>
-
-                        <!-- Nit input -->
-                        <div class="form-floating mb-3">
-                            <input type="number" formControlName="nit" class="form-control" placeholder="Ingresa tu NIT">
-                            <label for="registerNIT">NIT</label>
-                            <div *ngIf="registerForm.get('nit')?.hasError('pattern') && registerForm.get('nit')?.touched" class="text-danger">
-                                El NIT no es válido.
+                            
+                            <!-- Nit input -->
+                            <div class="col form-floating mb-3">
+                                <input type="number" formControlName="nit" class="form-control" placeholder="Ingresa tu NIT">
+                                <label for="registerNIT">NIT</label>
+                                <div *ngIf="registerForm.get('nit')?.hasError('pattern') && registerForm.get('nit')?.touched" class="text-danger">
+                                    El NIT no es válido.
+                                </div>
                             </div>
                         </div>
                         
-                        <!-- Departamento input -->
-                        <div class="form-floating mb-3">
-                            <select class="form-select" aria-label="Default select example" (change)="onDepartmentSelected($event)" formControlName="departamento">
-                                <option value="null">Selecciona un departamento</option>
-                                <option *ngFor="let department of departments" [value]="department.id">{{ department.Nombre_Departamento }}</option>
-                            </select>
-                            <label for="registerDepartamento">Departamento</label>
-                        </div>
-
-                        <!-- Municipio input -->
-                        <div class="form-floating mb-3">
-                            <select class="form-select" aria-label="Default select example" formControlName="municipio">
-                                <option value="null">Selecciona un municipio</option>
-                                <option *ngFor="let municipality of municipalities" [value]="municipality.id">{{ municipality.Nombre_Municipio }}</option>
-                            </select>
-                            <label for="registerMunicipio">Municipio</label>
+                        <div class="row">
+                            <!-- Departamento input -->
+                            <div class="col form-floating mb-3">
+                                <select class="form-select" aria-label="Default select example" (change)="onDepartmentSelected($event)" formControlName="departamento">
+                                    <option value="null">Selecciona un departamento</option>
+                                    <option *ngFor="let department of departments" [value]="department.id">{{ department.Nombre_Departamento }}
+                                    </option>
+                                </select>
+                                <label for="registerDepartamento">Departamento</label>
+                            </div>
+                            
+                            <!-- Municipio input -->
+                            <div class="col form-floating mb-3">
+                                <select class="form-select" aria-label="Default select example" formControlName="municipio">
+                                    <option value="null">Selecciona un municipio</option>
+                                    <option *ngFor="let municipality of municipalities" [value]="municipality.id">{{ municipality.Nombre_Municipio }}</option>
+                                </select>
+                                <label for="registerMunicipio">Municipio</label>
+                            </div>
                         </div>
 
                         <!-- Address input -->
