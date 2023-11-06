@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { ProductService } from 'src/app/user/services/product.service';
 import { ShoppingCartService } from 'src/app/user/services/shopping-cart.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
@@ -15,6 +16,7 @@ export class FavoriteProductsComponent implements OnInit {
   noneProducts: boolean = false;
 
   constructor(
+    private authService: AuthService,
     private productService: ProductService,
     private shoppingCartService: ShoppingCartService,
     private customAlertService: CustomAlertService
@@ -34,6 +36,10 @@ export class FavoriteProductsComponent implements OnInit {
    */
 
   getFavoriteProducts() {
+    if (!this.authService.isAuthenticated()) {
+      return this.customAlertService.sweetAlertPersonalizada('error', "Sin autenticación", "Para obtener los products favoritos primero debes de iniciar sesión.");
+    }
+
     this.productService.getFavoriteProducts(`${apiURL}/usuario/ver/productos/favorito`).subscribe({
       next: (data: any) => {
         this.product = data.favoriteProduct;
@@ -61,6 +67,10 @@ export class FavoriteProductsComponent implements OnInit {
 
   deleteFavoriteProduct(id: number) {
     try {
+      if (!this.authService.isAuthenticated()) {
+        return this.customAlertService.sweetAlertPersonalizada('error', "Sin autenticación", "Para eliminar un producto de favoritos primero debes de iniciar sesión.");
+      }
+
       this.productService.deleteFavoriteProduct(`${apiURL}/usuario/eliminar/producto/favorito`, id).subscribe({
         next: (data: any) => {
           this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
@@ -86,6 +96,10 @@ export class FavoriteProductsComponent implements OnInit {
 
   addProductCart(ID_Producto_FK: number) {
     try {
+      if (!this.authService.isAuthenticated()) {
+        return this.customAlertService.sweetAlertPersonalizada('error', "Sin autenticación", "Para agregar un producto al carrito primero debes de iniciar sesión.");
+      }
+
       const body = { ID_Producto_FK, Cantidad_Producto: 1 };
       this.shoppingCartService.addProductCart(`${apiURL}/usuario/carrito/agregar`, body).subscribe({
         next: (data: any) => {
