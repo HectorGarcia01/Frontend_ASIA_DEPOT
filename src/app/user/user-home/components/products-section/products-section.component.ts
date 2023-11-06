@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { ProductService } from 'src/app/user/services/product.service';
 import { ShoppingCartService } from 'src/app/user/services/shopping-cart.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
@@ -16,6 +17,7 @@ export class ProductsSectionComponent {
   noneProducts: boolean = false;
 
   constructor(
+    private authService: AuthService,
     private productService: ProductService,
     private shoppingCartService: ShoppingCartService,
     private customAlertService: CustomAlertService
@@ -62,6 +64,10 @@ export class ProductsSectionComponent {
 
   addFavoriteProduct(id: number) {
     try {
+      if (!this.authService.isAuthenticated()) {
+        return this.customAlertService.sweetAlertPersonalizada('error', "Sin autenticación", "Para agregar un producto a favoritos primero debes de iniciar sesión.");
+      }
+
       this.productService.addFavoriteProduct(`${apiURL}/usuario/agregar/producto/favorito`, id).subscribe({
         next: (data: any) => {
           this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
@@ -86,6 +92,10 @@ export class ProductsSectionComponent {
 
   addProductCart(ID_Producto_FK: number) {
     try {
+      if (!this.authService.isAuthenticated()) {
+        return this.customAlertService.sweetAlertPersonalizada('error', "Sin autenticación", "Para agregar un producto al carrito primero debes de iniciar sesión.");
+      }
+
       const body = { ID_Producto_FK, Cantidad_Producto: 1 };
       this.shoppingCartService.addProductCart(`${apiURL}/usuario/carrito/agregar`, body).subscribe({
         next: (data: any) => {
