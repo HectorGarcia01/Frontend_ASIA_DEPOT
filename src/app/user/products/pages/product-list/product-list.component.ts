@@ -123,7 +123,7 @@ export class ProductListComponent implements OnInit {
           this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
         },
         error: (error: any) => {
-          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+          this.customAlertService.sweetAlertPersonalizada('error', "Lo siento", error.error.error);
         }
       });
     } catch (error: any) {
