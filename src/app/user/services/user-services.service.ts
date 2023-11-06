@@ -120,4 +120,21 @@ export class UserServicesService {
 
     return this.http.delete<any>(url, { headers });
   }
+
+  /**
+   * Función para realizar una solicitud post para contáctanos
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *              Función getCookieAuth del servicio de autenticación (auth.service)
+   */
+
+  contactUs(url: string, body: any): Observable<any> {
+    const token = this.authService.getCookieAuth();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.post<any>(url, body, { headers });
+  }
 }
