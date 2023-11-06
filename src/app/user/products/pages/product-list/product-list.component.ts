@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/user/services/product.service';
+import { ShoppingCartService } from 'src/app/user/services/shopping-cart.service';
 import { CategoryService } from 'src/app/user/services/category.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { Product, Products } from 'src/app/user/interfaces/product.interface';
@@ -22,6 +23,7 @@ export class ProductListComponent implements OnInit {
 
   constructor(
     private productService: ProductService,
+    private shoppingCartService: ShoppingCartService,
     private categoryService: CategoryService,
     private customAlertService: CustomAlertService
   ) { }
@@ -157,6 +159,23 @@ export class ProductListComponent implements OnInit {
       pagesArray.push(i);
     }
     return pagesArray;
+  }
+
+  addProductCart(ID_Producto_FK: number) {
+    try {
+      const body = { ID_Producto_FK, Cantidad_Producto: 1 };
+      this.shoppingCartService.addProductCart(`${apiURL}/usuario/carrito/agregar`, body).subscribe({
+        next: (data: any) => {
+          this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
+          this.getProducts();
+        },
+        error: (error: any) => {
+          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+        }
+      });
+    } catch (error: any) {
+      console.log(error.error);
+    }
   }
 
   scrollToTop() {
