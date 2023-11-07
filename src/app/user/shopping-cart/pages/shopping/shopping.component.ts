@@ -201,6 +201,15 @@ export class ShoppingComponent implements OnInit {
     }
   }
 
+  /**
+   * Función para consumir servicio para procesar la compra
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *            Función processSale del servicio de carrito de compras (shopping-cart.service),
+   *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)
+   */
+
   onSubmit() {
     try {
       const body = {
