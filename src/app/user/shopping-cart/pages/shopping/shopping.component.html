@@ -1,3 +1,67 @@
 <app-nav-bar></app-nav-bar>
-<p>shopping works!</p>
-<app-footer></app-footer>
+<!-- Cart Start -->
+<div class="container-fluid mt-4">
+    <div class="row px-xl-5">
+        <div class="col-lg-8 table-responsive mb-5">
+            <table class="table table-light table-borderless table-hover mb-0">
+                <thead class="thead-dark">
+                    <tr class="text-center">
+                        <th>Productos</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                        <th>Actualizar</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle">
+                    <tr *ngFor="let item of shoppingDetailCart.detalles_venta">
+                        <td class="align-middle">
+                            <div class="d-flex flex-column flex-md-row">
+                                <div class="col-md-2">
+                                    <img src="assets/Logo_ASIA_DEPOT.png" alt="" style="width: 50px;">
+                                </div>
+                                <div class="col-md-5">
+                                    {{ item.producto.nombre_producto }}
+                                </div>
+                            </div>
+                        </td>
+                        <td class="align-middle text-center">Q.{{ item.Precio_Unitario }}</td>
+                        <td class="align-middle">
+                            <div class="input-group quantity mx-auto" style="width: 100px;">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-primary btn-minus" (click)="decreaseQuantity(item)">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <input type="text" class="form-control form-control-sm border-0 text-center" value="{{ item.Cantidad_Producto }}">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-primary btn-plus" (click)="increaseQuantity(item)">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="align-middle text-center">Q.{{ item.Subtotal_Venta }}</td>
+                        <td class="align-middle text-center"><button class="btn btn-sm btn-success"><i class="fa fa-check"></i></button></td>
+                        <td class="align-middle text-center"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-4">
+            <h5 class="text-uppercase mb-3">Resumen de la compra</h5>
+            <div class="bg-light p-30 mb-5">
+                <div class="pt-2">
+                    <div class="d-flex justify-content-between mt-2">
+                        <h5>Total</h5>
+                        <h5>{{ shoppingDetailCart.Total_Factura }}</h5>
+                    </div>
+                    <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Procesar compra</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Cart End -->
+<app-footer></app-footer> 
