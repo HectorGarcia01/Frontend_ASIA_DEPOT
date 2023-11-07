@@ -125,12 +125,12 @@ export class ShoppingCartService {
    *              Función getCookieAuth del servicio de autenticación (auth.service)
    */
 
-  processSale(url: string): Observable<any> {
+  processSale(url: string, body: any): Observable<any> {
     const token = this.authService.getCookieAuth();
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
 
-    return this.http.patch<any>(url, null, { headers });
+    return this.http.patch<any>(url, body, { headers });
   }
 }
