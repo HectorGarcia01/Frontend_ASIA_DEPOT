@@ -59,15 +59,15 @@
         </div>
         <div *ngIf="noneProducts == true" class="col-lg-4">
             <div class="bg-light p-5 mb-5">
-                <h5 class="mb-3 text-center mt-4">Resumen de la compra</h5>
+                <h5 class="mb-3 text-center">Resumen de la compra</h5>
                 <div class="pt-3">
                     <div class="d-flex justify-content-between mt-3">
                         <h5>Total</h5>
                         <h5>Q.{{ shoppingDetailCart.Total_Factura }}</h5>
                     </div>
-                    <div class="d-flex justify-content-center mt-3">
+                    <div class="d-flex justify-content-center">
                         <div class="col-10 d-flex justify-content-between"> 
-                            <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Procesar compra</button>
+                            <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" (click)="onSubmit()">Procesar compra</button>
                             <button class="btn btn-block btn-danger font-weight-bold my-3 py-3" (click)="deleteShoppingCart()">Vaciar carrito</button>
                         </div>
                     </div>
@@ -91,10 +91,28 @@
         </div>
 
         <div *ngIf="noneProducts == true" class="col-lg-4">
-            <div class="bg-light p-3 mb-5">
+            <div class="bg-light p-5 mb-5">
                 <h5 class="mb-3 text-center">Información de envío</h5>
-                <form>
-                    
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                    <!-- Tipo de envio input -->
+                    <div class="form-floating mb-3">
+                        <select class="form-select" aria-label="Default select example" formControlName="tipo_envio">
+                            <option value="null">Selecciona un tipo de envío</option>
+                            <option *ngFor="let type of shipping_type" [value]="type.id">{{ type.Nombre_Envio }}
+                            </option>
+                        </select>
+                        <label for="registerDepartamento">Tipo de envío</label>
+                    </div>
+
+                    <!-- Método de pago input -->
+                    <div class="form-floating mb-3">
+                        <select class="form-select" aria-label="Default select example" formControlName="metodo_pago">
+                            <option value="null">Selecciona un método de pago</option>
+                            <option *ngFor="let method of payment_method" [value]="method.id">{{ method.Tipo_Pago }}
+                            </option>
+                        </select>
+                        <label for="registerDepartamento">Método de pago</label>
+                    </div>
                 </form>
             </div>
         </div>

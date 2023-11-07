@@ -14,8 +14,8 @@ import { apiURL } from 'src/app/config/config';
 export class ShoppingComponent implements OnInit {
   registerForm!: FormGroup;
   shoppingDetailCart: any = {};
-  shipping_type: any = {};
-  payment_method: any = {};
+  shipping_type: any = [];
+  payment_method: any = [];
   customer: getCustomer = {} as getCustomer;
   noneProducts: boolean = false;
 
@@ -39,8 +39,8 @@ export class ShoppingComponent implements OnInit {
 
   private validateForm() {
     this.registerForm = new FormGroup({
-      tipo_pago: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]+$')]),
-      metodo_envio: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]+$')])
+      tipo_envio: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]+$')]),
+      metodo_pago: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]+$')])
     });
   }
 
@@ -59,6 +59,7 @@ export class ShoppingComponent implements OnInit {
         next: (data: any) => {
           this.shoppingDetailCart = data.shoppingDetailCart;
           this.getProfile();
+          this.getShipmentInformation();
           if (this.shoppingDetailCart.detalles_venta.length === 0) {
             this.noneProducts = false;
           } else {
@@ -109,7 +110,7 @@ export class ShoppingComponent implements OnInit {
 
   getShipmentInformation() {
     try {
-      this.shoppingCartService.getShipmentInformation(`${apiURL}/usuario/ver/perfil`).subscribe({
+      this.shoppingCartService.getShipmentInformation(`${apiURL}/usuario/ver/tipo/envio`).subscribe({
         next: (data: any) => {
           this.shipping_type = data.shipping_type;
           this.payment_method = data.payment_method;
@@ -195,6 +196,31 @@ export class ShoppingComponent implements OnInit {
           this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
         }
       })
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  onSubmit() {
+    try {
+      const body = {
+        ID_Tipo_Envio_FK: this.registerForm.get('tipo_envio')?.value,
+        ID_Metodo_Pago_FK: this.registerForm.get('metodo_pago')?.value
+      };
+
+      if (this.registerForm.valid) {
+        this.shoppingCartService.processSale(`${apiURL}/usuario/carrito/procesar`, body).subscribe({
+          next: (data: any) => {
+            this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
+            this.getShoppingCart();
+          },
+          error: (error: any) => {
+            this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+          }
+        })
+      } else {
+        this.customAlertService.sweetAlertPersonalizada('error', "Campos vacíos", "Por favor completa la información de envío.");
+      }
     } catch (error: any) {
       console.log(error.error);
     }
