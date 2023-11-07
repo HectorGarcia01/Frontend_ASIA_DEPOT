@@ -55,6 +55,15 @@ export class ShoppingComponent implements OnInit {
     }
   }
 
+  /**
+   * Función para consumir el servicio de ver perfil
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getCustomerProfile del servicio de usuarios (user-services.service),
+   *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)  
+   */
+
   getProfile() {
     try {
       this.userService.getCustomerProfile(`${apiURL}/usuario/ver/perfil`).subscribe({
