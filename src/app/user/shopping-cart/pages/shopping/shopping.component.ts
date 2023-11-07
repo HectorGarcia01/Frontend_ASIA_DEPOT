@@ -12,6 +12,8 @@ import { apiURL } from 'src/app/config/config';
 })
 export class ShoppingComponent implements OnInit {
   shoppingDetailCart: any = {};
+  shipping_type: any = {};
+  payment_method: any = {};
   customer: getCustomer = {} as getCustomer;
   noneProducts: boolean = false;
 
@@ -69,6 +71,31 @@ export class ShoppingComponent implements OnInit {
       this.userService.getCustomerProfile(`${apiURL}/usuario/ver/perfil`).subscribe({
         next: (data: any) => {
           this.customer = data.customer;
+        },
+        error: (error: any) => {
+          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+        }
+      });
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  /**
+   * Función para consumir el servicio de ver perfil
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getShipmentInformation del servicio de carrito de compras (shopping-cart.service),
+   *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)  
+   */
+
+  getShipmentInformation() {
+    try {
+      this.shoppingCartService.getShipmentInformation(`${apiURL}/usuario/ver/perfil`).subscribe({
+        next: (data: any) => {
+          this.shipping_type = data.shipping_type;
+          this.payment_method = data.payment_method;
         },
         error: (error: any) => {
           this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
