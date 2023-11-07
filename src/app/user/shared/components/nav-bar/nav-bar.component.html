@@ -52,10 +52,9 @@
         <!-- Right elements -->
         <div class="d-flex align-items-center">
             <!-- Icon -->
-            <a class="link-secondary me-3 nav-link" [routerLink]="['/checkout/cart']">
+            <a *ngIf="isAuthenticated()" class="link-secondary me-3 nav-link" [routerLink]="['/checkout/cart']">
                 Ver carrito
                 <i class="fas fa-shopping-cart"></i>
-                <span class="badge rounded-pill badge-notification bg-danger">N</span>
             </a>
 
             <!-- Avatar -->
