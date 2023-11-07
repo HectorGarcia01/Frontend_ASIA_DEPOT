@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
 import { ShoppingCartService } from 'src/app/user/services/shopping-cart.service';
 import { UserServicesService } from 'src/app/user/services/user-services.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
@@ -11,6 +12,7 @@ import { apiURL } from 'src/app/config/config';
   styleUrls: ['./shopping.component.css']
 })
 export class ShoppingComponent implements OnInit {
+  registerForm!: FormGroup;
   shoppingDetailCart: any = {};
   shipping_type: any = {};
   payment_method: any = {};
@@ -21,10 +23,25 @@ export class ShoppingComponent implements OnInit {
     private shoppingCartService: ShoppingCartService,
     private userService: UserServicesService,
     private customAlertService: CustomAlertService
-  ) { }
+  ) { 
+    this.validateForm();
+  }
 
   ngOnInit() {
     this.getShoppingCart();
+  }
+
+  /**
+   * Función privada para la definición de un formulario reactivo
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
+
+  private validateForm() {
+    this.registerForm = new FormGroup({
+      tipo_pago: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]+$')]),
+      metodo_envio: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]+$')])
+    });
   }
 
   /**
