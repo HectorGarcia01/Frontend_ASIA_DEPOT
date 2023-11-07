@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
 import { UserServicesService } from 'src/app/user/services/user-services.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
@@ -22,6 +23,7 @@ export class SingUpComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
     private userService: UserServicesService,
     private customAlertService: CustomAlertService
   ) { 
@@ -164,6 +166,7 @@ export class SingUpComponent implements OnInit {
           next: (response: any) => {
             this.registerForm.reset();
             this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
+            this.router.navigate(['/login/activate/account']);
           },
           error: (error: any) => {
             this.customAlertService.sweetAlertPersonalizada('error', error.error.error, "Por favor, intenta con otro correo.");
