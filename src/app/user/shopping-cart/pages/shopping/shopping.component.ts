@@ -10,6 +10,7 @@ import { apiURL } from 'src/app/config/config';
 })
 export class ShoppingComponent implements OnInit {
   shoppingDetailCart: any = {};
+  noneProducts: boolean = false;
 
   constructor(
     private shoppingCartService: ShoppingCartService,
@@ -20,15 +21,42 @@ export class ShoppingComponent implements OnInit {
     this.getShoppingCart();
   }
 
+  /**
+   * Función para consumir servicio para ver el detalle del carrito de compras
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *            Función getShoppingCart del servicio de carrito de compras (shopping-cart.service),
+   *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)
+   */
+
   getShoppingCart() {
     try {
       this.shoppingCartService.getShoppingCart(`${apiURL}/usuario/carrito/ver`).subscribe({
         next: (data: any) => {
           this.shoppingDetailCart = data.shoppingDetailCart;
-          console.log(this.shoppingDetailCart);
+          this.noneProducts = true;
+        },
+        error: (error: any) => {
+          this.noneProducts = false;
+        }
+      })
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  updateProductCart(ID_Producto_FK: number, Cantidad_Producto: number) {
+    try {
+      const body = { ID_Producto_FK, Cantidad_Producto };
+      this.shoppingCartService.updateProductCart(`${apiURL}/usuario/carrito/actualizar/producto`, body).subscribe({
+        next: (data: any) => {
+          this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
+          this.getShoppingCart();
         },
         error: (error: any) => {
           this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+          this.getShoppingCart();
         }
       })
     } catch (error: any) {
