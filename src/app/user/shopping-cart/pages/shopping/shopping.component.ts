@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ShoppingCartService } from 'src/app/user/services/shopping-cart.service';
+import { UserServicesService } from 'src/app/user/services/user-services.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
+import { getCustomer } from 'src/app/user/interfaces/customer.interface';
 import { apiURL } from 'src/app/config/config';
 
 @Component({
@@ -10,10 +12,12 @@ import { apiURL } from 'src/app/config/config';
 })
 export class ShoppingComponent implements OnInit {
   shoppingDetailCart: any = {};
+  customer: getCustomer = {} as getCustomer;
   noneProducts: boolean = false;
 
   constructor(
     private shoppingCartService: ShoppingCartService,
+    private userService: UserServicesService,
     private customAlertService: CustomAlertService
   ) { }
 
@@ -35,7 +39,7 @@ export class ShoppingComponent implements OnInit {
       this.shoppingCartService.getShoppingCart(`${apiURL}/usuario/carrito/ver`).subscribe({
         next: (data: any) => {
           this.shoppingDetailCart = data.shoppingDetailCart;
-
+          this.getProfile();
           if (this.shoppingDetailCart.detalles_venta.length === 0) {
             this.noneProducts = false;
           } else {
@@ -46,6 +50,21 @@ export class ShoppingComponent implements OnInit {
           this.noneProducts = false;
         }
       })
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  getProfile() {
+    try {
+      this.userService.getCustomerProfile(`${apiURL}/usuario/ver/perfil`).subscribe({
+        next: (data: any) => {
+          this.customer = data.customer;
+        },
+        error: (error: any) => {
+          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+        }
+      });
     } catch (error: any) {
       console.log(error.error);
     }
@@ -102,6 +121,15 @@ export class ShoppingComponent implements OnInit {
       console.log(error.error);
     }
   }
+
+  /**
+   * Función para consumir servicio para eliminar el carrito de compras
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *            Función deleteShoppingCart del servicio de carrito de compras (shopping-cart.service),
+   *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)
+   */
 
   deleteShoppingCart() {
     try {
