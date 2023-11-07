@@ -103,6 +103,22 @@ export class ShoppingComponent implements OnInit {
     }
   }
 
+  deleteShoppingCart() {
+    try {
+      this.shoppingCartService.deleteShoppingCart(`${apiURL}/usuario/carrito/eliminar`).subscribe({
+        next: (data: any) => {
+          this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
+          this.getShoppingCart();
+        },
+        error: (error: any) => {
+          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+        }
+      })
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
   decreaseQuantity(item: any) {
     if (item.Cantidad_Producto > 1) {
       item.Cantidad_Producto--;
