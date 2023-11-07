@@ -35,7 +35,12 @@ export class ShoppingComponent implements OnInit {
       this.shoppingCartService.getShoppingCart(`${apiURL}/usuario/carrito/ver`).subscribe({
         next: (data: any) => {
           this.shoppingDetailCart = data.shoppingDetailCart;
-          this.noneProducts = true;
+
+          if (this.shoppingDetailCart.detalles_venta.length === 0) {
+            this.noneProducts = false;
+          } else {
+            this.noneProducts = true;
+          }
         },
         error: (error: any) => {
           this.noneProducts = false;
@@ -45,6 +50,15 @@ export class ShoppingComponent implements OnInit {
       console.log(error.error);
     }
   }
+
+  /**
+   * Función para consumir servicio para actualizar un producto del carrito de compras
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *            Función updateProductCart del servicio de carrito de compras (shopping-cart.service),
+   *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)
+   */
 
   updateProductCart(ID_Producto_FK: number, Cantidad_Producto: number) {
     try {
@@ -57,6 +71,31 @@ export class ShoppingComponent implements OnInit {
         error: (error: any) => {
           this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
           this.getShoppingCart();
+        }
+      })
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  /**
+   * Función para consumir servicio para eliminar un producto del carrito de compras
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *            Función deleteProductCart del servicio de carrito de compras (shopping-cart.service),
+   *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)
+   */
+
+  deleteProductCart(id: number) {
+    try {
+      this.shoppingCartService.deleteProductCart(`${apiURL}/usuario/carrito/eliminar/producto`, id).subscribe({
+        next: (data: any) => {
+          this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
+          this.getShoppingCart();
+        },
+        error: (error: any) => {
+          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
         }
       })
     } catch (error: any) {

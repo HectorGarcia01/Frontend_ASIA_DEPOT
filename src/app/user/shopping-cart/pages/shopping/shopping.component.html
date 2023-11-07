@@ -52,7 +52,7 @@
                         </td>
                         <td class="align-middle text-center">Q.{{ item.Subtotal_Venta }}</td>
                         <td class="align-middle text-center"><button class="btn btn-sm btn-success" (click)="updateProductCart(item.producto.id, item.Cantidad_Producto)"><i class="fa fa-check"></i></button></td>
-                        <td class="align-middle text-center"><button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button></td>
+                        <td class="align-middle text-center"><button class="btn btn-sm btn-danger" (click)="deleteProductCart(item.producto.id)"><i class="fa fa-times"></i></button></td>
                     </tr>
                 </tbody>
             </table>
