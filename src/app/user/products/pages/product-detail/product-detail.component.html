@@ -1,17 +1,17 @@
 <app-nav-bar></app-nav-bar>
 <!-- Shop Detail Start -->
-<div class="container-fluid pb-5">
+<div class="container-fluid pb-5 mt-4">
     <div class="row px-xl-5">
-        <div class="col-lg-5 mb-30">
+        <div class="col-lg-5">
             <div>
                 <img class="w-100 h-100" src="assets/Logo_ASIA_DEPOT.png" alt="Logo producto ASIA DEPOT">
             </div>
         </div>
 
-        <div class="col-lg-7 h-auto mb-30">
-            <div class="h-100 bg-light p-30">
-                <h3>{{product?.Nombre_Producto}}</h3>
-                <div class="d-flex mb-3">
+        <div class="col-lg-7 h-auto">
+            <div class="h-100 bg-light p-5">
+                <h1 class="text-center mb-4">{{product.Nombre_Producto}}</h1>
+                <!-- <div class="d-flex mb-3">
                     <div class="text-primary mr-2">
                         <small class="fas fa-star"></small>
                         <small class="fas fa-star"></small>
@@ -20,25 +20,43 @@
                         <small class="far fa-star"></small>
                     </div>
                     <small class="pt-1">(99 Reviews)</small>
-                </div>
-                <h3 class="font-weight-semi-bold mb-4">Q.{{ product?.Precio_Venta }}</h3>
-                <p class="mb-4">{{ product?.Descripcion_Producto }}</p>
+                </div> -->
+                <p class="mb-4">{{ product.Descripcion_Producto }}</p>
+                <h3 class="font-weight-semi-bold mb-2">{{ product.categoria.Nombre_Categoria }}</h3>
+                <p class="mb-4">{{ product.categoria.Descripcion_Categoria }}</p>
+                <h3 class="font-weight-semi-bold mb-4">Q.{{ product.Precio_Venta }}</h3>
+                <h3 class="font-weight-semi-bold mb-4">Disponibilidad: {{ product.Cantidad_Stock }}</h3>
+
                 
-                <div class="d-flex align-items-center mb-4 pt-2">
+                <div class="d-flex justify-content-center mb-4 pt-2">
                     <div class="input-group quantity mr-3" style="width: 130px;">
                         <div class="input-group-btn">
-                            <button class="btn btn-primary btn-minus">
+                            <button class="btn btn-primary btn-minus" (click)="decreaseQuantity()">
                                 <i class="fa fa-minus"></i>
                             </button>
                         </div>
-                        <input type="text" class="form-control bg-secondary border-0 text-center" value="1">
+                        <input type="text" class="form-control border-2 text-center" value="{{ increment }}">
                         <div class="input-group-btn">
-                            <button class="btn btn-primary btn-plus">
+                            <button class="btn btn-primary btn-plus" (click)="increaseQuantity()">
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
                     </div>
-                    <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i>Agregar al carrito</button>
+                    <button class="btn btn-primary px-4" style="margin-left: 20px;" (click)="onSubmit(product.id)"><i class="fa fa-shopping-cart mr-1"></i>Agregar al carrito</button>
+                </div>
+                <div class="d-flex pt-2">
+                    <strong class="text-dark mr-2">Síguenos en:</strong>
+                    <div class="d-inline-flex">
+                        <a class="text-dark px-2" href="https://www.facebook.com/asiadepot?mibextid=ZbWKwL" target="_blank">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="text-dark px-2" href="https://instagram.com/asiadepot?igshid=MzRlODBiNWFlZA==" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a class="text-dark px-2" href="https://wa.me/50246651581" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -56,7 +74,7 @@
                     <!-- Sección de descripción de producto -->
                     <div class="tab-pane fade show active" id="tab-pane-1">
                         <h4 class="mb-3">Descripción del producto</h4>
-                        <p>{{product?.Descripcion_Producto}}</p>
+                        <p>{{product.Descripcion_Producto}}</p>
                     </div>
                     <!-- Fin de Sección de descripción de producto -->
 
