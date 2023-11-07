@@ -12,6 +12,7 @@ export interface Product {
     categoria: {
         id: number;
         Nombre_Categoria: string;
+        Descripcion_Categoria: string;
     };
     marca?: {
         id?: number;
