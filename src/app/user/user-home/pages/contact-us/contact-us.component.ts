@@ -35,8 +35,8 @@ export class ContactUsComponent implements OnInit {
     this.contactForm = new FormGroup({
       Nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/), Validators.minLength(3), Validators.maxLength(30)]),
       Correo: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(40)]),
-      Asunto: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(50)]),
-      Mensaje: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(200)])
+      Asunto: new FormControl('', [Validators.required, Validators.pattern(/^[^[\]<>(){}_=\\|';]+$/), Validators.minLength(10), Validators.maxLength(50)]),
+      Mensaje: new FormControl('', [Validators.required, Validators.pattern(/^[^[\]<>(){}_=\\|';]+$/), Validators.minLength(10), Validators.maxLength(200)])
     });
   }
 
