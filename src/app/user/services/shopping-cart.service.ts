@@ -101,6 +101,23 @@ export class ShoppingCartService {
   }
 
   /**
+   * Función para realizar una solicitud get para ver el carrito de compras
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *              Función getCookieAuth del servicio de autenticación (auth.service)
+   */
+
+  getShipmentInformation(url: string): Observable<any> {
+    const token = this.authService.getCookieAuth();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.get<any>(url, { headers });
+  }
+
+  /**
    * Función para realizar una solicitud patch para procesar la compra
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
