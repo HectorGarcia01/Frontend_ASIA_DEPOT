@@ -97,7 +97,11 @@ export class ProductDetailComponent implements OnInit {
   }
 
   increaseQuantity() {
-    this.increment++;
+    if (this.increment < this.product.Cantidad_Stock) {
+      this.increment++;
+    } else {
+      this.customAlertService.sweetAlertPersonalizada('error', "Lo siento", `No hay sufiente stock de "${this.product.Nombre_Producto}"`);
+    }
   }
 
   scrollToTop() {
