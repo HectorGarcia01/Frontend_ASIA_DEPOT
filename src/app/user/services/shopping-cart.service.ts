@@ -1,118 +1,97 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/auth/services/auth.service'; 
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserServicesService {
+export class ShoppingCartService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
-) { }
+    private authService: AuthService
+  ) { }
 
   /**
-   * Función para realizar una solicitud get para listar todas las direcciones
-   * Fecha creación: 06/10/2023
-   * Autor: Hector Armando García González
-   */
-
-  public getAddress(url: string) {
-    return this.http.get(url); 
-  }
-
-  /**
-   * Función para realizar una solicitud post para crear nuevo cliente
-   * Fecha creación: 06/10/2023
-   * Autor: Hector Armando García González
-   */
-  
-  addCustomer(url: string, customer: any): Observable<any> {
-    return this.http.post<any>(url, customer);
-  }
-
-  /**
-   * Función para realizar una solicitud get para ver el perfil del cliente
+   * Función para realizar una solicitud post para agregar/actualizar un producto al carrito
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    * Referencias:
    *              Función getCookieAuth del servicio de autenticación (auth.service)
    */
 
-  getCustomerProfile(url: string): Observable<any> {
+  addProductCart(url: string, body: any): Observable<any> {
     const token = this.authService.getCookieAuth();
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
-    
+
+    return this.http.post<any>(url, body, { headers });
+  }
+
+  /**
+   * Función para realizar una solicitud get para ver el carrito de compras
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *              Función getCookieAuth del servicio de autenticación (auth.service)
+   */
+
+  getShoppingCart(url: string): Observable<any> {
+    const token = this.authService.getCookieAuth();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
     return this.http.get<any>(url, { headers });
   }
 
   /**
-   * Función para realizar una solicitud patch para actualizar datos del cliente
+   * Función para realizar una solicitud patch para actualizar un producto del carrito
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    * Referencias:
    *              Función getCookieAuth del servicio de autenticación (auth.service)
    */
 
-  updateCustomer(url: string, customer: any): Observable<any> {
+  updateProductCart(url: string, body: any): Observable<any> {
     const token = this.authService.getCookieAuth();
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
 
-    return this.http.patch<any>(url, customer, { headers });
+    return this.http.patch<any>(url, body, { headers });
   }
 
   /**
-   * Función para realizar una solicitud post para subir una foto de perfil
+   * Función para realizar una solicitud delete para eliminar un producto del carrito
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    * Referencias:
    *              Función getCookieAuth del servicio de autenticación (auth.service)
    */
 
-  uploadProfilePhoto(url: string, avatar: File): Observable<any> {
+  deleteProductCart(url: string, id: number): Observable<any> {
     const token = this.authService.getCookieAuth();
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
 
-    const formData = new FormData();
-    formData.append('avatar', avatar);
+    url = `${url}/${id}`;
 
-    return this.http.post<any>(url, formData, { headers });
+    return this.http.delete<any>(url, { headers });
   }
 
   /**
-   * Función para realizar una solicitud get para ver la foto de perfil
+   * Función para realizar una solicitud delete para eliminar el carrito de compras
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    * Referencias:
    *              Función getCookieAuth del servicio de autenticación (auth.service)
    */
 
-  getProfilePhoto(url: string): Observable<Blob> {
-    const token = this.authService.getCookieAuth();
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
-    });
-
-    return this.http.get(url, { headers, responseType: 'blob' });
-  }
-
-  /**
-   * Función para realizar una solicitud delete para borrar la foto de perfil
-   * Fecha creación: 06/10/2023
-   * Autor: Hector Armando García González
-   * Referencias:
-   *              Función getCookieAuth del servicio de autenticación (auth.service)
-   */
-
-  deleteProfilePhoto(url: string): Observable<any> {
+  deleteShoppingCart(url: string): Observable<any> {
     const token = this.authService.getCookieAuth();
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
@@ -122,19 +101,36 @@ export class UserServicesService {
   }
 
   /**
-   * Función para realizar una solicitud post para contáctanos
+   * Función para realizar una solicitud get para ver el carrito de compras
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    * Referencias:
    *              Función getCookieAuth del servicio de autenticación (auth.service)
    */
 
-  contactUs(url: string, body: any): Observable<any> {
+  getShipmentInformation(url: string): Observable<any> {
     const token = this.authService.getCookieAuth();
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
 
-    return this.http.post<any>(url, body, { headers });
+    return this.http.get<any>(url, { headers });
+  }
+
+  /**
+   * Función para realizar una solicitud patch para procesar la compra
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *              Función getCookieAuth del servicio de autenticación (auth.service)
+   */
+
+  processSale(url: string, body: any): Observable<any> {
+    const token = this.authService.getCookieAuth();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.patch<any>(url, body, { headers });
   }
 }

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/user/services/product.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
+import { ShoppingCartService } from 'src/app/user/services/shopping-cart.service';
+import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { Product } from 'src/app/user/interfaces/product.interface';
 import { apiURL } from 'src/app/config/config';
 
@@ -10,15 +13,19 @@ import { apiURL } from 'src/app/config/config';
   styleUrls: ['./product-detail.component.css']
 })
 export class ProductDetailComponent implements OnInit {
-  product: Product | null = null;
+  product: Product = {} as Product;
+  increment: number = 1;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
-    private productService: ProductService
+    private productService: ProductService,
+    private authService: AuthService,
+    private shoppingCartService: ShoppingCartService,
+    private customAlertService: CustomAlertService
   ) { }
 
   ngOnInit() {
+    this.scrollToTop();
     this.getParamsId();
   }
 
@@ -52,5 +59,48 @@ export class ProductDetailComponent implements OnInit {
     this.productService.getProductId(`${apiURL}/usuario/ver/producto/${IdProduct}`).subscribe((data: any) => {
       this.product = data.product;
     });
+  }
+
+  /**
+   * Función para consumir servicio para agregar un producto al carrito de compras
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *            Función addProductCart del servicio de productos (shopping-cart.service),
+   *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)
+   */
+
+  onSubmit(ID_Producto_FK: number) {
+    try {
+      if (!this.authService.isAuthenticated()) {
+        return this.customAlertService.sweetAlertPersonalizada('error', "Sin autenticación", "Para agregar un producto al carrito primero debes de iniciar sesión.");
+      }
+
+      const body = { ID_Producto_FK, Cantidad_Producto: this.increment };
+      this.shoppingCartService.addProductCart(`${apiURL}/usuario/carrito/agregar`, body).subscribe({
+        next: (data: any) => {
+          this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
+        },
+        error: (error: any) => {
+          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+        }
+      });
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  decreaseQuantity() {
+    if (this.increment > 1) {
+      this.increment--;
+    }
+  }
+
+  increaseQuantity() {
+    this.increment++;
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

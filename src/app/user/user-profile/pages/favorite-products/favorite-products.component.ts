@@ -1,19 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { ProductService } from 'src/app/user/services/product.service';
 import { ShoppingCartService } from 'src/app/user/services/shopping-cart.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
-import { Product, Products } from 'src/app/user/interfaces/product.interface';
+import { FavoriteProduct } from 'src/app/user/interfaces/product.interface';
 import { apiURL } from 'src/app/config/config';
 
 @Component({
-  selector: 'app-products-section',
-  templateUrl: './products-section.component.html',
-  styleUrls: ['./products-section.component.css']
+  selector: 'app-favorite-products',
+  templateUrl: './favorite-products.component.html',
+  styleUrls: ['./favorite-products.component.css']
 })
-export class ProductsSectionComponent {
-  product: Product[] = [];
-  prducts: Products[] = [];
+export class FavoriteProductsComponent implements OnInit {
+  product: FavoriteProduct[] = [];
   noneProducts: boolean = false;
 
   constructor(
@@ -24,26 +23,31 @@ export class ProductsSectionComponent {
   ) { }
 
   ngOnInit() {
-    this.getProducts();
+    this.getFavoriteProducts();
   }
 
   /**
-   * Función para consumir el servicio de de listar productos
+   * Función para consumir servicio de listar todos los productos favoritos
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
-   * Referencias: 
-   *            Función getProducts del servicio de producto (product.service)
+   * Referencias:
+   *            Función getFavoriteProducts del servicio de productos (product.service),
+   *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)
    */
 
-  getProducts() {
-    this.productService.getProducts(`${apiURL}/usuario/ver/productos?estado=Activo`).subscribe({
+  getFavoriteProducts() {
+    if (!this.authService.isAuthenticated()) {
+      return this.customAlertService.sweetAlertPersonalizada('error', "Sin autenticación", "Para obtener los products favoritos primero debes de iniciar sesión.");
+    }
+
+    this.productService.getFavoriteProducts(`${apiURL}/usuario/ver/productos/favorito`).subscribe({
       next: (data: any) => {
-        this.product = data.products;
+        this.product = data.favoriteProduct;
 
-        this.product = this.product.filter((FeaturedProducts: Product) => {
-          return FeaturedProducts.Producto_Destacado === true;
+        this.product = this.product.filter((favoriteProduct: FavoriteProduct) => {
+          return favoriteProduct.producto.estado.Tipo_Estado === 'Activo';
         });
-
+        
         this.noneProducts = true;
       },
       error: (error: any) => {
@@ -54,26 +58,26 @@ export class ProductsSectionComponent {
   }
 
   /**
-   * Función para consumir servicio para agregar un producto a favoritos
+   * Función para consumir servicio para eliminar un producto de favoritos
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    * Referencias:
-   *            Función addFavoriteProduct del servicio de productos (product.service),
-   *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)
+   *            Función addFavoriteProduct del servicio de productos (product.service)
    */
 
-  addFavoriteProduct(id: number) {
+  deleteFavoriteProduct(id: number) {
     try {
       if (!this.authService.isAuthenticated()) {
-        return this.customAlertService.sweetAlertPersonalizada('error', "Sin autenticación", "Para agregar un producto a favoritos primero debes de iniciar sesión.");
+        return this.customAlertService.sweetAlertPersonalizada('error', "Sin autenticación", "Para eliminar un producto de favoritos primero debes de iniciar sesión.");
       }
 
-      this.productService.addFavoriteProduct(`${apiURL}/usuario/agregar/producto/favorito`, id).subscribe({
+      this.productService.deleteFavoriteProduct(`${apiURL}/usuario/eliminar/producto/favorito`, id).subscribe({
         next: (data: any) => {
           this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
+          this.getFavoriteProducts();
         },
         error: (error: any) => {
-          this.customAlertService.sweetAlertPersonalizada('error', "Lo siento", error.error.error);
+          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
         }
       });
     } catch (error: any) {
@@ -100,7 +104,7 @@ export class ProductsSectionComponent {
       this.shoppingCartService.addProductCart(`${apiURL}/usuario/carrito/agregar`, body).subscribe({
         next: (data: any) => {
           this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
-          this.getProducts();
+          this.getFavoriteProducts();
         },
         error: (error: any) => {
           this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);

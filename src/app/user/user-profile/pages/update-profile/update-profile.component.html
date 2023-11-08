@@ -1,3 +1,125 @@
 <app-nav-bar></app-nav-bar>
 
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12 mb-5">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
+                <div class="col-md-4 bg-light p-5 mb-5" style="margin-right: 20px;">
+                    <img src="{{ previewImage || image }}" alt="Foto de Perfil" class="img-fluid rounded-circle">
+                    <form (ngSubmit)="onUploadAvatar()">
+                        <div class="mt-3">
+                            <div class="form-group">
+                                <input class="mt-3 form-control" id="formFile" type="file" accept=".png, .jpg, .jpeg" name="avatar" (change)="onFileSelected($event)" required>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-12 d-flex justify-content-center mt-4">
+                                    <!-- Submit button -->
+                                    <button type="submit" class="btn btn-primary" [disabled]="uploading">Subir Foto</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-md-5 bg-light p-5 mb-5">
+                    <div class="text-center mb-3">
+                        <h2>Actualizar datos personales</h2>
+                    </div>
+                    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">            
+                        <!-- Name input -->
+                        <div class="form-floating mb-3">
+                            <input type="text" formControlName="nombre" class="form-control" placeholder="Ingresa tu nombre">
+                            <label for="registerName">Nombre</label>
+                            <div *ngIf="updateForm.get('nombre')?.hasError('minlength') && updateForm.get('nombre')?.touched" class="text-danger">
+                                El nombre es demasiado corto (mínimo 3 carácteres).
+                            </div>
+                            <div *ngIf="updateForm.get('nombre')?.hasError('maxlength') && updateForm.get('nombre')?.touched" class="text-danger">
+                                El nombre es demasiado largo (máximo 30 carácteres).
+                            </div>
+                            <div *ngIf="updateForm.get('nombre')?.hasError('pattern') && updateForm.get('nombre')?.touched" class="text-danger">
+                                El nombre no es válido, no use carácteres especiales.
+                            </div>
+                        </div>
+                
+                        <!-- Username input -->
+                        <div class="form-floating mb-3">
+                            <input type="text" formControlName="apellido" class="form-control" placeholder="Ingresa tu apellido">
+                            <label for="registerUsername">Apellido</label>
+                            <div *ngIf="updateForm.get('apellido')?.hasError('minlength') && updateForm.get('apellido')?.touched" class="text-danger">
+                                El apellido es demasiado corto (mínimo 3 carácteres).
+                            </div>
+                            <div *ngIf="updateForm.get('apellido')?.hasError('maxlength') && updateForm.get('apellido')?.touched" class="text-danger">
+                                El apellido es demasiado largo (máximo 30 carácteres).
+                            </div>
+                            <div *ngIf="updateForm.get('apellido')?.hasError('pattern') && updateForm.get('apellido')?.touched" class="text-danger">
+                                El apellido no es válido, no use carácteres especiales.
+                            </div>
+                        </div>
+                
+                        <!-- Tel input -->
+                        <div class="form-floating mb-3">
+                            <input type="text" formControlName="telefono" class="form-control"
+                                placeholder="Ingresa tu número de teléfono">
+                            <label for="registerTel">Teléfono</label>
+                            <div *ngIf="updateForm.get('telefono')?.hasError('pattern') && updateForm.get('telefono')?.touched" class="text-danger">
+                                El teléfono no es válido, debe de poseer 8 dígitos.
+                            </div>
+                        </div>
+                
+                        <!-- Nit input -->
+                        <div class="form-floating mb-3">
+                            <input type="number" formControlName="nit" class="form-control" placeholder="Ingresa tu NIT">
+                            <label for="registerNIT">NIT</label>
+                            <div *ngIf="updateForm.get('nit')?.hasError('pattern') && updateForm.get('nit')?.touched" class="text-danger">
+                                El NIT no es válido.
+                            </div>
+                        </div>
+                
+                        <!-- Departamento input -->
+                        <div class="form-floating mb-3">
+                            <select class="form-select" aria-label="Default select example" (change)="onDepartmentSelected($event)" formControlName="departamento">
+                                <option value="null">Selecciona un departamento</option>
+                                <option *ngFor="let department of departments" [value]="department.id">{{ department.Nombre_Departamento }}
+                                </option>
+                            </select>
+                            <label for="registerDepartamento">Departamento</label>
+                        </div>
+                
+                        <!-- Municipio input -->
+                        <div class="form-floating mb-3">
+                            <select class="form-select" aria-label="Default select example" formControlName="municipio">
+                                <option value="null">Selecciona un municipio</option>
+                                <option *ngFor="let municipality of municipalities" [value]="municipality.id">{{ municipality.Nombre_Municipio }}</option>
+                            </select>
+                            <label for="registerMunicipio">Municipio</label>
+                        </div>
+                
+                        <!-- Address input -->
+                        <div class="form-floating mb-3">
+                            <textarea id="floatingTextarea2" minlength="10" maxlength="101" style="max-height: 100px;" formControlName="direccion" class="form-control" placeholder="Ingresa tu dirección general"></textarea>
+                            <label for="registerAddress">Dirección general</label>
+                            <div *ngIf="updateForm.get('direccion')?.hasError('pattern') && updateForm.get('direccion')?.touched" class="text-danger">
+                                La dirección no es válida, no use carácteres especiales.
+                            </div>
+                            <div *ngIf="updateForm.get('direccion')?.hasError('minlength') && updateForm.get('direccion')?.touched" class="text-danger">
+                                La dirección es demasiado corta (mínimo 10 carácteres).
+                            </div>
+                            <div *ngIf="updateForm.get('direccion')?.hasError('maxlength') && updateForm.get('direccion')?.touched" class="text-danger">
+                                La dirección es demasiado larga (máximo 100 carácteres).
+                            </div>
+                        </div>
+                
+                        <div class="row mb-4">
+                            <div class="col-md-12 d-flex justify-content-center mt-3">
+                                <!-- Submit button -->
+                                <button type="submit" class="btn btn-primary btn-block w-75">Actualizar datos</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <app-footer></app-footer>

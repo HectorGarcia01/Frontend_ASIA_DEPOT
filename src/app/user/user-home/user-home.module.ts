@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { UserHomeRoutingModule } from './user-home-routing.module';
 import { HomeComponent } from './pages/home/home.component';
@@ -23,6 +24,8 @@ import { ReviewsSectionComponent } from './components/reviews-section/reviews-se
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
     UserHomeRoutingModule,
     UserSharedModule
   ]

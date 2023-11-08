@@ -1,15 +1,38 @@
-import { Category } from "./category.interface";
-import { ProductBrand } from "./product_brand.interface";
-
-export interface Product { //***********************************Pendiente revisar la estructra de como lo envio y mandar también a que categoría pertenerce y marca si tiene */
+export interface Product {
     id: number;
     Nombre_Producto: string;
-    Descripcion_Categoria?: string;
     Precio_Venta: number;
     Descripcion_Producto?: string;
     Cantidad_Stock: number;
-    categoria: Category[];
-    marca: ProductBrand[];
+    Producto_Destacado: boolean;
+    estado: {
+        id: number;
+        Tipo_Estado: string
+    };
+    categoria: {
+        id: number;
+        Nombre_Categoria: string;
+        Descripcion_Categoria: string;
+    };
+    marca?: {
+        id?: number;
+        Nombre_Marca?: string;
+    };
+}
+
+export interface FavoriteProduct {
+    id: number;
+    producto: {
+        id: number;
+        Nombre_Producto: string;
+        Descripcion_Producto: string;
+        Cantidad_Stock: number;
+        Precio_Venta: number;
+        estado: {
+            id: number;
+            Tipo_Estado: string;
+        };
+    }
 }
 
 export interface Products {
