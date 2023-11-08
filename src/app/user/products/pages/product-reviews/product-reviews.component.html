@@ -11,19 +11,9 @@
         <div class="col-lg-7 h-auto">
             <div class="h-100 bg-light p-5">
                 <h1 class="text-center mb-4">{{product.Nombre_Producto}}</h1>
-                <!-- <div class="d-flex mb-3">
-                    <div class="text-primary mr-2">
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star"></small>
-                        <small class="fas fa-star-half-alt"></small>
-                        <small class="far fa-star"></small>
-                    </div>
-                    <small class="pt-1">(99 Reviews)</small>
-                </div> -->
                 <p class="mb-4">{{ product.Descripcion_Producto }}</p>
-                <h3 class="font-weight-semi-bold mb-2">s</h3>
-                <p class="mb-4">ss</p>
+                <h3 class="font-weight-semi-bold mb-2">{{ category.Nombre_Categoria }}</h3>
+                <p class="mb-4">{{ category.Descripcion_Categoria }}</p>
                 <h3 class="font-weight-semi-bold mb-4">Q.{{ product.Precio_Venta }}</h3>
                 <h3 class="font-weight-semi-bold mb-4">Disponibilidad: {{ product.Cantidad_Stock }}</h3>
 
@@ -70,7 +60,7 @@
             <div class="bg-light">
                 <div class="nav nav-tabs mb-2">
                     <a class="nav-item nav-link text-dark" [routerLink]="['/product/detail', product.id]" data-toggle="tab">Description</a>
-                    <a class="nav-item nav-link text-dark active" data-toggle="tab">Reviews (0)</a>
+                    <a class="nav-item nav-link text-dark active" data-toggle="tab">Reviews</a>
                 </div>
                 <div class="tab-content">
 
@@ -79,6 +69,16 @@
                         <div class="row p-4">
                             <div class="col-md-6">
                                 <h4 class="mb-4">Reseñas de "{{ product.Nombre_Producto }}"</h4>
+                                
+                                <div *ngIf="noneReviews == false" class="row justify-content-center align-items-center">
+                                    <div class="col-12 text-center">
+                                        <h5>
+                                            Actualmente no hay reseñas para este producto.
+                                        </h5>
+                                        <img width="300" height="300" src="assets/404.jpg" class="img-fluid rounded-circle" alt="Error 404">
+                                    </div>
+                                </div>
+
                                 <div class="media mb-4" *ngFor="let item of productReviews">
                                     <img src="assets/Logo_ASIA_DEPOT.png" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
                                     <div class="media-body">
@@ -103,12 +103,19 @@
                                                 <option value="5">5 estrellas</option>
                                             </select>
                                             <label for="register">Puntuación de producto</label>
+                                            <div *ngIf="registerForm.get('puntuacion')?.hasError('required') && registerForm.get('puntuacion')?.touched"
+                                                class="text-danger">
+                                                La puntuación es obligatoria.
+                                            </div>
                                         </div>
                                     </div>
                                     <!-- Address input -->
                                     <div class="form-floating mb-3">
                                         <textarea id="floatingTextarea2" minlength="10" maxlength="201" style="max-height: 100px; height: 100px; max-width: 500px;" formControlName="comentario" class="form-control" placeholder="Ingresa tu dirección general"></textarea>
                                         <label for="registerAddress">Comentario</label>
+                                        <div *ngIf="registerForm.get('comentario')?.hasError('required') && registerForm.get('comentario')?.touched" class="text-danger">
+                                            El comentario es obligatorio.
+                                        </div>
                                         <div *ngIf="registerForm.get('comentario')?.hasError('pattern') && registerForm.get('comentario')?.touched" class="text-danger">
                                             El comentario no es válido, no use carácteres especiales.
                                         </div>

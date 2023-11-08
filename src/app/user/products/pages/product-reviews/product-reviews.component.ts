@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from 'src/app/user/services/product.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -7,6 +7,7 @@ import { ShoppingCartService } from 'src/app/user/services/shopping-cart.service
 import { ReviewsService } from 'src/app/user/services/reviews.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { Product } from 'src/app/user/interfaces/product.interface';
+import { Category } from 'src/app/user/interfaces/category.interface';
 import { apiURL } from 'src/app/config/config';
 
 @Component({
@@ -17,8 +18,10 @@ import { apiURL } from 'src/app/config/config';
 export class ProductReviewsComponent implements OnInit {
   registerForm!: FormGroup;
   product: Product = {} as Product;
+  category: Category = {} as Category;
   productReviews: any = [];
   increment: number = 1;
+  noneReviews: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -65,6 +68,7 @@ export class ProductReviewsComponent implements OnInit {
   getProductId(IdProduct: string) {
     this.productService.getProductId(`${apiURL}/usuario/ver/producto/${IdProduct}`).subscribe((data: any) => {
       this.product = data.product;
+      this.category = data.product.categoria;
     });
   }
 
@@ -105,8 +109,8 @@ export class ProductReviewsComponent implements OnInit {
 
   private validateForm() {
     this.registerForm = new FormGroup({
-      puntuacion: new FormControl('', [Validators.pattern('^[0-5]')]),
-      comentario: new FormControl('', [Validators.pattern(/^[^[\]<>(){}_=\\|';]+$/), Validators.minLength(10), Validators.maxLength(200)]),
+      puntuacion: new FormControl('', [Validators.required, Validators.pattern('^[0-5]')]),
+      comentario: new FormControl('', [Validators.required, Validators.pattern(/^[^[\]<>(){}_=\\|';]+$/), Validators.minLength(10), Validators.maxLength(200)]),
     });
   }
 
@@ -119,25 +123,33 @@ export class ProductReviewsComponent implements OnInit {
    *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)
    */
 
-  addProductReview(ID_Producto_FK: number) {
-    if (this.registerForm.valid) {
-      const body = {
-        Comentario_Producto: this.registerForm.get('comentario')?.value,
-        Puntuacion_Producto: this.registerForm.get('puntuacion')?.value,
-        ID_Producto_FK
-      }
-      this.reviewsService.addReview(`${apiURL}/usuario/nueva/valoracion/producto`, body).subscribe({
-        next: (response: any) => {
-          this.registerForm.reset();
-          this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
-          this.getReviews(ID_Producto_FK);
-        },
-        error: (error: any) => {
-          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+  addProductReview(ID_Producto_FK: number) { 
+    try {
+      if (!this.authService.isAuthenticated()) {
+        return this.customAlertService.sweetAlertPersonalizada('error', "Sin autenticación", "Para agregar una reseña primero debes de iniciar sesión.");
+      } 
+
+      if (this.registerForm.valid) {
+        const body = {
+          Comentario_Producto: this.registerForm.get('comentario')?.value,
+          Puntuacion_Producto: this.registerForm.get('puntuacion')?.value,
+          ID_Producto_FK
         }
-      });
-    } else {
-      this.customAlertService.sweetAlertPersonalizada('error', "Error", "Por favor, verifica los campos del formulario.");
+        this.reviewsService.addReview(`${apiURL}/usuario/nueva/valoracion/producto`, body).subscribe({
+          next: (response: any) => {
+            this.registerForm.reset();
+            this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
+            this.getReviews(ID_Producto_FK);
+          },
+          error: (error: any) => {
+            this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+          }
+        });
+      } else {
+        this.customAlertService.sweetAlertPersonalizada('error', "Error", "Por favor, verifica los campos del formulario.");
+      }
+    } catch (error: any) {
+      console.log(error.error);
     }
   }
 
@@ -164,10 +176,12 @@ export class ProductReviewsComponent implements OnInit {
 
               review.createdAt = newDateCreate;
             }
-          });        
+          });
+          
+          this.noneReviews = true;
         },
         error: (error: any) => {
-          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+          this.noneReviews = false;
         }
       });
     } catch (error: any) {
@@ -182,6 +196,10 @@ export class ProductReviewsComponent implements OnInit {
   }
 
   increaseQuantity() {
-    this.increment++;
+    if (this.increment < this.product.Cantidad_Stock) {
+      this.increment++;
+    } else {
+      this.customAlertService.sweetAlertPersonalizada('error', "Lo siento", `No hay sufiente stock de "${this.product.Nombre_Producto}"`);
+    }
   }
 }
