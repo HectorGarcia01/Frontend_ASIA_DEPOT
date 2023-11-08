@@ -1,0 +1,136 @@
+<app-nav-bar></app-nav-bar>
+<!-- Shop Detail Start -->
+<div class="container-fluid pb-5 mt-4">
+    <div class="row px-xl-5">
+        <div class="col-lg-5">
+            <div>
+                <img class="w-100 h-100" src="assets/Logo_ASIA_DEPOT.png" alt="Logo producto ASIA DEPOT">
+            </div>
+        </div>
+
+        <div class="col-lg-7 h-auto">
+            <div class="h-100 bg-light p-5">
+                <h1 class="text-center mb-4">{{product.Nombre_Producto}}</h1>
+                <!-- <div class="d-flex mb-3">
+                    <div class="text-primary mr-2">
+                        <small class="fas fa-star"></small>
+                        <small class="fas fa-star"></small>
+                        <small class="fas fa-star"></small>
+                        <small class="fas fa-star-half-alt"></small>
+                        <small class="far fa-star"></small>
+                    </div>
+                    <small class="pt-1">(99 Reviews)</small>
+                </div> -->
+                <p class="mb-4">{{ product.Descripcion_Producto }}</p>
+                <h3 class="font-weight-semi-bold mb-2">s</h3>
+                <p class="mb-4">ss</p>
+                <h3 class="font-weight-semi-bold mb-4">Q.{{ product.Precio_Venta }}</h3>
+                <h3 class="font-weight-semi-bold mb-4">Disponibilidad: {{ product.Cantidad_Stock }}</h3>
+
+
+                <div class="d-flex justify-content-center mb-4 pt-2">
+                    <div class="input-group quantity mr-3" style="width: 130px;">
+                        <div class="input-group-btn">
+                            <button class="btn btn-primary btn-minus" (click)="decreaseQuantity()">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                        <input type="text" class="form-control border-2 text-center" value="{{ increment }}">
+                        <div class="input-group-btn">
+                            <button class="btn btn-primary btn-plus" (click)="increaseQuantity()">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary px-4" style="margin-left: 20px;" (click)="onSubmit(product.id)"><i
+                            class="fa fa-shopping-cart mr-1"></i>Agregar al carrito</button>
+                </div>
+                <div class="d-flex pt-2">
+                    <strong class="text-dark mr-2">Síguenos en:</strong>
+                    <div class="d-inline-flex">
+                        <a class="text-dark px-2" href="https://www.facebook.com/asiadepot?mibextid=ZbWKwL"
+                            target="_blank">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="text-dark px-2" href="https://instagram.com/asiadepot?igshid=MzRlODBiNWFlZA=="
+                            target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a class="text-dark px-2" href="https://wa.me/50246651581" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="bg-light">
+                <div class="nav nav-tabs mb-2">
+                    <a class="nav-item nav-link text-dark" [routerLink]="['/product/detail', product.id]" data-toggle="tab">Description</a>
+                    <a class="nav-item nav-link text-dark active" data-toggle="tab">Reviews (0)</a>
+                </div>
+                <div class="tab-content">
+
+                    <!-- Sección para los reviews de clientes -->
+                    <div class="tab-pane fade show active" id="tab-pane-3">
+                        <div class="row p-4">
+                            <div class="col-md-6">
+                                <h4 class="mb-4">Reseñas de "{{ product.Nombre_Producto }}"</h4>
+                                <div class="media mb-4" *ngFor="let item of productReviews">
+                                    <img src="assets/Logo_ASIA_DEPOT.png" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                    <div class="media-body">
+                                        <h6>{{ item.cliente.Nombre_Cliente }}<small> - <i>{{ item.createdAt }}</i></small></h6>
+                                        <p> Puntuación: {{ item.Puntuacion_Producto }}</p>
+                                        <p> {{ item.Comentario_Producto }} </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h4 class="mb-4">Deja tu reseña</h4>
+                                <form [formGroup]="registerForm" (ngSubmit)="addProductReview(product.id)">
+                                    <div class="d-flex my-3">
+                                        <!-- Puntuación input -->
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" aria-label="Default select example" formControlName="puntuacion">
+                                                <option selected>Selecciona una puntuación</option>
+                                                <option value="1">1 estrella</option>
+                                                <option value="2">2 estrellas</option>
+                                                <option value="3">3 estrellas</option>
+                                                <option value="4">4 estrellas</option>
+                                                <option value="5">5 estrellas</option>
+                                            </select>
+                                            <label for="register">Puntuación de producto</label>
+                                        </div>
+                                    </div>
+                                    <!-- Address input -->
+                                    <div class="form-floating mb-3">
+                                        <textarea id="floatingTextarea2" minlength="10" maxlength="201" style="max-height: 100px; height: 100px; max-width: 500px;" formControlName="comentario" class="form-control" placeholder="Ingresa tu dirección general"></textarea>
+                                        <label for="registerAddress">Comentario</label>
+                                        <div *ngIf="registerForm.get('comentario')?.hasError('pattern') && registerForm.get('comentario')?.touched" class="text-danger">
+                                            El comentario no es válido, no use carácteres especiales.
+                                        </div>
+                                        <div *ngIf="registerForm.get('comentario')?.hasError('minlength') && registerForm.get('comentario')?.touched" class="text-danger">
+                                            El comentario es demasiado corto (mínimo 10 carácteres).
+                                        </div>
+                                        <div *ngIf="registerForm.get('comentario')?.hasError('maxlength') && registerForm.get('comentario')?.touched" class="text-danger">
+                                            El comentario es demasiado largo (máximo 200 carácteres).
+                                        </div>
+                                    </div>
+                                    <div class="form-group mb-0">
+                                        <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Fin Sección para los reviews de clientes -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Shop Detail End -->
+<app-footer></app-footer>

@@ -6,6 +6,7 @@ import { apiURL } from 'src/app/config/config';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { SingIn } from '../../interfaces/login.interface';
 import { getCustomer } from 'src/app/user/interfaces/customer.interface';
+import { getEmployee } from 'src/app/admin/interfaces/employee.interface';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +15,8 @@ import { getCustomer } from 'src/app/user/interfaces/customer.interface';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  // employeeData: getEmployee[] = [];
-  customerData: getCustomer[] = [];
+  employeeData!: getEmployee;
+  customerData!: getCustomer;
 
   constructor(
     private fb: FormBuilder,
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.scrollToTop();
   }
 
   /**
@@ -54,28 +55,40 @@ export class LoginComponent implements OnInit {
    */
 
   singIn() {
-    if (this.loginForm.valid) {
-      const signIn: SingIn = {
-        correo: this.loginForm.get('correo')?.value,
-        password: this.loginForm.get('password')?.value
-      }
+    try {
+      if (this.loginForm.valid) {
+        const signIn: SingIn = {
+          correo: this.loginForm.get('correo')?.value,
+          password: this.loginForm.get('password')?.value
+        }
 
-      this.authService.singIn(`${apiURL}/usuario/login`, signIn).subscribe((data: any) => {
-          this.authService.saveCookieAuth();
-          this.authService.saveCookieRole(data.userRole);
-          if (data.userRole === 'Admin' || data.userRole === 'SuperAdmin') {
-            // this.employeeData = data.user;
-            this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", `Bienvenido ${data.user.Nombre_Empleado} ${data.user.Apellido_Empleado}`);
-            this.router.navigate(['/admin']);
-          } else {
-            this.customerData = data.user;
-            this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", `Bienvenido ${data.user.Nombre_Cliente} ${data.user.Apellido_Cliente}`);
-            this.router.navigate(['/home']);
+        this.authService.singIn(`${apiURL}/usuario/login`, signIn).subscribe({
+          next: (data: any) => {
+            this.authService.saveCookieAuth(data.userToken);
+            this.authService.saveCookieRole(data.userRole);
+            if (data.userRole === 'Admin' || data.userRole === 'SuperAdmin') {
+              this.employeeData = data.user;
+              this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", `Bienvenido ${this.employeeData.Nombre_Empleado} ${this.employeeData.Apellido_Empleado}`);
+              this.router.navigate(['/admin']);
+            } else {
+              this.customerData = data.user;
+              this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", `Bienvenido ${this.customerData.Nombre_Cliente} ${this.customerData.Apellido_Cliente}`);
+              this.router.navigate(['/home']);
+            }
+          },
+          error: (error: any) => {
+            this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
           }
-      }, (error:any) => {
-        console.log(error.error);
-        this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
-      });
+        });
+      } else {
+        this.customAlertService.sweetAlertPersonalizada('error', "Error", "Todos los campos son obligatorios");
+      }
+    } catch (error: any) {
+      console.log(error.error);
     }
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
 import { UserServicesService } from 'src/app/user/services/user-services.service';
+import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { Department, Municipalities } from 'src/app/user/interfaces/address.interface';
 import { addCustomer } from 'src/app/user/interfaces/customer.interface';
 import { apiURL } from 'src/app/config/config';
@@ -21,7 +23,9 @@ export class SingUpComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserServicesService
+    private router: Router,
+    private userService: UserServicesService,
+    private customAlertService: CustomAlertService
   ) { 
     this.validateForm();
   }
@@ -77,13 +81,13 @@ export class SingUpComponent implements OnInit {
       nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/), Validators.minLength(3), Validators.maxLength(30)]),
       apellido: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/), Validators.minLength(3), Validators.maxLength(30)]),
       telefono: new FormControl('', [Validators.required, Validators.pattern(/^[345][0-9]{7}$/)]),
-      nit: new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]),
+      nit: new FormControl('', [Validators.pattern('^[0-9]+$')]),
       direccion: new FormControl('', [Validators.pattern(/^[^[\]<>(){}_=\\|';]+$/), Validators.minLength(10), Validators.maxLength(100)]),
       correo: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(40)]),
       password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?!.*\s).*$/), Validators.minLength(8), Validators.maxLength(25)]),
       repetir_password: new FormControl('', [Validators.required]),
-      departamento: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]+$')]),
-      municipio: new FormControl(null, [Validators.required, Validators.pattern('^[0-9]+$')])
+      departamento: new FormControl(null, [Validators.pattern('^[0-9]+$')]),
+      municipio: new FormControl(null, [Validators.pattern('^[0-9]+$')])
     }, {
       validators: [this.passwordMatchValidator]
     });
@@ -144,7 +148,8 @@ export class SingUpComponent implements OnInit {
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    * Referencias: 
-   *            Función getAddress del servicio de usuario (user-services.service)
+   *            Función addCustomer del servicio de usuario (user-services.service),
+   *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)
    */
 
   onSubmit() {
@@ -157,13 +162,21 @@ export class SingUpComponent implements OnInit {
       if (password === repeatPassword) {
         const userData = this.getUserData(); 
 
-        this.userService.addCustomer(`${apiURL}/nuevo/cliente`, userData).subscribe((response) => {
-          alert(response.msg);
-          this.registerForm.reset();
+        this.userService.addCustomer(`${apiURL}/nuevo/cliente`, userData).subscribe({
+          next: (response: any) => {
+            this.registerForm.reset();
+            this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
+            this.router.navigate(['/login/activate/account']);
+          },
+          error: (error: any) => {
+            this.customAlertService.sweetAlertPersonalizada('error', error.error.error, "Por favor, intenta con otro correo.");
+          }
         });
       } else {
         this.registerForm.get('repetir_password')?.setErrors({ passwordsNotMatch: true });
       }
+    } else {
+      this.customAlertService.sweetAlertPersonalizada('error', "Error", "Por favor, verifica los campos del formulario.");
     }
   }
 } 

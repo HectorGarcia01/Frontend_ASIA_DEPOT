@@ -7,11 +7,14 @@
             <!-- ENCUÉNTRANOS -->
             <div class="col-md-4 col-sm-12">
                 <h5 class="headin5_amrc col_white_amrc pt2">ENCUÉNTRANOS</h5>
-                <p class="mb10">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                    has been the industry's standard dummy text ever since the 1500s</p>
-                <p><i class="fa fa-location-arrow"></i> 9878/25 sec 9 rohini 35 </p>
-                <p><i class="fa fa-phone"></i> +502 4665 1581 </p>
-                <p><i class="fa fa-envelope"></i> asiadepotchiquimulilla@gmail.com </p>
+                <p class="mb10">
+                    Visita nuestra tienda y descubre productos excepcionales que satisfarán todas tus necesidades. ¡Esperamos verte pronto en ASIA DEPOT!
+                </p>
+                <ul class="list-unstyled">
+                    <li><a href="https://www.google.com/maps?q=14.084309577941895,-90.38140869140625&z=17&hl=es" target="_blank" class="text-decoration-none text-white"><i class="fa fa-location-arrow"></i> Chiquimulilla, Santa Rosa </a></li>
+                    <li><a href="https://wa.me/50246651581" target="_blank" class="text-decoration-none text-white"><i class="fa fa-phone"></i> +502 4665 1581 </a></li>
+                    <li><a href="mailto:asiadepotchiquimulilla@gmail.com" target="_blank" class="text-decoration-none text-white"><i class="fa fa-envelope"></i> asiadepotchiquimulilla@gmail.com </a></li>
+                </ul>
             </div>
 
             <!-- CATEGORÍAS -->
@@ -32,12 +35,16 @@
             <!-- SUSCRÍBETE AL NEWSLETTER -->
             <div class="col-md-4 col-sm-6">
                 <h5 class="headin5_amrc col_white_amrc pt2">SUSCRÍBETE AL NEWSLETTER</h5>
-                <p class="mb10">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-                    has been the industry's standard dummy text ever since the 1500s</p>
-                <form action="#">
+                <p class="mb10">
+                    ¿Listo para descubrir lo mejor en productos de calidad? Únete a nuestra comunidad de suscriptores y mantente al día con
+                    ASIA DEPOT. Desde herramientas hasta productos para el hogar, juguetes y más, nuestro newsletter te ofrece acceso
+                    exclusivo a ofertas especiales, noticias emocionantes y sugerencias para aprovechar al máximo tus compras. ¡No te
+                    pierdas las oportunidades que tenemos para ti!
+                </p>
+                <form [formGroup]="newsletterForm" (ngSubmit)="onSubmit()">
                     <div class="input-group mb-3">
-                        <input class="form-control" type="email" placeholder="Escribe tu correo" aria-label="Escribe tu correo" aria-describedby="button-addon2">
-                        <button class="btn btn-primary" id="button-addon2" type="button"><i class="fas fa-paper-plane"></i></button>
+                        <input formControlName="newsletterEmail" class="form-control" type="email" placeholder="Escribe tu correo" aria-label="Escribe tu correo" aria-describedby="button-addon2">
+                        <button class="btn btn-primary" id="button-addon2" type="submit"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </form>
             </div>
@@ -51,13 +58,13 @@
             <li><a [routerLink]="['/about']" (click)="scrollToTop()">Nosotros</a></li>
             <li><a [routerLink]="['/contact-us']" (click)="scrollToTop()">Contáctanos</a></li>
         </ul>
-        <p class="text-center">© 2023 Copyright | Ing. Hector García</p>
+        <p class="text-center">&copy; 2023 Powered by | Ing. Hector García</p>
 
         <ul class="social_footer_ul">
-            <li><a href="https://www.facebook.com/asiadepot?mibextid=ZbWKwL"><i class="fab fa-facebook-f"></i></a></li>
-            <li><a href="https://instagram.com/asiadepot?igshid=MzRlODBiNWFlZA=="><i class="fab fa-instagram"></i></a></li>
-            <li><a href="#"><i class="fab fa-whatsapp"></i></a></li>
-            <li><a href="#"><i class="fab fa-google"></i></a></li>
+            <li><a href="https://www.facebook.com/asiadepot?mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="https://instagram.com/asiadepot?igshid=MzRlODBiNWFlZA==" target="_blank"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="https://wa.me/50246651581" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+            <li><a href="mailto:asiadepotchiquimulilla@gmail.com" target="_blank"><i class="fab fa-google"></i></a></li>
         </ul>
     </div>
 </footer>

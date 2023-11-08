@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { CustomAlertService } from 'src/app/services/custom-alert.service';
+import { apiURL } from 'src/app/config/config';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +17,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private cookieService: CookieService,
+    private customAlertService: CustomAlertService,
     private router: Router
   ) { }
 
@@ -30,7 +33,7 @@ export class AuthService {
         this.roleSubject.next(data.userRole);
       })
     );
-  }
+  };
 
   /**
    * Función para guardar la cookie de autenticación
@@ -38,9 +41,8 @@ export class AuthService {
    * Autor: Hector Armando García González
    */
 
-  saveCookieAuth() {
-    const token = this.cookieService.get('authCookie');
-    this.cookieService.set('authCookie', token);
+  saveCookieAuth(userToken: string) {
+    this.cookieService.set('authCookie', userToken);
   }
 
   /**
@@ -51,6 +53,16 @@ export class AuthService {
 
   saveCookieRole(userRole: string) {
     this.cookieService.set('roleCookie', userRole);
+  }
+
+  /**
+   * Función para obtener la cookie de autenticación de usuario
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
+
+  getCookieAuth() {
+    return this.cookieService.get('authCookie');
   }
 
   /**
@@ -74,14 +86,44 @@ export class AuthService {
   }
 
   /**
-   * Función para cerrar sesión (eliminar cookies)
+   * Función para eliminar las cookies
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    */
 
-  logout(): void {
+  deleteCookie() {
     this.cookieService.delete('authCookie');
     this.cookieService.delete('roleCookie');
     this.router.navigate(['/home']);
+  }
+
+  /**
+   * Función para realizar una solicitud post para cerrar la sesión actual
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
+
+  logout(): Observable<any> {
+    const token = this.getCookieAuth();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.post<any>(`${apiURL}/usuario/logout`, null, { headers });
+  }
+
+  /**
+   * Función para realizar una solicitud post para cerrar todas las sesiones
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
+
+  logoutAll(): Observable<any> {
+    const token = this.getCookieAuth();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.post<any>(`${apiURL}/usuario/logoutAll`, null, { headers });
   }
 }

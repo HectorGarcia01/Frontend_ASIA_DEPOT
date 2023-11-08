@@ -1,40 +1,90 @@
 <app-nav-bar></app-nav-bar>
 <!-- Products Start -->
 <div class="container-fluid pt-5 pb-3">
-    <h2 class="mx-xl-5 mb-4">Productos</h2>
+    <h1 class="mx-xl-5 mb-4 text-center">Catálogo de Productos ASIA DEPOT</h1>
+
     <div class="row px-xl-5">
+        <!-- Barra de navegación de categorías -->
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a class="nav-link active" (click)="getProducts()">Todos</a>
+            </li>
+            <li class="nav-item" *ngFor="let categoria of category">
+                <a class="nav-link" (click)="getProductsCategory(categoria.id)">{{ categoria.Nombre_Categoria }}</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-md-12 mb-5 d-flex justify-content-center mt-4">
+        <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Bucar producto" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+    </div>
+    <div class="row px-xl-5">
+        <div *ngIf="msgError" class="row justify-content-center align-items-center">
+            <div class="col-12 text-center">
+                <h5>
+                    Lo sentimos, no se encontraron productos en esta categoría. ¡Por favor, elige otra categoría o vuelve más tarde!
+                </h5>
+                <img width="300" height="300" src="assets/404.jpg" class="img-fluid rounded-circle" alt="Error 404">
+            </div>
+        </div>
         <div class="col-lg-3 col-md-4 col-sm-6 pb-1" *ngFor="let producto of product">
             <div class="product-item bg-light mb-4">
                 <div class="product-img position-relative overflow-hidden">
                     <img class="img-fluid w-100" src="assets/Logo_ASIA_DEPOT.png" alt="Logo productos ASIA DEPOT">
                     <div class="product-action">
-                        <a class="btn btn-outline-dark btn-square"><i class="fa fa-shopping-cart"></i></a>
-                        <a class="btn btn-outline-dark btn-square"><i class="fa fa-heart"></i></a>
-                        <a class="btn btn-outline-dark btn-square"><i class="fa fa-sync-alt"></i></a>
-                        <a class="btn btn-outline-dark btn-square"><i class="fa fa-search"></i></a>
+                        <button *ngIf="producto.Cantidad_Stock > 0" class="btn btn-outline-dark btn-square" (click)="addProductCart(producto.id)"><i class="fa fa-shopping-cart"></i></button>
+                        <button *ngIf="producto.Cantidad_Stock == 0" class="btn btn-outline-dark btn-square" disabled><i class="fa fa-shopping-cart"></i></button>
+                        <button class="btn btn-outline-dark btn-square" (click)="addFavoriteProduct(producto.id)"><i class="fa fa-heart"></i></button>
+                        <button *ngIf="producto.Cantidad_Stock > 0" class="btn btn-outline-dark btn-square" [routerLink]="['/product/detail', producto.id]"><i class="fa fa-search"></i></button>
+                        <button *ngIf="producto.Cantidad_Stock == 0" class="btn btn-outline-dark btn-square" disabled><i class="fa fa-search"></i></button>
                     </div>
                 </div>
                 <div class="text-center py-4">
                     <a class="text-decoration-none text-truncate productName" [routerLink]="['/product/detail', producto.id]"><h4>{{ producto.Nombre_Producto }}</h4></a>
                     <h5>Cantidad disponible: {{ producto.Cantidad_Stock }}</h5>
                     <div class="d-flex align-items-center justify-content-center mt-2">
-                        <h5>Q{{ producto.Precio_Venta }}</h5>
+                        <h5 style="margin-right: 6px;">Q{{ producto.Precio_Venta }}</h5>
                         <h6 class="text-muted ml-2"><del>Q{{ producto.Precio_Venta }}</del></h6>
                     </div>
-                    <div class="d-flex align-items-center justify-content-center mb-1">
+                    <!-- <div class="d-flex align-items-center justify-content-center mb-1">
                         <small class="fa fa-star text-primary mr-1"></small>
                         <small class="fa fa-star text-primary mr-1"></small>
                         <small class="fa fa-star text-primary mr-1"></small>
                         <small class="fa fa-star text-primary mr-1"></small>
                         <small class="fa fa-star text-primary mr-1"></small>
                         <small>(99)</small>
-                    </div>
+                    </div> -->
                     <div class="container-btn">
-                        <a class="btn btn-primary" [routerLink]="['/product/detail', producto.id]" (click)="scrollToTop()">Ver detalles</a>
+                        <a *ngIf="producto.Cantidad_Stock > 0" class="btn btn-primary" [routerLink]="['/product/detail', producto.id]">Ver detalles</a>
+                        <button *ngIf="producto.Cantidad_Stock == 0" class="btn btn-danger" disabled>Agotado</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Paginación -->
+    <div class="d-flex justify-content-center">
+        <nav aria-label="Page navigation example" *ngIf="totalPages > 1">
+            <ul class="pagination">
+                <li class="page-item" [class.disabled]="currentPage === 1">
+                    <a class="btn page-link" (click)="changePage(currentPage - 1)" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item" *ngFor="let page of getPagesArray()" [class.active]="currentPage === page">
+                    <a class="btn page-link" (click)="changePage(page)">{{ page }}</a>
+                </li>
+                <li class="page-item" [class.disabled]="currentPage === totalPages">
+                    <a class="btn page-link" (click)="changePage(currentPage + 1)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 <!-- Products End -->

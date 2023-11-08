@@ -23,7 +23,7 @@ export class CategoriesSectionComponent implements OnInit {
   }
 
   /**
-   * Función para consumir el servicio de de listar categorías
+   * Función para consumir el servicio de listar categorías
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    * Referencias: 
@@ -39,12 +39,26 @@ export class CategoriesSectionComponent implements OnInit {
       });
   }
 
+  /**
+   * Función para cambiar de página
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getCategories
+   */
+
   changePage(page: number) {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
       this.getCategories();
     }
   }
+
+  /**
+   * Función para obtener el número de páginas
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
 
   getPagesArray(): number[] {
     const pagesArray = [];

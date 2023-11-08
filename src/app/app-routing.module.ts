@@ -27,7 +27,7 @@ const routes: Routes = [
     path: '',
     loadChildren: () =>
       import('./user/shopping-cart/shopping-cart.module').then((m) => m.ShoppingCartModule),
-    canActivate: [NeutralRouteGuardService]
+    canActivate: [AuthUserGuardService]
   },
   {
     path: '',

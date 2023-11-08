@@ -1,19 +1,20 @@
 <app-nav-bar></app-nav-bar>
 
-<div class="container mt-2 mb-5">
+<div class="container mt-4 mb-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
                     <form class="border border-2 border-dark p-5" [formGroup]="loginForm" (ngSubmit)="singIn()">
-                        <div class="text-center mb-3">
-                            <p>Inicia sesión con:</p>
+                        <h1 class="text-center mb-5">Iniciar Sesión</h1>
+
+                        <!-- <div class="text-center mb-5">
                             <button type="button" class="btn btn-secondary btn-floating mx-1">
                                 <i class="fab fa-google"></i>
                             </button>
-                        </div>
+                        </div> -->
 
-                        <p class="text-center">o:</p>
+                        <!-- <p class="text-center">O BIEN</p> -->
 
                         <!-- Email input -->
                         <div class="form-outline mb-4">
@@ -53,6 +54,7 @@
                         <!-- Register buttons -->
                         <div class="text-center">
                             <p>¿No posees una cuenta? <a [routerLink]="['/signup']">Regístrate</a></p>
+                            <p>¿Tú cuenta no está activa? <a [routerLink]="['/login/activate/account']">Actívala</a></p>
                         </div>
                     </form>
                 </div>

@@ -1,3 +1,87 @@
 <app-nav-bar></app-nav-bar>
-<p>profile works!</p>
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-9 bg-light mb-3">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
+                <div class="col-md-4">
+                    <img src="{{ image }}" alt="Foto-Perfil" class="img-fluid rounded-circle">
+                </div>
+                <div class="col-md-4">
+                    <h1>{{ customer.Nombre_Cliente }}</h1>
+                    <h1>{{ customer.Apellido_Cliente }}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 mb-5">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+                <div class="col-md-6 bg-light p-5 mb-5 container-info">
+                    <h3 class="mb-4">Información personal</h3>
+                    <div class="mb-3">
+                        <label for="nombre"><strong>Nombre</strong></label>
+                        <p id="nombre">{{ customer.Nombre_Cliente }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="apellido"><strong>Apellido</strong></label>
+                        <p id="apellido">{{ customer.Apellido_Cliente }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="correo"><strong>Correo</strong></label>
+                        <p id="correo">{{ customer.Correo_Cliente }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="telefono"><strong>Teléfono</strong></label>
+                        <p id="telefono">{{ customer.Telefono_Cliente }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nit"><strong>NIT</strong></label>
+                        <p id="nit">{{ customer.NIT_Cliente }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="departamento"><strong>Departamento</strong></label>
+                        <p id="departamento">{{ customer.municipio?.departamento?.Nombre_Departamento }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="municipio"><strong>Municipio</strong></label>
+                        <p id="municipio">{{ customer.municipio?.Nombre_Municipio }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="direccion_general"><strong>Dirección general</strong></label>
+                        <p id="direccion_general">{{ customer.Direccion_General }}</p>
+                    </div>
+                </div>
+                <div class="col-md-5 bg-light p-5">
+                    <h3 class="mb-4">Acciones</h3>
+                    <div class="d-flex flex-column btnAction">
+                        <div class="mb-3">
+                            <a class="btn btn-primary btn-block" [routerLink]="'/profile/update'">Actualizar Datos</a>
+                        </div>
+                        <div class="mb-3">
+                            <a class="btn btn-primary btn-block" [routerLink]="'/profile/change-password'">Cambiar Contraseña</a>
+                        </div>
+                        <div class="mb-3">
+                            <a class="btn btn-primary btn-block" [routerLink]="'/profile/favorite/products'">Productos Favoritos</a>
+                        </div>
+                        <div class="mb-3">
+                            <a class="btn btn-primary btn-block">Historial de Compras</a>
+                        </div>
+                        <div class="mb-3">
+                            <a class="btn btn-danger btn-block" (click)="deleteProfilePicture()">Borrar Foto de Perfil</a>
+                        </div>
+                        <div class="mb-3">
+                            <a class="btn btn-danger btn-block" (click)="unsubscriptionNewsletter()">Anular Suscripción del Newsletter</a>
+                        </div>
+                        <div class="mb-3">
+                            <a class="btn btn-danger btn-block" (click)="logout()">Cerrar Sesión</a>
+                        </div>
+                        <div class="mb-3">
+                            <a class="btn btn-danger btn-block" (click)="logoutAll()">Cerrar Todas las Sesiones</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <app-footer></app-footer>
