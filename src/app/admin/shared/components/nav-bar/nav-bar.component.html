@@ -47,7 +47,19 @@
                     </ul>
                 </div>
             </li>
-            
+
+            <li class="mb-1">
+                <button class="btn btn-toggle align-items-center text-white rounded collapsed" data-bs-toggle="collapse" data-bs-target="#supplier-management-collapse" aria-expanded="true">
+                    Gestión de Proveedores
+                </button>
+                <div class="collapse" id="supplier-management-collapse">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a [routerLink]="['/admin/create/supplier']" class="nav-link text-white">Nuevo Proveedor</a></li>
+                        <li><a [routerLink]="['/admin/list/suppliers']" class="nav-link text-white">Ver Proveedores</a></li>
+                    </ul>
+                </div>
+            </li>
+
             <li class="mb-1">
                 <button class="btn btn-toggle align-items-center text-white rounded collapsed" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="true">
                     Gestión de Categorías
