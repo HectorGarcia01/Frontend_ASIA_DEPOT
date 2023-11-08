@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { ShoppingCartService } from 'src/app/user/services/shopping-cart.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { Product } from 'src/app/user/interfaces/product.interface';
+import { Category } from 'src/app/user/interfaces/category.interface';
 import { apiURL } from 'src/app/config/config';
 
 @Component({
@@ -14,6 +15,7 @@ import { apiURL } from 'src/app/config/config';
 })
 export class ProductDetailComponent implements OnInit {
   product: Product = {} as Product;
+  category: Category = {} as Category;
   increment: number = 1;
 
   constructor(
@@ -58,6 +60,7 @@ export class ProductDetailComponent implements OnInit {
   getProductId(IdProduct: string) {
     this.productService.getProductId(`${apiURL}/usuario/ver/producto/${IdProduct}`).subscribe((data: any) => {
       this.product = data.product;
+      this.category = data.product.categoria;
     });
   }
 
