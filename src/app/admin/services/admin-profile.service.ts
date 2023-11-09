@@ -38,13 +38,13 @@ export class AdminProfileService {
    *              Función getCookieAuth del servicio de autenticación (auth.service)
    */
 
-  updateEmployee(url: string, customer: any): Observable<any> {
+  updateEmployee(url: string, employee: any): Observable<any> {
     const token = this.authService.getCookieAuth();
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
 
-    return this.http.patch<any>(url, customer, { headers });
+    return this.http.patch<any>(url, employee, { headers });
   }
 
   /**
