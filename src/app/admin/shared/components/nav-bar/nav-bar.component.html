@@ -1,13 +1,13 @@
 <!-- SIDEBAR -->
 <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 <section id="sidebar" *ngIf="isNavBarVisible">
-    <a class="brand">
+    <a class="brand" [routerLink]="['/admin']">
         <i class='bx bxs-shopping-bags pointer'></i>
         <span class="text">ASIA DEPOT</span>
     </a>
     <ul class="side-menu">
         <li class="pointer">
-            <a>
+            <a [routerLink]="['/admin']">
                 <i class='bx bxs-dashboard'></i>
                 <span class="text">Dashboard</span>
             </a>
@@ -219,7 +219,7 @@
     <!-- NAVBAR -->
     <nav>
         <i class='bx bx-menu sizeToggle' (click)="toggleNavBar()"></i>
-        <a class="nav-link">ASIA DEPOT</a>
+        <a class="nav-link" [routerLink]="['/admin']">ASIA DEPOT</a>
         <form action="#">
             <div class="form-input">
                 <input type="search" placeholder="Search...">
