@@ -1,0 +1,27 @@
+.card {
+    height: 100%;
+}
+
+/* Media query para pantallas pequeñas (hasta 576px) */
+@media (max-width: 576px) {
+    .row-cols-md-3>* {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+/* Media query para pantallas medianas (de 576px a 768px) */
+@media (min-width: 577px) and (max-width: 768px) {
+    .row-cols-md-3>* {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+/* Media query para pantallas grandes (más de 768px) */
+@media (min-width: 769px) {
+    .row-cols-md-3>* {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    }
+}
