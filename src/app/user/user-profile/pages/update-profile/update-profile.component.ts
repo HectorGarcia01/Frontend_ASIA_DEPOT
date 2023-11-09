@@ -193,6 +193,15 @@ export class UpdateProfileComponent implements OnInit {
     }
   }
 
+  /**
+   * Función para consumir el servicio para subir foto de perfil 
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función uploadProfilePhoto del servicio de usuario (user-services.service),
+   *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)
+   */
+
   onUploadAvatar() {
     try {
       if (this.selectedFile) {
