@@ -23,7 +23,8 @@ export interface getEmployee {
     };
 }
 
-export interface updateCustomer {
+export interface updateEmployee {
+    [key: string]: any;
     Nombre_Empleado?: string;
     Apellido_Empleado?: string;
     Telefono_Empleado?: string;
