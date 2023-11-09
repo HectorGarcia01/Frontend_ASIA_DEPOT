@@ -113,21 +113,21 @@ export class UpdateProfileComponent implements OnInit {
       if (this.updateForm.valid) {
         const userData = this.getUserData();
         
-        if (!userData) {
+        if (userData) {
+          this.adminService.updateEmployee(`${apiURL}/${this.pathRole}/actualizar/perfil`, userData).subscribe({
+            next: (response: any) => {
+              this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
+              this.updateForm.reset();
+              this.router.navigate(['/admin/profile']);
+            },
+            error: (error: any) => {
+              this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+            }
+          });
+        } else {
           this.customAlertService.sweetAlertPersonalizada('success', "Sin cambios", "No has realizado ningún cambio.");
-          return this.router.navigate(['/admin/profile']);
+          this.router.navigate(['/admin/profile']);
         }
-
-        this.adminService.updateEmployee(`${apiURL}/${this.pathRole}/actualizar/perfil`, userData).subscribe({
-          next: (response: any) => {
-            this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
-            this.updateForm.reset();
-            this.router.navigate(['/admin/profile']);
-          },
-          error: (error: any) => {
-            this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
-          }
-        });
       } else {
         this.customAlertService.sweetAlertPersonalizada('error', "Error", "Por favor, verifica los campos del formulario.");
       }
@@ -179,7 +179,7 @@ export class UpdateProfileComponent implements OnInit {
           next: (response: any) => {
             this.uploading = false;
             this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
-            this.router.navigate(['/profile']);
+            this.router.navigate(['admin/profile']);
           },
           error: (error: any) => {
             this.uploading = false;
