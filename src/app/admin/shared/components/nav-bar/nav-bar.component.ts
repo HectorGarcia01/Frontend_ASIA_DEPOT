@@ -12,6 +12,7 @@ import { apiURL } from 'src/app/config/config';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit{
+  isNavBarVisible = false;
   employee: getEmployee = {} as getEmployee;
   image: any = 'assets/transparent.png';
   pathRole: any = '';
@@ -29,6 +30,25 @@ export class NavBarComponent implements OnInit{
     this.sharedService.profileImageUpdated.subscribe((imageUrl: string | null) => {
       this.image = imageUrl
     });
+  }
+  
+  toggleNavBar() {
+    this.isNavBarVisible = !this.isNavBarVisible;
+    if (this.isNavBarVisible) {
+      const contentElement = document.getElementById('content');
+
+      if (contentElement) {
+        contentElement.style.width = 'calc(100% - 280px)';
+        contentElement.style.left = '280px';
+      }
+    } else if (!this.isNavBarVisible) {
+      const contentElement = document.getElementById('content');
+
+      if (contentElement) {
+        contentElement.style.width = '';
+        contentElement.style.left = '';
+      }
+    }
   }
 
   /**

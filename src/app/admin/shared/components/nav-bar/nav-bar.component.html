@@ -1,139 +1,235 @@
-<main>
-    <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
-        <a [routerLink]="['/admin/dashboard']" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-            <img class="bi me-2" src="assets/Logo_ASIA_DEPOT.png" width="75" alt="Logo ASIA DEPOT">
-            <span class="fs-4">ASIA DEPOT</span>
-        </a>
-        <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
-            <li>
-                <a [routerLink]="['/admin/dashboard']" class="nav-link text-white">
-                    Dashboard
-                </a>
-            </li>
-
-            <li class="mb-1">
-                <button class="btn btn-toggle align-items-center text-white rounded collapsed" data-bs-toggle="collapse" data-bs-target="#my-profile-collapse" aria-expanded="true">
-                    Mi Gestión
-                </button>
-                <div class="collapse" id="my-profile-collapse">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a [routerLink]="['/admin/profile']" class="nav-link text-white">Ver Perfil</a></li>
-                        <li><a [routerLink]="['/admin/profile/update']" class="nav-link text-white">Actualizar Perfil</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="mb-1">
-                <button class="btn btn-toggle align-items-center text-white rounded collapsed" data-bs-toggle="collapse" data-bs-target="#customer-management-collapse" aria-expanded="true">
-                    Gestión de Clientes
-                </button>
-                <div class="collapse" id="customer-management-collapse">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a [routerLink]="['/admin/list/customers']" class="nav-link text-white">Ver Clientes</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="mb-1" *ngIf="isSuperAdmin">
-                <button class="btn btn-toggle align-items-center text-white rounded collapsed" data-bs-toggle="collapse"
-                    data-bs-target="#employee-management-collapse" aria-expanded="true">
-                    Gestión de Empleados
-                </button>
-                <div class="collapse" id="employee-management-collapse">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a [routerLink]="['/admin/create/employee']" class="nav-link text-white">Nuevo Empleado</a></li>
-                        <li><a [routerLink]="['/admin/list/employees']" class="nav-link text-white">Ver Empleados</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="mb-1">
-                <button class="btn btn-toggle align-items-center text-white rounded collapsed" data-bs-toggle="collapse" data-bs-target="#supplier-management-collapse" aria-expanded="true">
-                    Gestión de Proveedores
-                </button>
-                <div class="collapse" id="supplier-management-collapse">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a [routerLink]="['/admin/create/supplier']" class="nav-link text-white">Nuevo Proveedor</a></li>
-                        <li><a [routerLink]="['/admin/list/suppliers']" class="nav-link text-white">Ver Proveedores</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="mb-1">
-                <button class="btn btn-toggle align-items-center text-white rounded collapsed" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="true">
-                    Gestión de Categorías
-                </button>
-                <div class="collapse" id="category-collapse">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a [routerLink]="['/admin/create/category']" class="nav-link text-white">Nueva Categoría</a></li>
-                        <li><a [routerLink]="['/admin/list/categories']" class="nav-link text-white">Ver Categorías</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="mb-1">
-                <button class="btn btn-toggle align-items-center text-white rounded collapsed" data-bs-toggle="collapse" data-bs-target="#product-collapse" aria-expanded="true">
-                    Gestión de Productos
-                </button>
-                <div class="collapse" id="product-collapse">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a [routerLink]="['/admin/create/product']" class="nav-link text-white">Nuevo Producto</a></li>
-                        <li><a [routerLink]="['/admin/list/products']" class="nav-link text-white">Ver Productos</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="mb-1">
-                <button class="btn btn-toggle align-items-center text-white rounded collapsed" data-bs-toggle="collapse" data-bs-target="#purchase-collapse" aria-expanded="true">
-                    Gestión de Compras
-                </button>
-                <div class="collapse" id="purchase-collapse">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a [routerLink]="['/admin/create/purchase']" class="nav-link text-white">Nueva Compra</a></li>
-                        <li><a [routerLink]="['/admin/list/purchases']" class="nav-link text-white">Ver Compras</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="mb-1">
-                <button class="btn btn-toggle align-items-center text-white rounded collapsed" data-bs-toggle="collapse" data-bs-target="#sales-collapse" aria-expanded="true">
-                    Gestión de Ventas
-                </button>
-                <div class="collapse" id="sales-collapse">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a [routerLink]="['/admin/list/sales']" class="nav-link text-white">Ver Ventas</a></li>
-                    </ul>
-                </div>
-            </li>
-
-            <li class="mb-1">
-                <button class="btn btn-toggle align-items-center text-white rounded collapsed" data-bs-toggle="collapse" data-bs-target="#inventory-collapse" aria-expanded="true">
-                    Gestión de Inventario
-                </button>
-                <div class="collapse" id="inventory-collapse">
-                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                        <li><a [routerLink]="['/admin/list/inventory']" class="nav-link text-white">Ver Inventario</a></li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-        <hr>
-        <div class="dropdown">
-            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="{{image}}" alt="Foto de perfil" width="32" height="32" class="rounded-circle me-2">
-                <strong>{{ employee.Nombre_Empleado }}</strong>
+<!-- SIDEBAR -->
+<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+<section id="sidebar" *ngIf="!isNavBarVisible">
+    <a class="brand">
+        <i class='bx bxs-shopping-bags pointer'></i>
+        <span class="text">ASIA DEPOT</span>
+    </a>
+    <ul class="side-menu">
+        <li class="pointer">
+            <a>
+                <i class='bx bxs-dashboard'></i>
+                <span class="text">Dashboard</span>
             </a>
-            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                <li><a class="dropdown-item" [routerLink]="['/admin/profile']">Ver perfil</a></li>
-                <li><a class="dropdown-item" [routerLink]="['/admin/profile/update']">Modificar perfil</a></li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li><a class="btn dropdown-item" (click)="logout()">Cerrar sesión</a></li>
-                <li><a class="btn dropdown-item" (click)="logoutAll()">Cerrar todas las sesiones</a></li>
-            </ul>
-        </div>
-    </div>
-</main>
+        </li>
+
+        <li class="pointer">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse" data-bs-target="#my-profile-collapse" aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Mi Gestión</span>
+            </a>
+            <div class="collapse" id="my-profile-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/profile']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Perfil</span>
+                        </a>
+                    </li>
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/profile/update']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Actualizar Perfil</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="pointer">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse" data-bs-target="#customer-management-collapse" aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Gestión de Clientes</span>
+            </a>
+            <div class="collapse" id="customer-management-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/list/customers']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Clientes</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="pointer" *ngIf="isSuperAdmin">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse"
+                data-bs-target="#employee-management-collapse" aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Gestión de Empleados</span>
+            </a>
+            <div class="collapse" id="employee-management-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/create/employee']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Nuevo Empleado</span>
+                        </a>
+                    </li>
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/list/employees']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Empleados</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="pointer" *ngIf="isSuperAdmin">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse" data-bs-target="#supplier-management-collapse" aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Gestión de Proveedores</span>
+            </a>
+            <div class="collapse" id="supplier-management-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/create/supplier']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Nuevo Proveedor</span>
+                        </a>
+                    </li>
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/list/suppliers']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Proveedores</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="pointer">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Gestión de Categorías</span>
+            </a>
+            <div class="collapse" id="category-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/create/category']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Nueva Categoría</span>
+                        </a>
+                    </li>
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/list/categories']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Categorías</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="pointer">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse" data-bs-target="#product-collapse" aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Gestión de Productos</span>
+            </a>
+            <div class="collapse" id="product-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li>
+                        <a [routerLink]="['/admin/create/product']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Nuevo Producto</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/list/products']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Productos</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="pointer">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse" data-bs-target="#purchase-collapse" aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Gestión de Compras</span>
+            </a>
+            <div class="collapse" id="purchase-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li>
+                        <a [routerLink]="['/admin/create/purchase']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Nueva Compra</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/list/purchases']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Compras</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="pointer">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse" data-bs-target="#sales-collapse" aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Gestión de Ventas</span>
+            </a>
+            <div class="collapse" id="sales-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/list/sales']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Ventas</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="pointer">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse" data-bs-target="#inventory-collapse" aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Gestión de Inventario</span>
+            </a>
+            <div class="collapse" id="inventory-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/list/inventory']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Inventario</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+    <ul class="side-menu">
+        <li class="pointer" (click)="logout()">
+            <a>
+                <i class='bx bx-log-out' style="color: red;"></i>
+                <span class="text" style="color: red;">Cerrar Sesión</span>
+            </a>
+        </li>
+    </ul>
+</section>
+<!-- SIDEBAR -->
+
+<!-- CONTENT -->
+<section id="content">
+    <!-- NAVBAR -->
+    <nav>
+        <i class='bx bx-menu sizeToggle' (click)="toggleNavBar()"></i>
+        <a class="nav-link">ASIA DEPOT</a>
+        <form action="#">
+            <div class="form-input">
+                <input type="search" placeholder="Search...">
+                <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+            </div>
+        </form>
+        <a class="profile">
+            <img src="{{ image }}">
+        </a>
+    </nav>
+    <!-- NAVBAR -->
+</section>
+<!-- CONTENT -->
