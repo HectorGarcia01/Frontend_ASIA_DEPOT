@@ -38,8 +38,7 @@
                         <button *ngIf="producto.Cantidad_Stock > 0" class="btn btn-outline-dark btn-square" (click)="addProductCart(producto.id)"><i class="fa fa-shopping-cart"></i></button>
                         <button *ngIf="producto.Cantidad_Stock == 0" class="btn btn-outline-dark btn-square" disabled><i class="fa fa-shopping-cart"></i></button>
                         <button class="btn btn-outline-dark btn-square" (click)="addFavoriteProduct(producto.id)"><i class="fa fa-heart"></i></button>
-                        <button *ngIf="producto.Cantidad_Stock > 0" class="btn btn-outline-dark btn-square" [routerLink]="['/product/detail', producto.id]"><i class="fa fa-search"></i></button>
-                        <button *ngIf="producto.Cantidad_Stock == 0" class="btn btn-outline-dark btn-square" disabled><i class="fa fa-search"></i></button>
+                        <button class="btn btn-outline-dark btn-square" [routerLink]="['/product/detail', producto.id]"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
                 <div class="text-center py-4">
