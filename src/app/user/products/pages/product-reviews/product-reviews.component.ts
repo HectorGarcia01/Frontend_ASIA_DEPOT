@@ -25,6 +25,7 @@ export class ProductReviewsComponent implements OnInit {
   noneReviews: boolean = false;
   image: any = 'assets/transparent.png';
   images: any = [];
+  countReviews: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -95,9 +96,11 @@ export class ProductReviewsComponent implements OnInit {
       this.shoppingCartService.addProductCart(`${apiURL}/usuario/carrito/agregar`, body).subscribe({
         next: (data: any) => {
           this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
+          this.getParamsId();
+          this.increment = 1;
         },
         error: (error: any) => {
-          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+          this.customAlertService.sweetAlertPersonalizada('error', "Lo siento", `No hay sufiente stock de "${this.product.Nombre_Producto}"`);
         }
       });
     } catch (error: any) {
@@ -171,7 +174,7 @@ export class ProductReviewsComponent implements OnInit {
       this.reviewsService.getReviews(`${apiURL}/usuario/ver/todas/valoraciones/producto`, id).subscribe({
         next: (data: any) => {
           this.productReviews = data.productReviews;
-
+          this.countReviews = this.productReviews.length;
           this.productReviews.forEach((review: any) => {
             if (review.createdAt) {
               const createdDate = review.createdAt;
