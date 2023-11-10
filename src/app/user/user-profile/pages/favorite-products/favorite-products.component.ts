@@ -23,6 +23,7 @@ export class FavoriteProductsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.scrollToTop();
     this.getFavoriteProducts();
   }
 
@@ -113,5 +114,9 @@ export class FavoriteProductsComponent implements OnInit {
     } catch (error: any) {
       console.log(error.error);
     }
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
