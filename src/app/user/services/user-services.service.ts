@@ -105,6 +105,17 @@ export class UserServicesService {
   }
 
   /**
+   * Función para realizar una solicitud get para ver las fotos de las reseñas
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
+
+  getPhotos(url: string, id: string): Observable<Blob> {
+    url = `${url}/${id}`;
+    return this.http.get(url, { responseType: 'blob' });
+  }
+
+  /**
    * Función para realizar una solicitud delete para borrar la foto de perfil
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
