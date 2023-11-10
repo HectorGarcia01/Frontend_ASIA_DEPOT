@@ -5,7 +5,7 @@ import { EmployeeManagementRoutingModule } from './employee-management-routing.m
 import { ListEmployeesComponent } from './pages/list-employees/list-employees.component';
 import { ListEmployeeComponent } from './pages/list-employee/list-employee.component';
 import { NewEmployeeComponent } from './pages/new-employee/new-employee.component';
-
+import { AdminSharedModule } from '../shared/admin-shared.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +15,8 @@ import { NewEmployeeComponent } from './pages/new-employee/new-employee.componen
   ],
   imports: [
     CommonModule,
-    EmployeeManagementRoutingModule
+    EmployeeManagementRoutingModule,
+    AdminSharedModule
   ]
 })
 export class EmployeeManagementModule { }
