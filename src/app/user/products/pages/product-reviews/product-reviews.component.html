@@ -17,7 +17,6 @@
                 <h3 class="font-weight-semi-bold mb-4">Q.{{ product.Precio_Venta }}</h3>
                 <h3 class="font-weight-semi-bold mb-4">Disponibilidad: {{ product.Cantidad_Stock }}</h3>
 
-
                 <div class="d-flex justify-content-center mb-4 pt-2">
                     <div class="input-group quantity mr-3" style="width: 130px;">
                         <div class="input-group-btn">
@@ -32,18 +31,18 @@
                             </button>
                         </div>
                     </div>
-                    <button class="btn btn-primary px-4" style="margin-left: 20px;" (click)="onSubmit(product.id)"><i
-                            class="fa fa-shopping-cart mr-1"></i>Agregar al carrito</button>
+                    <button class="btn btn-primary px-4" style="margin-left: 20px;" (click)="onSubmit(product.id)">
+                        <i class="fa fa-shopping-cart mr-1"></i>
+                        Agregar al carrito
+                    </button>
                 </div>
                 <div class="d-flex pt-2">
                     <strong class="text-dark mr-2">Síguenos en:</strong>
                     <div class="d-inline-flex">
-                        <a class="text-dark px-2" href="https://www.facebook.com/asiadepot?mibextid=ZbWKwL"
-                            target="_blank">
+                        <a class="text-dark px-2" href="https://www.facebook.com/asiadepot?mibextid=ZbWKwL" target="_blank">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a class="text-dark px-2" href="https://instagram.com/asiadepot?igshid=MzRlODBiNWFlZA=="
-                            target="_blank">
+                        <a class="text-dark px-2" href="https://instagram.com/asiadepot?igshid=MzRlODBiNWFlZA==" target="_blank">
                             <i class="fab fa-instagram"></i>
                         </a>
                         <a class="text-dark px-2" href="https://wa.me/50246651581" target="_blank">
@@ -56,62 +55,90 @@
     </div>
 
     <div class="row px-xl-5">
-        <div class="col">
-            <div class="bg-light">
-                <div class="nav nav-tabs mb-2">
-                    <a class="nav-item nav-link text-dark" [routerLink]="['/product/detail', product.id]" data-toggle="tab">Description</a>
-                    <a class="nav-item nav-link text-dark active" data-toggle="tab">Reviews</a>
-                </div>
-                <div class="tab-content">
+        <div class="bg-light d-flex row justify-content-between">
+            <div class="nav nav-tabs mb-2">
+                <a class="nav-item nav-link text-dark" [routerLink]="['/product/detail', product.id]" data-toggle="tab">Description</a>
+                <a class="nav-item nav-link text-dark active" data-toggle="tab">Reviews</a>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="tab-pane-3">
+                    <div class="row p-4">
+                        <div class="col-md-6">
+                            <h4 class="mb-4">Reseñas de "{{ product.Nombre_Producto }}"</h4>
 
-                    <!-- Sección para los reviews de clientes -->
-                    <div class="tab-pane fade show active" id="tab-pane-3">
-                        <div class="row p-4">
-                            <div class="col-md-6">
-                                <h4 class="mb-4">Reseñas de "{{ product.Nombre_Producto }}"</h4>
-                                
-                                <div *ngIf="noneReviews == false" class="row justify-content-center align-items-center">
-                                    <div class="col-12 text-center">
-                                        <h5>
-                                            Actualmente no hay reseñas para este producto.
-                                        </h5>
-                                        <img width="300" height="300" src="assets/404.jpg" class="img-fluid rounded-circle" alt="Error 404">
-                                    </div>
-                                </div>
-
-                                <div class="media mb-4" *ngFor="let item of productReviews">
-                                    <img src="assets/Logo_ASIA_DEPOT.png" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
-                                    <div class="media-body">
-                                        <h6>{{ item.cliente.Nombre_Cliente }}<small> - <i>{{ item.createdAt }}</i></small></h6>
-                                        <p> Puntuación: {{ item.Puntuacion_Producto }}</p>
-                                        <p> {{ item.Comentario_Producto }} </p>
-                                    </div>
+                            <div *ngIf="noneReviews == false" class="row justify-content-center align-items-center">
+                                <div class="col-12 text-center">
+                                    <h5>
+                                        ¡Ups! Parece que aún no hay reseñas para este producto. ¡Vuelve pronto para
+                                        ver las opiniones de otros clientes!
+                                    </h5>
+                                    <img width="300" height="300" src="assets/404.jpg"
+                                        class="img-fluid rounded-circle mt-3" alt="Error 404">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <h4 class="mb-4">Deja tu reseña</h4>
-                                <form [formGroup]="registerForm" (ngSubmit)="addProductReview(product.id)">
-                                    <div class="d-flex my-3">
-                                        <!-- Puntuación input -->
-                                        <div class="form-floating mb-3">
-                                            <select class="form-select" aria-label="Default select example" formControlName="puntuacion">
-                                                <option selected>Selecciona una puntuación</option>
-                                                <option value="1">1 estrella</option>
-                                                <option value="2">2 estrellas</option>
-                                                <option value="3">3 estrellas</option>
-                                                <option value="4">4 estrellas</option>
-                                                <option value="5">5 estrellas</option>
-                                            </select>
-                                            <label for="register">Puntuación de producto</label>
-                                            <div *ngIf="registerForm.get('puntuacion')?.hasError('required') && registerForm.get('puntuacion')?.touched"
-                                                class="text-danger">
-                                                La puntuación es obligatoria.
+
+                            <!-- Contenedor de las reseñas con desplazamiento -->
+                            <div *ngIf="noneReviews == true" data-spy="scroll" data-target="#reviewsNav" data-offset="50" style="height: 400px; overflow-y: auto; overflow-x: hidden;">
+                                <!-- Reseñas -->
+                                <div id="review1" class="review shadow-lg mb-2" *ngFor="let review of productReviews; let i = index">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-2 mt-2 d-flex justify-content-center">
+                                            <!-- Foto del cliente -->
+                                            <img src="{{ images[i] }}" alt="Foto del Cliente" class="img-fluid rounded-circle">
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <!-- Fecha publicación -->
+                                                    <p class="text-end">
+                                                        <strong>Fecha de publicación: </strong>
+                                                        {{ review.createdAt }}
+                                                    </p>
+                                                </div>
+                                                <div class="col-12">
+                                                    <!-- Nombre del cliente y calificación -->
+                                                    <p>
+                                                        <strong>
+                                                            {{ review.cliente.Nombre_Cliente }} 
+                                                            {{ review.cliente.Apellido_Cliente }}
+                                                        </strong> 
+                                                        - {{ review.Puntuacion_Producto }}
+                                                    </p>
+                                                </div>
+                                                <div class="col-12">
+                                                    <!-- Comentario del cliente -->
+                                                    <p>{{ review.Comentario_Producto }}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- Address input -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Formulario Reseñas -->
+                        <div class="col-md-5">
+                            <div class="row d-flex justify-content-center">
+                                <h4 class="mb-4">Deja tu reseña</h4>
+                                <form [formGroup]="registerForm" (ngSubmit)="addProductReview(product.id)">
+                                    <!-- Puntuación input -->
                                     <div class="form-floating mb-3">
-                                        <textarea id="floatingTextarea2" minlength="10" maxlength="201" style="max-height: 100px; height: 100px; max-width: 500px;" formControlName="comentario" class="form-control" placeholder="Ingresa tu dirección general"></textarea>
+                                        <select class="form-select" aria-label="Default select example" formControlName="puntuacion">
+                                            <option selected>Selecciona una puntuación</option>
+                                            <option value="0">0 estrella</option>
+                                            <option value="1">1 estrella</option>
+                                            <option value="2">2 estrellas</option>
+                                            <option value="3">3 estrellas</option>
+                                            <option value="4">4 estrellas</option>
+                                            <option value="5">5 estrellas</option>
+                                        </select>
+                                        <label for="register">Puntuación de producto</label>
+                                        <div *ngIf="registerForm.get('puntuacion')?.hasError('required') && registerForm.get('puntuacion')?.touched" class="text-danger">
+                                            La puntuación es obligatoria.
+                                        </div>
+                                    </div>
+                                    <!-- Comentario input -->
+                                    <div class="form-floating mb-3">
+                                        <textarea id="floatingTextarea2" minlength="10" maxlength="201" style="max-height: 100px; height: 100px; max-width: 542px;" formControlName="comentario" class="form-control" placeholder="Ingresa tu dirección general"></textarea>
                                         <label for="registerAddress">Comentario</label>
                                         <div *ngIf="registerForm.get('comentario')?.hasError('required') && registerForm.get('comentario')?.touched" class="text-danger">
                                             El comentario es obligatorio.
@@ -127,14 +154,14 @@
                                         </div>
                                     </div>
                                     <div class="form-group mb-0">
-                                        <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
+                                        <input type="submit" value="Agregar reseña" class="btn btn-primary px-3">
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-                    <!-- Fin Sección para los reviews de clientes -->
                 </div>
+                <!-- Fin Sección para los reviews de clientes -->
             </div>
         </div>
     </div>

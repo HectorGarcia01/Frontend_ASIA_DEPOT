@@ -5,6 +5,7 @@ import { ProductService } from 'src/app/user/services/product.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { ShoppingCartService } from 'src/app/user/services/shopping-cart.service';
 import { ReviewsService } from 'src/app/user/services/reviews.service';
+import { UserServicesService } from 'src/app/user/services/user-services.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { Product } from 'src/app/user/interfaces/product.interface';
 import { Category } from 'src/app/user/interfaces/category.interface';
@@ -22,6 +23,8 @@ export class ProductReviewsComponent implements OnInit {
   productReviews: any = [];
   increment: number = 1;
   noneReviews: boolean = false;
+  image: any = 'assets/transparent.png';
+  images: any = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +32,7 @@ export class ProductReviewsComponent implements OnInit {
     private authService: AuthService,
     private shoppingCartService: ShoppingCartService,
     private reviewsService: ReviewsService,
+    private userService: UserServicesService,
     private customAlertService: CustomAlertService
   ) { 
     this.validateForm();
@@ -176,6 +180,12 @@ export class ProductReviewsComponent implements OnInit {
 
               review.createdAt = newDateCreate;
             }
+
+            if (review.Puntuacion_Producto === 1) {
+              review.Puntuacion_Producto = `${review.Puntuacion_Producto} estrella`;
+            }
+            review.Puntuacion_Producto = `${review.Puntuacion_Producto} estrellas`;
+            this.getPhotos(review.cliente.id);
           });
           
           this.noneReviews = true;
@@ -184,6 +194,29 @@ export class ProductReviewsComponent implements OnInit {
           this.noneReviews = false;
         }
       });
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  /**
+   * Función para consumir el servicio de ver la foto de perfil del cliente
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getPhotos del servicio de usuarios (user-services.service)   
+   */
+
+  getPhotos(id: any) {
+    try {
+      this.userService.getPhotos(`${apiURL}/usuario/ver/avatar`, id).subscribe({
+        next: (data: Blob) => {
+          this.images.push(URL.createObjectURL(data));
+        },
+        error: (error: any) => {
+          this.images.push('assets/perfil_picture.png');
+        }
+      })
     } catch (error: any) {
       console.log(error.error);
     }
