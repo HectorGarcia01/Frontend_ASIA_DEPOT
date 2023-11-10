@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CategoryService } from 'src/app/user/services/category.service';
 import { Category, CategoryResponse } from 'src/app/user/interfaces/category.interface';
 import { apiURL } from 'src/app/config/config';
@@ -8,7 +8,7 @@ import { apiURL } from 'src/app/config/config';
   templateUrl: './categories-section.component.html',
   styleUrls: ['./categories-section.component.css']
 })
-export class CategoriesSectionComponent implements OnInit, AfterViewInit {
+export class CategoriesSectionComponent implements OnInit {
   category: Category[] = [];
   totalPages: number = 0;
   currentPage: number = 1;
@@ -23,10 +23,6 @@ export class CategoriesSectionComponent implements OnInit, AfterViewInit {
   }
 
   @ViewChild('categoriasSection') categoriasSection?: ElementRef<any>;
-
-  ngAfterViewInit() {
-    this.scrollIntoView();
-  }
 
   /**
    * Función para consumir el servicio de listar categorías
