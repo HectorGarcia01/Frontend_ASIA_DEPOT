@@ -4,7 +4,7 @@ import { ListCustomerComponent } from './pages/list-customer/list-customer.compo
 import { ListCustomersComponent } from './pages/list-customers/list-customers.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: 'list/customers', pathMatch: 'full' },
 
   {
     path: 'list/customers',
