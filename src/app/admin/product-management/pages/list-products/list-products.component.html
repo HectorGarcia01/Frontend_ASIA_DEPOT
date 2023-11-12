@@ -5,7 +5,72 @@
         <div class="col-md-9 mt-4">
             <div class="container">
                 <div class="row d-flex justify-content-center">
-
+                    <div class="table-data" id="contentMove">
+                        <div class="order">
+                            <div class="head">
+                                <h2>Productos</h2>
+                                <i class='bx bx-search'></i>
+                                <i class='bx bx-filter'></i>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            <h5>Nombre</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Precio Venta</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Precio Compra</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Stock</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Fecha de Creación</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Estado</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Acciones</h5>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let product of products">
+                                        <td>
+                                            <img [src]="productImages[product.id] || 'assets/perfil_picture.png'" alt="Foto-Perfil-Admin">
+                                            <p>{{ product.Nombre_Producto }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>Q.{{ product.Precio_Venta }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>Q.{{ product.Precio_Compra }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ product.Cantidad_Stock }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ product.createdAt }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <span *ngIf="product.estado.Tipo_Estado === 'Activo'" class="status active">{{ product.estado.Tipo_Estado }}</span>
+                                            <span *ngIf="product.estado.Tipo_Estado === 'Pendiente'" class="status pending">{{ product.estado.Tipo_Estado }}</span>
+                                            <span *ngIf="product.estado.Tipo_Estado === 'Inactivo'" class="status inactive">{{ product.estado.Tipo_Estado }}</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-sm btn-primary" title="Ver" [routerLink]="['/admin/view/admin', product.id, getProductName(product)]"><i class="fa fa-search"></i></button>
+                                            <button *ngIf="product.estado.Tipo_Estado === 'Inactivo'" class="btn btn-sm btn-success" title="Activar" (click)="activateEmployee(product.id)"><i class="fa fa-check"></i></button>
+                                            <button *ngIf="product.estado.Tipo_Estado !== 'Inactivo'" class="btn btn-sm btn-danger" title="Desactivar" (click)="deleteProduct(product.id)"><i class="fa fa-times"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
             <app-footer></app-footer>
