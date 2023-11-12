@@ -5,7 +5,7 @@ import { ListPurchasesComponent } from './pages/list-purchases/list-purchases.co
 import { ListPurchaseComponent } from './pages/list-purchase/list-purchase.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'create/employee', pathMatch: 'full' },
+  { path: '', redirectTo: 'create/purchase', pathMatch: 'full' },
 
   {
     path: 'create/purchase',
