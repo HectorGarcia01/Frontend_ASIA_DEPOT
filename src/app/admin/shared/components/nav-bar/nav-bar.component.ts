@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToggleNavBarService } from 'src/app/admin/services/toggle-nav-bar.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { AdminProfileService } from 'src/app/admin/services/admin-profile.service';
@@ -14,17 +15,46 @@ import { apiURL } from 'src/app/config/config';
 })
 export class NavBarComponent implements OnInit{
   isNavBarVisible = false;
+  searchMag: string = '';
   employee: getEmployee = {} as getEmployee;
   image: any = 'assets/transparent.png';
+  permissions = false;
   pathRole: any = '';
 
   constructor(
     private toggleNavBarService: ToggleNavBarService,
+    private router: Router,
     private authService: AuthService,
     private adminService: AdminProfileService,
     private sharedService: SharedService,
     private customAlertService: CustomAlertService
   ) { }
+
+  searchManagement() {
+    const search = this.searchMag.toLowerCase().trim();
+
+    if (search.indexOf('das') !== -1) {
+      this.router.navigate(['/admin']);
+    } else if (search.indexOf('cli') !== -1) {
+      this.router.navigate(['/admin/list/customers']);
+    } else if (search.indexOf('adm') !== -1) {
+      this.router.navigate(['/admin/list/admins']);
+    } else if (search.indexOf('prov') !== -1) {
+      this.router.navigate(['/admin/list/suppliers']);
+    } else if (search.indexOf('cate') !== -1) {
+      this.router.navigate(['/admin/list/categories']);
+    } else if (search.indexOf('prod') !== -1) {
+      this.router.navigate(['/admin/list/products']);
+    } else if (search.indexOf('comp') !== -1) {
+      this.router.navigate(['/admin/list/purchases']);
+    } else if (search.indexOf('ven') !== -1) {
+      this.router.navigate(['/admin/list/sales']);
+    } else if (search.indexOf('inven') !== -1) {
+      this.router.navigate(['/admin/list/inventories']);
+    } else if (search.indexOf('news') !== -1) {
+      this.router.navigate(['/admin/list/newsletter']);
+    }
+  }
 
   ngOnInit() {
     this.getProfilePicture();
@@ -68,10 +98,12 @@ export class NavBarComponent implements OnInit{
 
     if (userRole === 'SuperAdmin') {
       this.pathRole = 'superAdmin';
+      this.permissions = true;
       return true;
     }
 
     this.pathRole = 'admin';
+    this.permissions = false;
     return false;
   }
 
