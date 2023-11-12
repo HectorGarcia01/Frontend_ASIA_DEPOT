@@ -17,6 +17,7 @@ export interface getEmployee {
     Telefono_Empleado: string;
     NIT_Empleado?: string;
     Correo_Empleado: string;
+    createdAt: string;
     estado: {
         id: number;
         Tipo_Estado: string;
