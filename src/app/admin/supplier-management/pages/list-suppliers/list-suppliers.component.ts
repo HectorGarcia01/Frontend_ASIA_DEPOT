@@ -162,8 +162,10 @@ export class ListSuppliersComponent implements OnInit, OnDestroy {
     let paramsName;
     if (supplier.Nombre_Proveedor) {
       paramsName = supplier.Nombre_Proveedor;
-    } else {
+    } else if (supplier.Nombre_Empresa) {
       paramsName = supplier.Nombre_Empresa;
+    } else {
+      paramsName = ''
     }
 
     return paramsName.toLowerCase().replace(/ /g, '-');

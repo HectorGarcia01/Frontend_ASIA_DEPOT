@@ -5,7 +5,56 @@
         <div class="col-md-9 mt-4">
             <div class="container">
                 <div class="row d-flex justify-content-center">
+                    <div *ngIf="error404 == true" class="row justify-content-center align-items-center">
+                        <div class="col-12 text-center mt-5">
+                            <h5>
+                                Lo siento, el proveedor que estás buscando no ha sido encontrado. Verifica el nombre o selecciona otro proveedor.
+                            </h5>
+                            <img width="500" height="500" src="assets/404_2.jpg" class="img-fluid rounded-circle" alt="Error 404">
+                        </div>
+                    </div>
 
+                    <div *ngIf="error404 == false" class="col-md-9 mb-5">
+                        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+                            <div class="col-md-6 bg-light p-5 mb-5 container-info">
+                                <h3 class="mb-4">Información personal</h3>
+                                <div class="mb-3">
+                                    <label for="nombre"><strong>Nombre</strong></label>
+                                    <p id="nombre">{{ supplier.Nombre_Proveedor || 'No especificado' }}</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="apellido"><strong>Apellido</strong></label>
+                                    <p id="apellido">{{ supplier.Apellido_Proveedor || 'No especificado' }}</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="correo"><strong>Empresa</strong></label>
+                                    <p id="correo">{{ supplier.Nombre_Empresa || 'No especificado' }}</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="telefono"><strong>Teléfono</strong></label>
+                                    <p id="telefono">{{ supplier.Telefono_Proveedor || 'No especificado' }}</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="correo"><strong>Correo</strong></label>
+                                    <p id="correo">{{ supplier.Correo_Proveedor || 'No especificado' }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-5 bg-light p-5">
+                                <h3 class="mb-4">Acciones</h3>
+                                <div class="d-flex flex-column btnAction">
+                                    <div class="mb-3">
+                                        <a class="btn btn-success btn-block" [routerLink]="'/admin/create/supplier'">Crear Nuevo Proveedor</a>
+                                    </div>
+                                    <div class="mb-3">
+                                        <a *ngIf="supplier.estado.Tipo_Estado === 'Inactivo'" class="btn btn-primary btn-block" (click)="activateSupplier(supplier.id)">Activar Proveedor</a>
+                                    </div>
+                                    <div class="mb-3">
+                                        <a *ngIf="supplier.estado.Tipo_Estado !== 'Inactivo'" class="btn btn-danger btn-block" (click)="deleteSupplier(supplier.id)">Eliminar Proveedor</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <app-footer></app-footer>

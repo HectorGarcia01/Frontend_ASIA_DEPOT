@@ -113,8 +113,10 @@ export class UpdateSupplierComponent implements OnInit, OnDestroy {
       this.supplierService.getSupplierId(`${apiURL}/${this.pathRole}/ver/proveedor`, id).subscribe({
         next: (data: any) => {
           this.supplier = data.supplier;
+          this.error404 = false;
         },
         error: (error: any) => {
+          this.error404 = true;
           console.log(error.error.error);
         }
       })
