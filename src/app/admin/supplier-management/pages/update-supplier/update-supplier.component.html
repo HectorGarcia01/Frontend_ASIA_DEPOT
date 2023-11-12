@@ -1,0 +1,92 @@
+<div id="main-content">
+    <app-nav-bar></app-nav-bar>
+    <section class="d-flex justify-content-center">
+        <!-- Formulario de actualización de proveedor -->
+        <div class="col-md-9 mt-5">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-5 bg-light p-5 mb-3">
+                        <div class="text-center mb-3">
+                            <h2>Actualizar datos</h2>
+                        </div>
+                        <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+                            <!-- Name input -->
+                            <div class="form-floating mb-3">
+                                <input type="text" formControlName="nombre" class="form-control" placeholder="Ingresa el nombre del proveedor">
+                                <label for="registerName">{{ supplier.Nombre_Proveedor || 'Ingresa el nombre del proveedor' }}</label>
+                                <div *ngIf="updateForm.get('nombre')?.hasError('minlength') && updateForm.get('nombre')?.touched" class="text-danger">
+                                    El nombre es demasiado corto (mínimo 3 carácteres).
+                                </div>
+                                <div *ngIf="updateForm.get('nombre')?.hasError('maxlength') && updateForm.get('nombre')?.touched" class="text-danger">
+                                    El nombre es demasiado largo (máximo 30 carácteres).
+                                </div>
+                                <div *ngIf="updateForm.get('nombre')?.hasError('pattern') && updateForm.get('nombre')?.touched" class="text-danger">
+                                    El nombre no es válido, no use carácteres especiales.
+                                </div>
+                            </div>
+                    
+                            <!-- Username input -->
+                            <div class="form-floating mb-3">
+                                <input type="text" formControlName="apellido" class="form-control" placeholder="Ingresa el apellido del proveedor">
+                                <label for="registerUsername">{{ supplier.Apellido_Proveedor || 'Ingresa el apellido del proveedor' }}</label>
+                                <div *ngIf="updateForm.get('apellido')?.hasError('minlength') && updateForm.get('apellido')?.touched" class="text-danger">
+                                    El apellido es demasiado corto (mínimo 3 carácteres).
+                                </div>
+                                <div *ngIf="updateForm.get('apellido')?.hasError('maxlength') && updateForm.get('apellido')?.touched" class="text-danger">
+                                    El apellido es demasiado largo (máximo 30 carácteres).
+                                </div>
+                                <div *ngIf="updateForm.get('apellido')?.hasError('pattern') && updateForm.get('apellido')?.touched" class="text-danger">
+                                    El apellido no es válido, no use carácteres especiales.
+                                </div>
+                            </div>
+
+                            <!-- Username input -->
+                            <div class="form-floating mb-3">
+                                <input type="text" formControlName="empresa" class="form-control" placeholder="Ingresa el nombre de la empresa">
+                                <label for="registerUsername">{{ supplier.Nombre_Empresa || 'Ingresa el nombre de la empresa' }}</label>
+                                <div *ngIf="updateForm.get('empresa')?.hasError('minlength') && updateForm.get('empresa')?.touched" class="text-danger">
+                                    El nombre de la empresa es demasiado corto (mínimo 5 carácteres).
+                                </div>
+                                <div *ngIf="updateForm.get('empresa')?.hasError('maxlength') && updateForm.get('empresa')?.touched" class="text-danger">
+                                    El nombre de la empresa es demasiado largo (máximo 50 carácteres).
+                                </div>
+                                <div *ngIf="updateForm.get('empresa')?.hasError('pattern') && updateForm.get('empresa')?.touched" class="text-danger">
+                                    El nombre de la empresa no es válido, no use carácteres especiales.
+                                </div>
+                            </div>
+                    
+                            <!-- Tel input -->
+                            <div class="form-floating mb-3">
+                                <input type="text" formControlName="telefono" class="form-control" placeholder="Ingresa el número de teléfono del proveedor">
+                                <label for="registerTel">{{ supplier.Telefono_Proveedor || 'Ingresa el teléfono del proveedor' }}</label>
+                                <div *ngIf="updateForm.get('telefono')?.hasError('pattern') && updateForm.get('telefono')?.touched" class="text-danger">
+                                    El teléfono no es válido, debe de poseer 8 dígitos.
+                                </div>
+                            </div>
+                    
+                            <!-- Email input -->
+                            <div class="form-floating mb-3">
+                                <input type="email" formControlName="correo" class="form-control" placeholder="Ingresa el correo del proveedor">
+                                <label for="registerEmail">{{ supplier.Correo_Proveedor || 'Ingresa el correo del proveedor' }}</label>
+                                <div *ngIf="updateForm.get('correo')?.hasError('email') && updateForm.get('correo')?.touched" class="text-danger">
+                                    El correo no es válido.
+                                </div>
+                                <div *ngIf="updateForm.get('correo')?.hasError('maxlength') && updateForm.get('correo')?.touched" class="text-danger">
+                                    El correo es demasiado largo (máximo 40 carácteres).
+                                </div>
+                            </div>
+                    
+                            <div class="row mb-4">
+                                <div class="col-md-12 d-flex justify-content-center mt-3">
+                                    <!-- Submit button -->
+                                    <button type="submit" class="btn btn-primary btn-block w-75">Actualizar datos</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <app-footer></app-footer>
+        </div>
+    </section>
+</div>
