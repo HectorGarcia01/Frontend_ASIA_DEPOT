@@ -5,7 +5,80 @@
         <div class="col-md-9 mt-4">
             <div class="container">
                 <div class="row d-flex justify-content-center">
-
+                    <div class="table-data" id="contentMove">
+                        <div class="order">
+                            <div class="head">
+                                <h2>Proveedores</h2>
+                                <i class='bx bx-search'></i>
+                                <i class='bx bx-filter'></i>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            <h5>Nombre</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Empresa</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Teléfono</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Correo</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Fecha de Creación</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Estado</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Acciones</h5>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let supplier of suppliers">
+                                        <td>
+                                            <p>{{ supplier.Nombre_Proveedor }} {{ supplier.Apellido_Proveedor }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ supplier.Nombre_Empresa }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ supplier.Telefono_Proveedor }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ supplier.Correo_Proveedor }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ supplier.createdAt }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <span *ngIf="supplier.estado.Tipo_Estado === 'Activo'" class="status active">{{ supplier.estado.Tipo_Estado }}</span>
+                                            <span *ngIf="supplier.estado.Tipo_Estado === 'Pendiente'" class="status pending">{{ supplier.estado.Tipo_Estado }}</span>
+                                            <span *ngIf="supplier.estado.Tipo_Estado === 'Inactivo'" class="status inactive">{{ supplier.estado.Tipo_Estado }}</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-sm btn-primary" title="Ver" [routerLink]="['/admin/view/supplier', supplier.id, getSupplierName(supplier)]">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-warning" title="Editar" [routerLink]="['/admin/update/supplier', supplier.id, getSupplierName(supplier)]">
+                                                <i class='fa fa-edit'></i>
+                                            </button>
+                                            <button *ngIf="supplier.estado.Tipo_Estado === 'Inactivo'" class="btn btn-sm btn-success" title="Activar" (click)="activateSupplier(supplier.id)">
+                                                <i class="fa fa-check"></i>
+                                            </button>
+                                            <button *ngIf="supplier.estado.Tipo_Estado !== 'Inactivo'" class="btn btn-sm btn-danger" title="Desactivar" (click)="deleteSupplier(supplier.id)">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
             <app-footer></app-footer>

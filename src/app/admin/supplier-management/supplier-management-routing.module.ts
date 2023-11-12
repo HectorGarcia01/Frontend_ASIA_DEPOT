@@ -16,7 +16,7 @@ const routes: Routes = [
     component: ListSuppliersComponent,
   },
   {
-    path: 'view/supplier/:id',
+    path: 'view/supplier/:id/:name',
     component: ListSupplierComponent,
   }
 ];
