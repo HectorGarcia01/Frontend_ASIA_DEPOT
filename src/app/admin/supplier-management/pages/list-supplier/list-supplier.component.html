@@ -46,6 +46,9 @@
                                         <a class="btn btn-success btn-block" [routerLink]="'/admin/create/supplier'">Crear Nuevo Proveedor</a>
                                     </div>
                                     <div class="mb-3">
+                                        <a class="btn btn-primary btn-block" [routerLink]="['/admin/update/supplier', supplier.id, getSupplierName(supplier)]">Actualizar Proveedor</a>
+                                    </div>
+                                    <div class="mb-3">
                                         <a *ngIf="supplier.estado.Tipo_Estado === 'Inactivo'" class="btn btn-primary btn-block" (click)="activateSupplier(supplier.id)">Activar Proveedor</a>
                                     </div>
                                     <div class="mb-3">
