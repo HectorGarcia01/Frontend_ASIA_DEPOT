@@ -80,7 +80,7 @@ export class EmployeeManagementService {
 
     url = `${url}/${id}`;
 
-    return this.http.delete<any>(url, { headers });
+    return this.http.get<any>(url, { headers });
   }
 
   /**
@@ -100,5 +100,24 @@ export class EmployeeManagementService {
     url = `${url}/${id}`;
 
     return this.http.delete<any>(url, { headers });
+  }
+
+  /**
+   * Función para realizar una solicitud patch para activar un empleado (Admin) por id
+   * Fecha creación: 20/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *              Función getCookieAuth del servicio de autenticación (auth.service)
+   */
+
+  activateEmployee(url: string, id: number): Observable<any> {
+    const token = this.authService.getCookieAuth();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    url = `${url}/${id}`;
+
+    return this.http.patch<any>(url, null, { headers });
   }
 }
