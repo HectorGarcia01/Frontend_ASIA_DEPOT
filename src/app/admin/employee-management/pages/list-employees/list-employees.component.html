@@ -36,9 +36,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let employee of employees; let i = index">
+                                    <tr *ngFor="let employee of employees">
                                         <td>
-                                            <img [src]="images[i]">
+                                            <img [src]="employeeImages[employee.id] || 'assets/perfil_picture.png'" alt="Foto-Perfil-Admin">
                                             <p>{{ employee.Nombre_Empleado }} {{ employee.Apellido_Empleado }}</p>
                                         </td>
                                         <td class="text-center">

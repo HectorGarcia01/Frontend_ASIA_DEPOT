@@ -15,8 +15,8 @@ export class ListEmployeesComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   sidebarVisible = false;
   employees: getEmployee[] = [];
+  employeeImages: { [key: number]: string } = {};
   image: any = 'assets/transparent.png';
-  images: any = [];
 
   constructor(
     private toggleNavBarService: ToggleNavBarService,
@@ -99,10 +99,11 @@ export class ListEmployeesComponent implements OnInit, OnDestroy {
     try {
       this.employeeService.getPhotos(`${apiURL}/superAdmin/ver/avatars`, id).subscribe({
         next: (data: Blob) => {
-          this.images.push(URL.createObjectURL(data));
+          this.employeeImages[id] = URL.createObjectURL(data);
         },
         error: (error: any) => {
-          this.images.push('assets/perfil_picture.png');
+          this.employeeImages[id] = 'assets/perfil_picture.png';
+          console.log(error.error.error);
         }
       })
     } catch (error: any) {
