@@ -139,7 +139,7 @@ export class ListCustomersComponent {
   }
 
   /**
-   * Función para consumir el servicio de ver la foto de perfil de cada cliente
+   * Función para consumir el servicio de eliminar un cliente
    * Fecha creación: 20/10/2023
    * Autor: Hector Armando García González
    * Referencias: 
