@@ -27,7 +27,8 @@ export interface getCustomer {
             id?: number;
             Nombre_Departamento?: string;
         }
-    };    
+    };  
+    createdAt: string;
     estado: {
         id: number;
         Tipo_Estado: string;
