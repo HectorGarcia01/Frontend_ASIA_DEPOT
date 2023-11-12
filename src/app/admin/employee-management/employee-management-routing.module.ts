@@ -5,18 +5,18 @@ import { ListEmployeesComponent } from './pages/list-employees/list-employees.co
 import { ListEmployeeComponent } from './pages/list-employee/list-employee.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'create/employee', pathMatch: 'full' },
+  { path: '', redirectTo: 'create/admin', pathMatch: 'full' },
 
   {
-    path: 'create/employee',
+    path: 'create/admin',
     component: NewEmployeeComponent,
   },
   {
-    path: 'list/employees',
+    path: 'list/admins',
     component: ListEmployeesComponent,
   },
   {
-    path: 'view/employee/:id',
+    path: 'view/admin/:id/:name',
     component: ListEmployeeComponent,
   }
 ];

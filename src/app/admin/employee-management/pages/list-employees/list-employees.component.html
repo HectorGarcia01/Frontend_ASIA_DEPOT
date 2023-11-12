@@ -5,7 +5,66 @@
         <div class="col-md-9 mt-4">
             <div class="container">
                 <div class="row d-flex justify-content-center">
-
+                    <div class="table-data" id="contentMove">
+                        <div class="order">
+                            <div class="head">
+                                <h2>Administradores</h2>
+                                <i class='bx bx-search'></i>
+                                <i class='bx bx-filter'></i>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            <h5>Nombre</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Teléfono</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Correo</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Fecha de Creación</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Estado</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Acciones</h5>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let employee of employees; let i = index">
+                                        <td>
+                                            <img [src]="images[i]">
+                                            <p>{{ employee.Nombre_Empleado }} {{ employee.Apellido_Empleado }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ employee.Telefono_Empleado }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ employee.Correo_Empleado }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ employee.createdAt }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <span *ngIf="employee.estado.Tipo_Estado === 'Activo'" class="status active">{{ employee.estado.Tipo_Estado }}</span>
+                                            <span *ngIf="employee.estado.Tipo_Estado === 'Pendiente'" class="status pending">{{ employee.estado.Tipo_Estado }}</span>
+                                            <span *ngIf="employee.estado.Tipo_Estado === 'Inactivo'" class="status inactive">{{ employee.estado.Tipo_Estado }}</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-sm btn-primary" title="Ver" [routerLink]="['/admin/view/admin', employee.id, getEmployeeName(employee)]"><i class="fa fa-search"></i></button>
+                                            <button *ngIf="employee.estado.Tipo_Estado === 'Inactivo'" class="btn btn-sm btn-success" title="Activar" (click)="activateEmployee(employee.id)"><i class="fa fa-check"></i></button>
+                                            <button *ngIf="employee.estado.Tipo_Estado !== 'Inactivo'" class="btn btn-sm btn-danger" title="Desactivar" (click)="deleteEmployee(employee.id)"><i class="fa fa-times"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
             <app-footer></app-footer>
