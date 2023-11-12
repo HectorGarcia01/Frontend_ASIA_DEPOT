@@ -58,20 +58,20 @@
             <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse"
                 data-bs-target="#employee-management-collapse" aria-expanded="true">
                 <i class='bx bxs-message-square-add'></i>
-                <span class="text">Gestión de Empleados</span>
+                <span class="text">Gestión de Administradores</span>
             </a>
             <div class="collapse" id="employee-management-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                     <li class="pointer">
-                        <a [routerLink]="['/admin/create/employee']">
+                        <a [routerLink]="['/admin/create/admin']">
                             <i class='bx bx-list-ul'></i>
-                            <span class="text">Nuevo Empleado</span>
+                            <span class="text">Nuevo Administrador</span>
                         </a>
                     </li>
                     <li class="pointer">
-                        <a [routerLink]="['/admin/list/employees']">
+                        <a [routerLink]="['/admin/list/admins']">
                             <i class='bx bx-list-ul'></i>
-                            <span class="text">Ver Empleados</span>
+                            <span class="text">Ver Administradores</span>
                         </a>
                     </li>
                 </ul>
