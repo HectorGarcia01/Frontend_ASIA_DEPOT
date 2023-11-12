@@ -62,7 +62,8 @@
                                             <span *ngIf="product.estado.Tipo_Estado === 'Inactivo'" class="status inactive">{{ product.estado.Tipo_Estado }}</span>
                                         </td>
                                         <td class="text-center">
-                                            <button class="btn btn-sm btn-primary" title="Ver" [routerLink]="['/admin/view/admin', product.id, getProductName(product)]"><i class="fa fa-search"></i></button>
+                                            <button class="btn btn-sm btn-primary" title="Ver" [routerLink]="['/admin/view/product', product.id, getProductName(product)]"><i class="fa fa-search"></i></button>
+                                            <button class="btn btn-sm btn-warning" title="Editar" [routerLink]="['/admin/update/product', product.id, getProductName(product)]"><i class='fa fa-edit'></i></button>
                                             <button *ngIf="product.estado.Tipo_Estado === 'Inactivo'" class="btn btn-sm btn-success" title="Activar" (click)="activateEmployee(product.id)"><i class="fa fa-check"></i></button>
                                             <button *ngIf="product.estado.Tipo_Estado !== 'Inactivo'" class="btn btn-sm btn-danger" title="Desactivar" (click)="deleteProduct(product.id)"><i class="fa fa-times"></i></button>
                                         </td>
