@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToggleNavBarService } from 'src/app/admin/services/toggle-nav-bar.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { AdminProfileService } from 'src/app/admin/services/admin-profile.service';
 import { SharedService } from 'src/app/user/services/shared.service';
@@ -18,6 +19,7 @@ export class NavBarComponent implements OnInit{
   pathRole: any = '';
 
   constructor(
+    private toggleNavBarService: ToggleNavBarService,
     private authService: AuthService,
     private adminService: AdminProfileService,
     private sharedService: SharedService,
@@ -34,6 +36,8 @@ export class NavBarComponent implements OnInit{
   
   toggleNavBar() {
     this.isNavBarVisible = !this.isNavBarVisible;
+    this.toggleNavBarService.setSidebarVisibility(this.isNavBarVisible);
+    
     if (this.isNavBarVisible) {
       const contentElement = document.getElementById('content');
 
