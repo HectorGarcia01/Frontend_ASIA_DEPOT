@@ -8,7 +8,7 @@
                     <div class="table-data" id="contentMove">
                         <div class="order">
                             <div class="head">
-                                <h2>Administradores</h2>
+                                <h2>Clientes</h2>
                                 <i class='bx bx-search'></i>
                                 <i class='bx bx-filter'></i>
                             </div>
@@ -51,22 +51,14 @@
                                             <p>{{ customer.createdAt }}</p>
                                         </td>
                                         <td class="text-center">
-                                            <span *ngIf="customer.estado.Tipo_Estado === 'Activo'" class="status active">{{
-                                                customer.estado.Tipo_Estado }}</span>
-                                            <span *ngIf="customer.estado.Tipo_Estado === 'Pendiente'" class="status pending">{{
-                                                customer.estado.Tipo_Estado }}</span>
-                                            <span *ngIf="customer.estado.Tipo_Estado === 'Inactivo'" class="status inactive">{{
-                                                customer.estado.Tipo_Estado }}</span>
+                                            <span *ngIf="customer.estado.Tipo_Estado === 'Activo'" class="status active">{{ customer.estado.Tipo_Estado }}</span>
+                                            <span *ngIf="customer.estado.Tipo_Estado === 'Pendiente'" class="status pending">{{ customer.estado.Tipo_Estado }}</span>
+                                            <span *ngIf="customer.estado.Tipo_Estado === 'Inactivo'" class="status inactive">{{ customer.estado.Tipo_Estado }}</span>
                                         </td>
                                         <td class="text-center">
-                                            <button class="btn btn-sm btn-primary" title="Ver"
-                                                [routerLink]="['/admin/view/customer', customer.id, getCustomerName(customer)]"><i
-                                                    class="fa fa-search"></i></button>
-                                            <button *ngIf="customer.estado.Tipo_Estado === 'Inactivo'" class="btn btn-sm btn-success"
-                                                title="Activar" (click)="activateCustomer(customer.id)"><i class="fa fa-check"></i></button>
-                                            <button *ngIf="customer.estado.Tipo_Estado !== 'Inactivo'" class="btn btn-sm btn-danger"
-                                                title="Desactivar" (click)="deleteCustomer(customer.id)"><i
-                                                    class="fa fa-times"></i></button>
+                                            <button class="btn btn-sm btn-primary" title="Ver" [routerLink]="['/admin/view/customer', customer.id, getCustomerName(customer)]"><i class="fa fa-search"></i></button>
+                                            <button *ngIf="customer.estado.Tipo_Estado === 'Inactivo' && permissions === true" class="btn btn-sm btn-success" title="Activar" (click)="activateCustomer(customer.id)"><i class="fa fa-check"></i></button>
+                                            <button *ngIf="customer.estado.Tipo_Estado !== 'Inactivo' && permissions === true" class="btn btn-sm btn-danger" title="Desactivar" (click)="deleteCustomer(customer.id)"><i class="fa fa-times"></i></button>
                                         </td>
                                     </tr>
                                 </tbody>

@@ -18,6 +18,7 @@ export class ListCustomersComponent {
   customers: getCustomer[] = [];
   image: any = 'assets/transparent.png';
   customerImages: { [key: number]: string } = {};
+  permissions = false;
   pathRole: any = '';
 
   constructor(
@@ -42,10 +43,12 @@ export class ListCustomersComponent {
 
     if (userRole === 'SuperAdmin') {
       this.pathRole = 'superAdmin';
+      this.permissions = true;
       return true;
     }
 
     this.pathRole = 'admin';
+    this.permissions = false;
     return false;
   }
 
