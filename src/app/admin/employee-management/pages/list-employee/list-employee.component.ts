@@ -12,7 +12,7 @@ import { apiURL } from 'src/app/config/config';
   templateUrl: './list-employee.component.html',
   styleUrls: ['./list-employee.component.css']
 })
-export class ListEmployeeComponent {
+export class ListEmployeeComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   sidebarVisible = false;
   employee: getEmployee = {} as getEmployee;
@@ -56,7 +56,7 @@ export class ListEmployeeComponent {
 
   /**
    * Función para obtener el id de los parámetros de la url
-   * Fecha creación: 06/10/2023
+   * Fecha creación: 20/10/2023
    * Autor: Hector Armando García González
    * Referencias:
    *            Función getProductId que consume el servicio del backend
@@ -73,11 +73,11 @@ export class ListEmployeeComponent {
   }
 
   /**
-   * Función para consumir el servicio de ver todos los empleados (Admin)
+   * Función para consumir el servicio de ver un empleado (Admin)
    * Fecha creación: 20/10/2023
    * Autor: Hector Armando García González
    * Referencias: 
-   *            Función getEmployees del servicio de empleado (employee-management.service)   
+   *            Función getEmployeeId del servicio de empleado (employee-management.service)   
    */
 
   getEmployee(id: any) {
@@ -131,7 +131,7 @@ export class ListEmployeeComponent {
   }
 
   /**
-   * Función para consumir el servicio de ver la foto de perfil de cada empleado (Admin)
+   * Función para consumir el servicio para eliminar un empleado (Admin)
    * Fecha creación: 20/10/2023
    * Autor: Hector Armando García González
    * Referencias: 
