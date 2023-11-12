@@ -58,6 +58,7 @@ export class ShoppingComponent implements OnInit {
       this.shoppingCartService.getShoppingCart(`${apiURL}/usuario/carrito/ver`).subscribe({
         next: (data: any) => {
           this.shoppingDetailCart = data.shoppingDetailCart;
+          this.shoppingDetailCart.Total_Factura = this.shoppingDetailCart.Total_Factura.toFixed(2);
           this.getProfile();
           this.getShipmentInformation();
           if (this.shoppingDetailCart.detalles_venta.length === 0) {
