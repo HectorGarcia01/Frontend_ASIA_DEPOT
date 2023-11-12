@@ -53,13 +53,13 @@
                                 <h3 class="mb-4">Acciones</h3>
                                 <div class="d-flex flex-column btnAction">
                                     <div class="mb-3">
-                                        <a class="btn btn-success btn-block" [routerLink]="'/admin/create/admin'">Crear Nuevo Empleado</a>
+                                        <a class="btn btn-success btn-block" [routerLink]="'/admin/create/admin'">Crear Nuevo Administrador</a>
                                     </div>
                                     <div class="mb-3">
-                                        <a *ngIf="employee.estado.Tipo_Estado === 'Inactivo'" class="btn btn-primary btn-block" (click)="activateEmployee(employee.id)">Activar Empleado</a>
+                                        <a *ngIf="employee.estado.Tipo_Estado === 'Inactivo'" class="btn btn-primary btn-block" (click)="activateEmployee(employee.id)">Activar Administrador</a>
                                     </div>
                                     <div class="mb-3">
-                                        <a *ngIf="employee.estado.Tipo_Estado !== 'Inactivo'" class="btn btn-danger btn-block" (click)="deleteEmployee(employee.id)">Eliminar Empleado</a>
+                                        <a *ngIf="employee.estado.Tipo_Estado !== 'Inactivo'" class="btn btn-danger btn-block" (click)="deleteEmployee(employee.id)">Eliminar Administrador</a>
                                     </div>
                                 </div>
                             </div>
