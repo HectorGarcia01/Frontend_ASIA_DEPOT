@@ -112,7 +112,7 @@ export class ListEmployeesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Función para consumir el servicio de ver la foto de perfil de cada empleado (Admin)
+   * Función para consumir el servicio de eliminar un empleado (Admin)
    * Fecha creación: 20/10/2023
    * Autor: Hector Armando García González
    * Referencias: 
