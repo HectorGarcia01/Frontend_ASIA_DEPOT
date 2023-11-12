@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
 import { UserServicesService } from 'src/app/user/services/user-services.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { Department, Municipalities } from 'src/app/user/interfaces/address.interface';
@@ -22,7 +22,6 @@ export class SingUpComponent implements OnInit {
 
 
   constructor(
-    private fb: FormBuilder,
     private router: Router,
     private userService: UserServicesService,
     private customAlertService: CustomAlertService
