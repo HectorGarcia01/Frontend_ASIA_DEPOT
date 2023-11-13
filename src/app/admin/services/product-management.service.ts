@@ -110,6 +110,25 @@ export class ProductManagementService {
   }
 
   /**
+   * Función para realizar una solicitud patch para actualizar datos del producto
+   * Fecha creación: 20/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *              Función getCookieAuth del servicio de autenticación (auth.service)
+   */
+
+  updateProduct(url: string, id: number, product: any): Observable<any> {
+    const token = this.authService.getCookieAuth();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    url = `${url}/${id}`;
+    
+    return this.http.patch<any>(url, product, { headers });
+  }
+
+  /**
    * Función para realizar una solicitud delete para eliminar un producto por id
    * Fecha creación: 20/10/2023
    * Autor: Hector Armando García González
