@@ -34,7 +34,18 @@
                             {{ shopping.cliente.Nombre_Cliente }}
                             {{ shopping.cliente.Apellido_Cliente }}
                         </td>
-                        <td class="align-middle text-center">{{ shopping.estado.Tipo_Estado }}</td>
+                        <td *ngIf="shopping.estado.Tipo_Estado === 'Pendiente'" class="align-middle text-center">
+                            <span class="status pending">{{ shopping.estado.Tipo_Estado }}</span>
+                        </td>
+                        <td *ngIf="shopping.estado.Tipo_Estado === 'En proceso'" class="align-middle text-center">
+                            <span class="status pending">{{ shopping.estado.Tipo_Estado }}</span>
+                        </td>
+                        <td *ngIf="shopping.estado.Tipo_Estado === 'Completado'" class="align-middle text-center">
+                            <span class="status active">{{ shopping.estado.Tipo_Estado }}</span>
+                        </td>
+                        <td *ngIf="shopping.estado.Tipo_Estado === 'Cancelado'" class="align-middle text-center">
+                            <span class="status inactive">{{ shopping.estado.Tipo_Estado }}</span>
+                        </td>
                         <td class="align-middle text-center">{{ shopping.createdAt }}</td>
                         <td class="align-middle text-center">
                             <button class="btn btn-sm btn-primary" [routerLink]="['/profile/shopping/history', shopping.id, shopping.Numero_Orden]">

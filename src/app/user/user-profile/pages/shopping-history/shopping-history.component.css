@@ -48,3 +48,29 @@
 .table-responsive>.table-bordered {
     border: 0;
 }
+
+table tr td .status {
+    font-size: 10px;
+    padding: 6px 16px;
+    color: #F9F9F9;
+    border-radius: 20px;
+    font-weight: 700;
+}
+
+table tr td .status.active {
+    background: #28a745;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+table tr td .status.pending {
+    background: #007bff;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+table tr td .status.inactive {
+    background: #dc3545;
+    font-weight: bold;
+    font-size: 14px;
+}
