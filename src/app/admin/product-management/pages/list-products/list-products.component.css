@@ -80,19 +80,19 @@
 }
 
 .container div .table-data .order table tr td .status.active {
-    background: #22c73b;
+    background: #28a745;
     font-weight: bold;
     font-size: 14px;
 }
 
 .container div .table-data .order table tr td .status.pending {
-    background: #3C91E6;
+    background: #007bff;
     font-weight: bold;
     font-size: 14px;
 }
 
 .container div .table-data .order table tr td .status.inactive {
-    background: #FD7238;
+    background: #dc3545;
     font-weight: bold;
     font-size: 14px;
 }
