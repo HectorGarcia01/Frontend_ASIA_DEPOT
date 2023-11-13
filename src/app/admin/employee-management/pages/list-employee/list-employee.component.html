@@ -13,7 +13,7 @@
                             <img width="500" height="500" src="assets/404_2.jpg" class="img-fluid rounded-circle" alt="Error 404">
                         </div>
                     </div>
-                    <div *ngIf="error404 == false" class="col-md-9 bg-light mb-3">
+                    <div *ngIf="error404 == false" class="col-md-9 colorEdit shadow-lg rounded-5 mb-3">
                         <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
                             <div class="col-md-4">
                                 <img width="70%" src="{{ image }}" alt="Foto-Perfil" class="img-fluid rounded-circle">
@@ -26,8 +26,8 @@
                     </div>
                     <div *ngIf="error404 == false" class="col-md-9 mb-5">
                         <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
-                            <div class="col-md-6 bg-light p-5 mb-5 container-info">
-                                <h3 class="mb-4">Información personal</h3>
+                            <div class="col-md-6 colorEdit shadow-lg rounded-5 p-5 mb-5 container-info">
+                                <h3 class="mb-4">Información del Administrador</h3>
                                 <div class="mb-3">
                                     <label for="nombre"><strong>Nombre</strong></label>
                                     <p id="nombre">{{ employee.Nombre_Empleado }}</p>
@@ -49,17 +49,20 @@
                                     <p id="nit">{{ employee.NIT_Empleado }}</p>
                                 </div>
                             </div>
-                            <div class="col-md-5 bg-light p-5">
+                            <div class="col-md-5 colorEdit shadow-lg rounded-5 p-5">
                                 <h3 class="mb-4">Acciones</h3>
                                 <div class="d-flex flex-column btnAction">
                                     <div class="mb-3">
-                                        <a class="btn btn-success btn-block" [routerLink]="'/admin/create/admin'">Crear Nuevo Administrador</a>
+                                        <a class="btn btn-success btn-block" [routerLink]="'/admin/create/admin'">Nuevo Administrador</a>
                                     </div>
                                     <div class="mb-3">
                                         <a *ngIf="employee.estado.Tipo_Estado === 'Inactivo'" class="btn btn-primary btn-block" (click)="activateEmployee(employee.id)">Activar Administrador</a>
                                     </div>
                                     <div class="mb-3">
                                         <a *ngIf="employee.estado.Tipo_Estado !== 'Inactivo'" class="btn btn-danger btn-block" (click)="deleteEmployee(employee.id)">Eliminar Administrador</a>
+                                    </div>
+                                    <div class="mb-3">
+                                        <a class="btn btn-danger btn-block" [routerLink]="['/admin/list/admins']">Regresar</a>
                                     </div>
                                 </div>
                             </div>
