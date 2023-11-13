@@ -1,16 +1,16 @@
 <section>
     <div class="container pt-5 pb-3">
         <h2 class="mb-4">Productos destacados</h2>
-        <div data-spy="scroll" data-target="#reviewsNav" data-offset="50" style="height: 500px; overflow-y: auto; overflow-x: hidden;">
+        <div *ngIf="noneProducts == false" class="row justify-content-center align-items-center">
+            <div class="col-12 text-center">
+                <h5>
+                    Lo sentimos, actualmente no poseemos productos destacados, vuelve más tarde!
+                </h5>
+                <img width="300" height="300" src="assets/404.jpg" class="img-fluid rounded-circle" alt="Error 404">
+            </div>
+        </div>
+        <div *ngIf="noneProducts == true" data-spy="scroll" data-target="#reviewsNav" data-offset="50" style="height: 500px; overflow-y: auto; overflow-x: hidden;">
             <div class="row row-cols-1 row-cols-md-3 g-2">
-                <div *ngIf="noneProducts == false" class="row justify-content-center align-items-center">
-                    <div class="col-12 text-center">
-                        <h5>
-                            Lo sentimos, actualmente no poseemos productos destacados, vuelve más tarde!
-                        </h5>
-                        <img width="300" height="300" src="assets/404.jpg" class="img-fluid rounded-circle" alt="Error 404">
-                    </div>
-                </div>
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1" *ngFor="let producto of product">
                     <div class="product-item bg-light mb-4">
                         <div class="product-img position-relative overflow-hidden">
@@ -31,14 +31,6 @@
                                 <h5 style="margin-right: 6px;">Q{{ producto.Precio_Venta }}</h5>
                                 <h6 class="text-muted ml-2"><del>Q{{ producto.Precio_Venta }}</del></h6>
                             </div>
-                            <!-- <div class="d-flex align-items-center justify-content-center mb-1">
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small class="fa fa-star text-primary mr-1"></small>
-                                        <small>(99)</small>
-                                    </div> -->
                             <div class="container-btn">
                                 <a *ngIf="producto.Cantidad_Stock > 0" class="btn btn-primary"
                                     [routerLink]="['/product/detail', producto.id]">Ver detalles</a>

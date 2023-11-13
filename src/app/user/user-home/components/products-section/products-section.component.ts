@@ -44,7 +44,11 @@ export class ProductsSectionComponent {
           return FeaturedProducts.Producto_Destacado === true;
         });
 
-        this.noneProducts = true;
+        if (this.product.length === 0) {
+          this.noneProducts = false;
+        } else {
+          this.noneProducts = true;
+        }
       },
       error: (error: any) => {
         this.product = [];
