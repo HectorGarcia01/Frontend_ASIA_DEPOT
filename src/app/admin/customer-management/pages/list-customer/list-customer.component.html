@@ -1,11 +1,71 @@
 <div id="main-content">
     <app-nav-bar></app-nav-bar>
-    <section class="d-flex justify-content-center">
+    <section class="d-flex justify-content-center" id="contentMove">
         <!-- Información cliente id -->
         <div class="col-md-9 mt-4">
             <div class="container">
                 <div class="row d-flex justify-content-center">
-
+                    <div *ngIf="error404 == true" class="row justify-content-center align-items-center">
+                        <div class="col-12 text-center mt-5">
+                            <h5>
+                                Lo siento, el cliente que estás buscando no ha sido encontrado. Verifica el nombre o selecciona otro
+                                cliente.
+                            </h5>
+                            <img width="500" height="500" src="assets/404_2.jpg" class="img-fluid rounded-circle" alt="Error 404">
+                        </div>
+                    </div>
+                    <div *ngIf="error404 == false" class="col-md-9 colorEdit shadow-lg rounded-5 mb-3">
+                        <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
+                            <div class="col-md-4">
+                                <img width="70%" src="{{ image }}" alt="Foto-Perfil" class="img-fluid rounded-circle">
+                            </div>
+                            <div class="col-md-6">
+                                <h1>{{ customer.Nombre_Cliente }}</h1>
+                                <h1>{{ customer.Apellido_Cliente }}</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="error404 == false" class="col-md-9 mb-3">
+                        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+                            <div class="col-md-6 colorEdit shadow-lg rounded-5 p-5 mb-5 container-info">
+                                <h3 class="mb-4">Información del Cliente</h3>
+                                <div class="mb-3">
+                                    <label for="nombre"><strong>Nombre</strong></label>
+                                    <p id="nombre">{{ customer.Nombre_Cliente }}</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="apellido"><strong>Apellido</strong></label>
+                                    <p id="apellido">{{ customer.Apellido_Cliente }}</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="correo"><strong>Correo</strong></label>
+                                    <p id="correo">{{ customer.Correo_Cliente }}</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="telefono"><strong>Teléfono</strong></label>
+                                    <p id="telefono">{{ customer.Telefono_Cliente }}</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nit"><strong>NIT</strong></label>
+                                    <p id="nit">{{ customer.NIT_Cliente }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-5 colorEdit shadow-lg rounded-5 p-5">
+                                <h3 class="mb-4">Acciones</h3>
+                                <div class="d-flex flex-column btnAction">
+                                    <div class="mb-3">
+                                        <a *ngIf="customer.estado.Tipo_Estado === 'Inactivo'" class="btn btn-primary btn-block" (click)="activateCustomer(customer.id)">Activar Cliente</a>
+                                    </div>
+                                    <div class="mb-3">
+                                        <a *ngIf="customer.estado.Tipo_Estado !== 'Inactivo'" class="btn btn-danger btn-block" (click)="deleteCustomer(customer.id)">Eliminar Cliente</a>
+                                    </div>
+                                    <div class="mb-3">
+                                        <a class="btn btn-danger btn-block" [routerLink]="['/admin/list/customers']">Regresar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <app-footer></app-footer>

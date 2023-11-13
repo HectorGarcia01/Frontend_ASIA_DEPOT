@@ -124,7 +124,7 @@ export class ListCustomersComponent {
 
   getPhotos(id: any) {
     try {
-      this.customerService.getPhotos(`${apiURL}/${this.pathRole}/ver/avatars`, id).subscribe({
+      this.customerService.getPhotos(`${apiURL}/${this.pathRole}/ver/avatar/cliente`, id).subscribe({
         next: (data: Blob) => {
           this.customerImages[id] = URL.createObjectURL(data);
         },
