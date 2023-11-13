@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { AdminProfileService } from 'src/app/admin/services/admin-profile.service';
 import { SharedService } from 'src/app/user/services/shared.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
-import { updateEmployee } from 'src/app/admin/interfaces/employee.interface';
+import { getEmployee, updateEmployee } from 'src/app/admin/interfaces/employee.interface';
 import { apiURL } from 'src/app/config/config';
 
 @Component({
@@ -14,6 +14,7 @@ import { apiURL } from 'src/app/config/config';
   styleUrls: ['./update-profile.component.css']
 })
 export class UpdateProfileComponent implements OnInit {
+  employee: getEmployee = {} as getEmployee;
   updateForm!: FormGroup;
   image: any = 'assets/transparent.png';
   selectedFile: File | undefined;
@@ -54,7 +55,32 @@ export class UpdateProfileComponent implements OnInit {
   ngOnInit() {
     this.scrollToTop();
     this.isSuperAdmin();
+    this.viewProfile();
     this.getProfilePicture();
+  }
+
+  /**
+   * Función para consumir el servicio de ver perfil
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getCustomerProfile del servicio de usuarios (user-services.service)   
+   */
+
+  viewProfile() {
+    try {
+      this.isSuperAdmin();
+      this.adminService.getEmployeeProfile(`${apiURL}/${this.pathRole}/ver/perfil`).subscribe({
+        next: (data: any) => {
+          this.employee = data.employee;
+        },
+        error: (error: any) => {
+          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+        }
+      });
+    } catch (error: any) {
+      console.log(error.error);
+    }
   }
 
   /**

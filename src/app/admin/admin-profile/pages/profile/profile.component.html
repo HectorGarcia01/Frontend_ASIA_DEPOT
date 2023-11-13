@@ -5,7 +5,7 @@
         <div class="col-md-9 mt-4">
             <div class="container">
                 <div class="row d-flex justify-content-center">
-                    <div class="col-md-9 bg-light mb-3">
+                    <div class="col-md-9 colorEdit shadow-lg rounded-5 mb-3">
                         <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
                             <div class="col-md-4">
                                 <img width="70%" src="{{ image }}" alt="Foto-Perfil" class="img-fluid rounded-circle">
@@ -18,7 +18,7 @@
                     </div>
                     <div class="col-md-9 mb-5">
                         <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
-                            <div class="col-md-6 bg-light p-5 mb-5 container-info">
+                            <div class="col-md-6 colorEdit shadow-lg rounded-5 p-5 mb-5 container-info">
                                 <h3 class="mb-4">Información personal</h3>
                                 <div class="mb-3">
                                     <label for="nombre"><strong>Nombre</strong></label>
@@ -36,12 +36,12 @@
                                     <label for="telefono"><strong>Teléfono</strong></label>
                                     <p id="telefono">{{ employee.Telefono_Empleado }}</p>
                                 </div>
-                                <div class="mb-3">
+                                <div *ngIf="employee.NIT_Empleado" class="mb-3">
                                     <label for="nit"><strong>NIT</strong></label>
                                     <p id="nit">{{ employee.NIT_Empleado }}</p>
                                 </div>
                             </div>
-                            <div class="col-md-5 bg-light p-5">
+                            <div class="col-md-5 colorEdit shadow-lg rounded-5 p-5">
                                 <h3 class="mb-4">Acciones</h3>
                                 <div class="d-flex flex-column btnAction">
                                     <div class="mb-3">
