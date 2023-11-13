@@ -17,7 +17,7 @@
                     <div *ngIf="error404 == false" class="col-md-9 mb-5">
                         <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
                             <div class="col-md-6 bg-light p-5 mb-5 container-info">
-                                <h3 class="mb-4">Información personal</h3>
+                                <h3 class="mb-4">Información del Proveedor</h3>
                                 <div class="mb-3">
                                     <label for="nombre"><strong>Nombre</strong></label>
                                     <p id="nombre">{{ supplier.Nombre_Proveedor || 'No especificado' }}</p>
@@ -53,6 +53,9 @@
                                     </div>
                                     <div class="mb-3">
                                         <a *ngIf="supplier.estado.Tipo_Estado !== 'Inactivo'" class="btn btn-danger btn-block" (click)="deleteSupplier(supplier.id)">Eliminar Proveedor</a>
+                                    </div>
+                                    <div class="mb-3">
+                                        <a class="btn btn-danger btn-block" [routerLink]="['/admin/list/suppliers']">Regresar</a>
                                     </div>
                                 </div>
                             </div>
