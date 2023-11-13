@@ -169,4 +169,23 @@ export class ShoppingCartService {
     
     return this.http.delete<any>(url, { headers });
   }
+
+  /**
+   * Función para realizar una solicitud get para ver detalle de compra por id
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *              Función getCookieAuth del servicio de autenticación (auth.service)
+   */
+
+  shoppingHistoryId(url: string, id: number): Observable<any> {
+    const token = this.authService.getCookieAuth();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    url = `${url}/${id}`;
+
+    return this.http.get<any>(url, { headers });
+  }
 }
