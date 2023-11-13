@@ -101,7 +101,7 @@ export class ShoppingComponent implements OnInit {
   }
 
   /**
-   * Función para consumir el servicio de ver perfil
+   * Función para consumir el servicio de ver la información de envío
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    * Referencias: 
