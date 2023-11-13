@@ -6,6 +6,11 @@ export interface addProductBrand {
 export interface getProductBrand {
     id: number;
     Nombre_Marca: string;
+    createdAt: string;
+    estado: {
+        id: number;
+        Tipo_Estado: string;
+    };
 }
 
 export interface updateProductBrand {
