@@ -37,7 +37,7 @@
                         <td class="align-middle text-center">{{ shopping.estado.Tipo_Estado }}</td>
                         <td class="align-middle text-center">{{ shopping.createdAt }}</td>
                         <td class="align-middle text-center">
-                            <button class="btn btn-sm btn-primary">
+                            <button class="btn btn-sm btn-primary" [routerLink]="['/profile/shopping/history', shopping.id, shopping.Numero_Orden]">
                                 <i class="fa fa-search"></i>
                             </button>
                         </td>
