@@ -35,9 +35,11 @@ export class NavBarComponent implements OnInit{
 
     if (search.indexOf('das') !== -1) {
       this.router.navigate(['/admin']);
+    } else if (search.indexOf('per') !== -1 || search.indexOf('perfil') !== -1) {
+      this.router.navigate(['/admin/profile']);
     } else if (search.indexOf('cli') !== -1) {
       this.router.navigate(['/admin/list/customers']);
-    } else if (search.indexOf('adm') !== -1) {
+    } else if (search.indexOf('adm') !== -1 || search.indexOf('admin') !== -1) {
       this.router.navigate(['/admin/list/admins']);
     } else if (search.indexOf('prov') !== -1) {
       this.router.navigate(['/admin/list/suppliers']);
