@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
 import { ShoppingCartService } from 'src/app/user/services/shopping-cart.service';
 import { UserServicesService } from 'src/app/user/services/user-services.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
@@ -19,7 +18,6 @@ export class ShoppingDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private shoppingCartService: ShoppingCartService,
-    private userService: UserServicesService,
     private customAlertService: CustomAlertService
   ) { }
 
