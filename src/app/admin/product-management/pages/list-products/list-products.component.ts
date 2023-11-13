@@ -155,6 +155,31 @@ export class ListProductsComponent implements OnInit, OnDestroy{
    *            Función deleteProduct del servicio de producto (product-management.service)   
    */
 
+  updateProduct(id: number, featuredProduct: boolean) {
+    try {
+      const productData = { Producto_Destacado: !featuredProduct };
+      this.productService.updateProduct(`${apiURL}/${this.pathRole}/actualizar/producto`, id, productData).subscribe({
+        next: (data: any) => {
+          this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
+          this.getProducts();
+        },
+        error: (error: any) => {
+          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+        }
+      })
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  /**
+   * Función para consumir el servicio de eliminar un producto
+   * Fecha creación: 20/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función deleteProduct del servicio de producto (product-management.service)   
+   */
+
   deleteProduct(id: any) {
     try {
       this.productService.deleteProduct(`${apiURL}/superAdmin/eliminar/producto`, id).subscribe({

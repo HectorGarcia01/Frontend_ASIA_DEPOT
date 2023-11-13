@@ -28,6 +28,9 @@
                                             <h5>Stock</h5>
                                         </th>
                                         <th class="text-center">
+                                            <h5>Destacado</h5>
+                                        </th>
+                                        <th class="text-center">
                                             <h5>Fecha de Creación</h5>
                                         </th>
                                         <th class="text-center">
@@ -52,6 +55,10 @@
                                         </td>
                                         <td class="text-center">
                                             <p>{{ product.Cantidad_Stock }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <button *ngIf="product.Producto_Destacado === false" class="btn btn-sm btn-success" title="Destacar" (click)="updateProduct(product.id, product.Producto_Destacado)"><i class="fa fa-check"></i></button>
+                                            <button *ngIf="product.Producto_Destacado === true" class="btn btn-sm btn-danger" title="No Destacar" (click)="updateProduct(product.id, product.Producto_Destacado)"><i class="fa fa-times"></i></button>
                                         </td>
                                         <td class="text-center">
                                             <p>{{ product.createdAt }}</p>

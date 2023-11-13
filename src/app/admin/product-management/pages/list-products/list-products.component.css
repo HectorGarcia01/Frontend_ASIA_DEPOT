@@ -11,6 +11,7 @@
 .container div .table-data>div {
     border-radius: 20px;
     background: #F9F9F9;
+    border: 1px solid rgb(181, 179, 179);
     padding: 24px;
     overflow-x: auto;
 }
