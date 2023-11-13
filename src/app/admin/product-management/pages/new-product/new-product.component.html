@@ -2,102 +2,131 @@
     <app-nav-bar></app-nav-bar>
     <section class="d-flex justify-content-center">
         <!-- Formulario de producto -->
-        <div class="col-md-9 mt-4">
+        <div class="col-md-12 mt-5">
             <div class="container">
                 <div class="row d-flex justify-content-center">
                     <div class="col-md-5 bg-light p-5 mb-3">
                         <div class="text-center mb-3">
-                            <h2>Registro de Proveedor</h2>
+                            <h2>Registro de Producto</h2>
                         </div>
                         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                             <!-- Name input -->
                             <div class="form-floating mb-3">
-                                <input type="text" formControlName="nombre" class="form-control"
-                                    placeholder="Ingresa el nombre del proveedor">
-                                <label for="registerName">Nombre del Proveedor</label>
-                                <div *ngIf="registerForm.get('nombre')?.hasError('minlength') && registerForm.get('nombre')?.touched"
-                                    class="text-danger">
+                                <input type="text" formControlName="nombre" class="form-control" placeholder="Ingresa el nombre del producto">
+                                <label for="registerName">Nombre del Producto</label>
+                                <div *ngIf="registerForm.get('nombre')?.hasError('required') && registerForm.get('nombre')?.touched" class="text-danger">
+                                    El nombre es obligatorio.
+                                </div>
+                                <div *ngIf="registerForm.get('nombre')?.hasError('minlength') && registerForm.get('nombre')?.touched" class="text-danger">
                                     El nombre es demasiado corto (mínimo 3 carácteres).
                                 </div>
-                                <div *ngIf="registerForm.get('nombre')?.hasError('maxlength') && registerForm.get('nombre')?.touched"
-                                    class="text-danger">
-                                    El nombre es demasiado largo (máximo 30 carácteres).
+                                <div *ngIf="registerForm.get('nombre')?.hasError('maxlength') && registerForm.get('nombre')?.touched" class="text-danger">
+                                    El nombre es demasiado largo (máximo 50 carácteres).
                                 </div>
-                                <div *ngIf="registerForm.get('nombre')?.hasError('pattern') && registerForm.get('nombre')?.touched"
-                                    class="text-danger">
+                                <div *ngIf="registerForm.get('nombre')?.hasError('pattern') && registerForm.get('nombre')?.touched" class="text-danger">
                                     El nombre no es válido, no use carácteres especiales.
                                 </div>
                             </div>
                     
-                            <!-- Username input -->
-                            <div class="form-floating mb-3">
-                                <input type="text" formControlName="apellido" class="form-control"
-                                    placeholder="Ingresa el apellido del proveedor">
-                                <label for="registerUsername">Apellido del Proveedor</label>
-                                <div *ngIf="registerForm.get('apellido')?.hasError('minlength') && registerForm.get('apellido')?.touched"
-                                    class="text-danger">
-                                    El apellido es demasiado corto (mínimo 3 carácteres).
+                            <div class="row">
+                                <!-- Precio de venta input -->
+                                <div class="col form-floating mb-3">
+                                    <input type="number" formControlName="precio_venta" class="form-control" placeholder="Ingresa el precio de venta">
+                                    <label style="margin-left: 8px;" for="registerPriceSales">Precio de Venta</label>
+                                    <div *ngIf="registerForm.get('precio_venta')?.hasError('required') && registerForm.get('precio_venta')?.touched" class="text-danger">
+                                        El precio de venta es obligatorio.
+                                    </div>
                                 </div>
-                                <div *ngIf="registerForm.get('apellido')?.hasError('maxlength') && registerForm.get('apellido')?.touched"
-                                    class="text-danger">
-                                    El apellido es demasiado largo (máximo 30 carácteres).
-                                </div>
-                                <div *ngIf="registerForm.get('apellido')?.hasError('pattern') && registerForm.get('apellido')?.touched"
-                                    class="text-danger">
-                                    El apellido no es válido, no use carácteres especiales.
+                            
+                                <!-- Precio de compra input -->
+                                <div class="col form-floating mb-3">
+                                    <input type="number" formControlName="precio_compra" class="form-control" placeholder="Ingresa el precio de compra">
+                                    <label style="margin-left: 8px;" for="registerPricePurchase">Precio de Compra</label>
                                 </div>
                             </div>
                     
-                            <!-- Username input -->
+                            <!-- Descripción input -->
                             <div class="form-floating mb-3">
-                                <input type="text" formControlName="empresa" class="form-control"
-                                    placeholder="Ingresa el nombre de la empresa">
-                                <label for="registerUsername">Nombre de Empresa</label>
-                                <div *ngIf="registerForm.get('empresa')?.hasError('minlength') && registerForm.get('empresa')?.touched"
-                                    class="text-danger">
-                                    El nombre de la empresa es demasiado corto (mínimo 5 carácteres).
+                                <input type="text" formControlName="descripcion" class="form-control" placeholder="Ingresa la descripción del producto">
+                                <label for="registerUsername">Descripción del Producto</label>
+                                <div *ngIf="registerForm.get('descripcion')?.hasError('minlength') && registerForm.get('descripcion')?.touched" class="text-danger">
+                                    La descripción del producto es demasiado corta (mínimo 10 carácteres).
                                 </div>
-                                <div *ngIf="registerForm.get('empresa')?.hasError('maxlength') && registerForm.get('empresa')?.touched"
-                                    class="text-danger">
-                                    El nombre de la empresa es demasiado largo (máximo 50 carácteres).
+                                <div *ngIf="registerForm.get('descripcion')?.hasError('maxlength') && registerForm.get('descripcion')?.touched" class="text-danger">
+                                    La descripción del producto es demasiado larga (máximo 200 carácteres).
                                 </div>
-                                <div *ngIf="registerForm.get('empresa')?.hasError('pattern') && registerForm.get('empresa')?.touched"
-                                    class="text-danger">
-                                    El nombre de la empresa no es válido, no use carácteres especiales.
+                                <div *ngIf="registerForm.get('descripcion')?.hasError('pattern') && registerForm.get('descripcion')?.touched" class="text-danger">
+                                    La descripción del producto no es válida, no use carácteres especiales.
                                 </div>
                             </div>
                     
-                            <!-- Tel input -->
-                            <div class="form-floating mb-3">
-                                <input type="text" formControlName="telefono" class="form-control"
-                                    placeholder="Ingresa el número de teléfono del proveedor">
-                                <label for="registerTel">Teléfono de Contacto</label>
-                                <div *ngIf="registerForm.get('telefono')?.hasError('required') && registerForm.get('telefono')?.touched"
-                                    class="text-danger">
-                                    El teléfono es obligatorio.
+                            <div class="row">
+                                <!-- Cantidad de producto input -->
+                                <div class="col form-floating mb-3">
+                                    <input type="number" formControlName="cantidad" class="form-control" placeholder="Ingresa la cantidad en stock">
+                                    <label style="margin-left: 8px;" for="registerStock">Cantidad en Stock</label>
+                                    <div *ngIf="registerForm.get('cantidad')?.hasError('required') && registerForm.get('cantidad')?.touched" class="text-danger">
+                                        La cantidad en stock es obligatoria.
+                                    </div>
                                 </div>
-                                <div *ngIf="registerForm.get('telefono')?.hasError('pattern') && registerForm.get('telefono')?.touched"
-                                    class="text-danger">
-                                    El teléfono no es válido, debe de poseer 8 dígitos.
+                            
+                                <!-- Producto destacado input -->
+                                <div class="col form-floating mb-3">
+                                    <select class="form-select" aria-label="Default select example" formControlName="destacado">
+                                        <option value="null">Selecciona una opción</option>
+                                        <option value="true">Sí</option>
+                                        <option value="false">No</option>
+                                    </select>
+                                    <label style="margin-left: 8px;" for="registerProductD">Producto Destacado</label>
                                 </div>
                             </div>
-                    
-                            <!-- Email input -->
+
+                            <!-- Código input -->
                             <div class="form-floating mb-3">
-                                <input type="email" formControlName="correo" class="form-control"
-                                    placeholder="Ingresa el correo del proveedor">
-                                <label for="registerEmail">Correo de Contacto</label>
-                                <div *ngIf="registerForm.get('correo')?.hasError('required') && registerForm.get('correo')?.touched"
-                                    class="text-danger">
-                                    El correo es obligatorio.
+                                <input type="text" formControlName="codigo" class="form-control" placeholder="Ingresa el código de barras">
+                                <label for="registerUsername">Código de Barras</label>
+                                <div *ngIf="registerForm.get('codigo')?.hasError('minlength') && registerForm.get('codigo')?.touched" class="text-danger">
+                                    El código es demasiado corto (mínimo 5 carácteres).
                                 </div>
-                                <div *ngIf="registerForm.get('correo')?.hasError('email') && registerForm.get('correo')?.touched"
-                                    class="text-danger">
-                                    El correo no es válido.
+                                <div *ngIf="registerForm.get('codigo')?.hasError('maxlength') && registerForm.get('codigo')?.touched" class="text-danger">
+                                    El código es demasiado largo (máximo 200 carácteres).
                                 </div>
-                                <div *ngIf="registerForm.get('correo')?.hasError('maxlength') && registerForm.get('correo')?.touched"
-                                    class="text-danger">
-                                    El correo es demasiado largo (máximo 40 carácteres).
+                            </div>
+
+                            <div class="row">
+                                <!-- Categoría input -->
+                                <div class="col form-floating mb-3">
+                                    <select class="form-select" aria-label="Default select example" formControlName="categoria" required>
+                                        <option value="null">Selecciona la categoría</option>
+                                        <option *ngFor="let category of categories" [value]="category.id">{{ category.Nombre_Categoria }}
+                                        </option>
+                                    </select>
+                                    <label style="margin-left: 8px;" for="registerCategory">Categoría (*)</label>
+                                    <div *ngIf="registerForm.get('categoria')?.hasError('required') && registerForm.get('categoria')?.touched" class="text-danger">
+                                        La categoría es obligatoria.
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-success btnAction" data-bs-toggle="modal" data-bs-target="#categoryModal">
+                                        Nueva Categoría
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <!-- Marca input -->
+                                <div class="col form-floating mb-3">
+                                    <select class="form-select" aria-label="Default select example" formControlName="categoria">
+                                        <option value="null">Selecciona la marca</option>
+                                        <option *ngFor="let productBrand of productsBrand" [value]="productBrand.id">{{ productBrand.Nombre_Marca }}
+                                        </option>
+                                    </select>
+                                    <label style="margin-left: 8px;" for="registerBrand">Marca de Producto</label>
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-success btnAction" data-bs-toggle="modal" data-bs-target="#brandModal">
+                                        Nueva Marca
+                                    </button>
                                 </div>
                             </div>
                     
@@ -114,4 +143,102 @@
             <app-footer></app-footer>
         </div>
     </section>
+</div>
+
+<!-- Modal para agregar una nueva categoría -->
+<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Nueva Categoría</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="registerCategoryForm" (ngSubmit)="saveNewCategory()">
+                    <div class="modal-body">
+                        <!-- Formulario para la nueva categoría -->
+                        <!-- Name input -->
+                        <div class="form-floating mb-3">
+                            <input type="text" formControlName="nombre_categoria" class="form-control" placeholder="Ingresa el nombre del producto">
+                            <label for="registerName">Nombre de Categoría</label>
+                            <div *ngIf="registerCategoryForm.get('nombre_categoria')?.hasError('required') && registerCategoryForm.get('nombre_categoria')?.touched"
+                                class="text-danger">
+                                El nombre de categoría es obligatorio.
+                            </div>
+                            <div *ngIf="registerCategoryForm.get('nombre_categoria')?.hasError('minlength') && registerCategoryForm.get('nombre_categoria')?.touched"
+                                class="text-danger">
+                                El nombre de categoría es demasiado corto (mínimo 3 carácteres).
+                            </div>
+                            <div *ngIf="registerCategoryForm.get('nombre_categoria')?.hasError('maxlength') && registerCategoryForm.get('nombre_categoria')?.touched"
+                                class="text-danger">
+                                El nombre de categoría es demasiado largo (máximo 50 carácteres).
+                            </div>
+                            <div *ngIf="registerCategoryForm.get('nombre_categoria')?.hasError('pattern') && registerCategoryForm.get('nombre_categoria')?.touched"
+                                class="text-danger">
+                                El nombre de categoría no es válido, no use carácteres especiales.
+                            </div>
+                        </div>
+                        <!-- Address input -->
+                        <div class="form-floating mb-3">
+                            <textarea id="floatingTextarea2" minlength="10" maxlength="201" style="max-height: 100px;" formControlName="descripcion_categoria" class="form-control" placeholder="Ingresa la descripción de categoría"></textarea>
+                            <label for="registerAddress">Descripción de Categoría</label>
+                            <div *ngIf="registerCategoryForm.get('descripcion_categoria')?.hasError('minlength') && registerCategoryForm.get('descripcion_categoria')?.touched" class="text-danger">
+                                La descripción es demasiado corta (mínimo 10 carácteres).
+                            </div>
+                            <div *ngIf="registerCategoryForm.get('descripcion_categoria')?.hasError('maxlength') && registerCategoryForm.get('descripcion_categoria')?.touched" class="text-danger">
+                                La descripción es demasiado larga (máximo 200 carácteres).
+                            </div>
+                            <div *ngIf="registerCategoryForm.get('descripcion_categoria')?.hasError('pattern') && registerCategoryForm.get('descripcion_categoria')?.touched" class="text-danger">
+                                La descripción no es válida, no use carácteres especiales.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success" [disabled]="!registerCategoryForm.valid">Registrar Categoría</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para agregar una nueva marca -->
+<div class="modal fade" id="brandModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Nueva Categoría</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="registerBrandForm" (ngSubmit)="saveNewBrand()">
+                    <div class="modal-body">
+                        <!-- Formulario para la nueva marca -->
+                        <input type="text" formControlName="nombre_marca" class="form-control" placeholder="Nombre de la marca de producto">
+                        <div *ngIf="registerBrandForm.get('nombre_marca')?.hasError('required') && registerBrandForm.get('nombre_marca')?.touched"
+                            class="text-danger">
+                            El nombre de marca es obligatorio.
+                        </div>
+                        <div *ngIf="registerBrandForm.get('nombre_marca')?.hasError('minlength') && registerBrandForm.get('nombre_marca')?.touched"
+                            class="text-danger">
+                            El nombre de marca es demasiado corto (mínimo 3 carácteres).
+                        </div>
+                        <div *ngIf="registerBrandForm.get('nombre_marca')?.hasError('maxlength') && registerBrandForm.get('nombre_marca')?.touched"
+                            class="text-danger">
+                            El nombre de marca es demasiado largo (máximo 50 carácteres).
+                        </div>
+                        <div *ngIf="registerBrandForm.get('nombre_marca')?.hasError('pattern') && registerBrandForm.get('nombre_marca')?.touched"
+                            class="text-danger">
+                            El nombre de marca no es válido, no use carácteres especiales.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success" [disabled]="!registerBrandForm.valid">Registrar Marca</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

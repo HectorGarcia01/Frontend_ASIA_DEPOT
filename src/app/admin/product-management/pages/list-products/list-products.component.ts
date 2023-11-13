@@ -20,6 +20,9 @@ export class ListProductsComponent implements OnInit, OnDestroy{
   image: any = 'assets/transparent.png';
   permissions = false;
   pathRole: any = '';
+  totalPages: number = 0;
+  currentPage: number = 1;
+  pageSize: number = 8;
 
   constructor(
     private toggleNavBarService: ToggleNavBarService,
@@ -89,9 +92,11 @@ export class ListProductsComponent implements OnInit, OnDestroy{
 
   getProducts() {
     try {
-      this.productService.getProducts(`${apiURL}/${this.pathRole}/ver/productos`).subscribe({
+      this.productService.getProducts(`${apiURL}/${this.pathRole}/ver/productos`, this.currentPage, this.pageSize).subscribe({
         next: (data: any) => {
           this.products = data.products;
+          this.totalPages = data.totalPages;
+          this.currentPage = data.currentPage;
 
           this.products.forEach((product: any) => {
             if (product.createdAt) {
@@ -133,7 +138,7 @@ export class ListProductsComponent implements OnInit, OnDestroy{
           this.productImages[id] = URL.createObjectURL(data);
         },
         error: (error: any) => {
-          this.productImages[id] = 'assets/perfil_picture.png';
+          this.productImages[id] = 'assets/Logo_ASIA_DEPOT.png';
           console.log(error.error.error);
         }
       })
@@ -192,5 +197,39 @@ export class ListProductsComponent implements OnInit, OnDestroy{
 
   getProductName(product: any): string {
     return product.Nombre_Producto.toLowerCase().replace(/ /g, '-');
+  }
+
+  /**
+   * Función para cambiar de página
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getCategories
+   */
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.getProducts();
+      this.scrollToTop();
+    }
+  }
+
+  /**
+   * Función para obtener el número de páginas
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
+
+  getPagesArray(): number[] {
+    const pagesArray = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pagesArray.push(i);
+    }
+    return pagesArray;
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
