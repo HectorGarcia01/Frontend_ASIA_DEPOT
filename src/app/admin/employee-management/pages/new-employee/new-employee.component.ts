@@ -135,9 +135,9 @@ export class NewEmployeeComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.submitted = true;
-    this.loading = true;
-
+    
     if (this.registerForm.valid) {
+      this.loading = true;
       const password = this.registerForm.get('password')?.value;
       const repeatPassword = this.registerForm.get('repetir_password')?.value;
 
