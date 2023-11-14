@@ -17,6 +17,10 @@ export class ListEmployeesComponent implements OnInit, OnDestroy {
   employees: getEmployee[] = [];
   employeeImages: { [key: number]: string } = {};
   image: any = 'assets/transparent.png';
+  totalPages: number = 0;
+  currentPage: number = 1;
+  pageSize: number = 5;
+  searchQuery: string = '';
 
   constructor(
     private toggleNavBarService: ToggleNavBarService,
@@ -27,6 +31,7 @@ export class ListEmployeesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.scrollToTop();
     this.getEmployees();
   }
 
@@ -82,6 +87,40 @@ export class ListEmployeesComponent implements OnInit, OnDestroy {
           console.log(error.error.error);
         }
       })
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  onSearch(event: Event) {
+    event.preventDefault();
+    this.searchEmployee(this.searchQuery);
+  }
+
+  searchEmployee(query: string) {
+    try {
+      this.employeeService.getEmployees(`${apiURL}/superAdmin/ver/empleados?nombre=${query}`, this.currentPage, this.pageSize).subscribe({
+        next: (data: any) => {
+          this.employees = data.employees;
+          this.totalPages = data.totalPages;
+          this.currentPage = data.currentPage;
+
+          this.employees.forEach((employee: any) => {
+            if (employee.createdAt) {
+              const createdDate = employee.createdAt;
+              const parts = createdDate.split('T');
+              const newDateCreate = parts[0];
+
+              employee.createdAt = newDateCreate;
+            }
+
+            this.getPhotos(employee.id);
+          });
+        },
+        error: (error: any) => {
+          console.log(error.error.error);
+        }
+      });
     } catch (error: any) {
       console.log(error.error);
     }
@@ -163,4 +202,52 @@ export class ListEmployeesComponent implements OnInit, OnDestroy {
     return employee.Nombre_Empleado.toLowerCase().replace(/ /g, '-');
   }
 
+  /**
+   * Función para cambiar de página
+   * Fecha creación: 20/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getCustomers
+   */
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.getEmployees();
+      this.scrollToTop();
+    }
+  }
+
+  /**
+   * Función para cambiar el número de registros
+   * Fecha creación: 20/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getCustomers
+   */
+
+  changePageSize(event: Event) {
+    const element = event.target as HTMLSelectElement;
+    this.pageSize = +element.value;
+    this.currentPage = 1;
+    this.getEmployees();
+  }
+
+  /**
+   * Función para obtener el número de páginas
+   * Fecha creación: 20/10/2023
+   * Autor: Hector Armando García González
+   */
+
+  getPagesArray(): number[] {
+    const pagesArray = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pagesArray.push(i);
+    }
+    return pagesArray;
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 }
