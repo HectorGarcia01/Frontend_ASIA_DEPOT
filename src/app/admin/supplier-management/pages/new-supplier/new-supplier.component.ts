@@ -18,6 +18,7 @@ export class NewSupplierComponent implements OnInit, OnDestroy {
   sidebarVisible = false;
   registerForm!: FormGroup;
   pathRole: any = '';
+  loading = false;
 
   constructor(
     private toggleNavBarService: ToggleNavBarService,
@@ -132,12 +133,14 @@ export class NewSupplierComponent implements OnInit, OnDestroy {
   onSubmit() {
     try {
       if (this.registerForm.valid) {
+        this.loading = true;
         const supplierData = this.getSupplierData();
 
         this.supplierService.createSupplier(`${apiURL}/${this.pathRole}/nuevo/proveedor`, supplierData).subscribe({
           next: (response: any) => {
             this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
             this.registerForm.reset();
+            this.loading = false;
             this.router.navigate(['/admin/list/suppliers']);
           },
           error: (error: any) => {
