@@ -2,19 +2,11 @@
 
 <div class="container mt-4 mb-5">
     <div class="row justify-content-center">
-        <div class="col-md-4">
-            <div class="tab-content">
+        <div class="col-md-5">
+            <div class="tab-content bg-light shadow-lg rounded-5 p-4">
                 <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-                    <form class="border border-2 border-dark p-5" [formGroup]="loginForm" (ngSubmit)="singIn()">
+                    <form class="p-5" [formGroup]="loginForm" (ngSubmit)="singIn()">
                         <h1 class="text-center mb-5">Iniciar Sesión</h1>
-
-                        <!-- <div class="text-center mb-5">
-                            <button type="button" class="btn btn-secondary btn-floating mx-1">
-                                <i class="fab fa-google"></i>
-                            </button>
-                        </div> -->
-
-                        <!-- <p class="text-center">O BIEN</p> -->
 
                         <!-- Email input -->
                         <div class="form-outline mb-4">
