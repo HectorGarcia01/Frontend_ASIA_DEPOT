@@ -16,6 +16,7 @@ export class ListEmployeeComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   sidebarVisible = false;
   employee: getEmployee = {} as getEmployee;
+  dataAdmin: any = {};
   image: any = 'assets/transparent.png';
   error404: boolean = false;
 
@@ -85,6 +86,7 @@ export class ListEmployeeComponent implements OnInit, OnDestroy {
       this.employeeService.getEmployeeId(`${apiURL}/superAdmin/ver/empleado`, id).subscribe({
         next: (data: any) => {
           this.employee = data.employee;
+          this.dataAdmin.Estado = this.employee.estado.Tipo_Estado;
 
           if (this.employee.createdAt) {
             const createdDate = this.employee.createdAt;

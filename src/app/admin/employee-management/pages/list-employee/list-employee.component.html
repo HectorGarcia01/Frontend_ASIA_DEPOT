@@ -56,10 +56,10 @@
                                         <a class="btn btn-success btn-block" [routerLink]="'/admin/create/admin'">Nuevo Administrador</a>
                                     </div>
                                     <div class="mb-3">
-                                        <a *ngIf="employee.estado.Tipo_Estado === 'Inactivo'" class="btn btn-primary btn-block" (click)="activateEmployee(employee.id)">Activar Administrador</a>
+                                        <a *ngIf="dataAdmin.Estado === 'Inactivo'" class="btn btn-primary btn-block" (click)="activateEmployee(employee.id)">Activar Administrador</a>
                                     </div>
                                     <div class="mb-3">
-                                        <a *ngIf="employee.estado.Tipo_Estado !== 'Inactivo'" class="btn btn-danger btn-block" (click)="deleteEmployee(employee.id)">Eliminar Administrador</a>
+                                        <a *ngIf="dataAdmin.Estado !== 'Inactivo'" class="btn btn-danger btn-block" (click)="deleteEmployee(employee.id)">Eliminar Administrador</a>
                                     </div>
                                     <div class="mb-3">
                                         <a class="btn btn-danger btn-block" [routerLink]="['/admin/list/admins']">Regresar</a>
