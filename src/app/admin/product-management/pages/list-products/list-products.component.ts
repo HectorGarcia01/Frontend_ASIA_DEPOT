@@ -155,7 +155,7 @@ export class ListProductsComponent implements OnInit, OnDestroy {
           });
         },
         error: (error: any) => {
-          console.log(error.error.error);
+          this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
         }
       })
     } catch (error: any) {
