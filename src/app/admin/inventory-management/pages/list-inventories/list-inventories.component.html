@@ -5,7 +5,104 @@
         <div class="col-md-9 mt-4">
             <div class="container">
                 <div class="row d-flex justify-content-center">
-
+                    <div class="table-data" id="contentMove">
+                        <div class="order">
+                            <div class="head">
+                                <h2>Inventario</h2>
+                                <form (submit)="onSearch($event)">
+                                    <div class="form-input">
+                                        <input type="search" placeholder="Buscar por tipo, cantidad o monto" name="search"
+                                            [(ngModel)]="searchQuery">
+                                        <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+                                    </div>
+                                </form>
+                                <div class="col-md-1 form-floating">
+                                    <select class="form-select" aria-label="Default select example" (change)="changePageSize($event)">
+                                        <option [value]="5" [selected]="pageSize === 5">5</option>
+                                        <option [value]="20" [selected]="pageSize === 20">20</option>
+                                        <option [value]="40" [selected]="pageSize === 40">40</option>
+                                        <option [value]="60" [selected]="pageSize === 60">60</option>
+                                        <option [value]="80" [selected]="pageSize === 80">80</option>
+                                    </select>
+                                    <label for="registerShow">Mostrar</label>
+                                </div>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            <h5>No.</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Tipo de Movimiento</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Cantidad de Movimiento</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Monto de Movimiento</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Administrador</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Fecha de Creación</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Acciones</h5>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let inventory of inventories">
+                                        <td class="text-center">
+                                            <p>{{ inventory.id }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ inventory.Tipo_Movimiento }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ inventory.Cantidad_Movimiento }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>Q.{{ inventory.Monto_Movimiento }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ inventory.empleado.Nombre_Empleado }} {{ inventory.empleado.Apellido_Empleado }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ inventory.createdAt }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-sm btn-primary" title="Ver" [routerLink]="['/admin/view/inventory', inventory.id]">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- Paginación -->
+                            <div class="d-flex justify-content-center mt-3">
+                                <nav aria-label="Page navigation example" *ngIf="totalPages > 1">
+                                    <ul class="pagination">
+                                        <li class="page-item" [class.disabled]="currentPage === 1">
+                                            <a class="btn page-link" (click)="changePage(currentPage - 1)" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item" *ngFor="let page of getPagesArray()" [class.active]="currentPage === page">
+                                            <a class="btn page-link" (click)="changePage(page)">{{ page }}</a>
+                                        </li>
+                                        <li class="page-item" [class.disabled]="currentPage === totalPages">
+                                            <a class="btn page-link" (click)="changePage(currentPage + 1)" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <app-footer></app-footer>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { InventoryManagementRoutingModule } from './inventory-management-routing.module';
 import { ListInventoriesComponent } from './pages/list-inventories/list-inventories.component';
@@ -13,6 +14,7 @@ import { AdminSharedModule } from '../shared/admin-shared.module';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     InventoryManagementRoutingModule,
     AdminSharedModule
   ]
