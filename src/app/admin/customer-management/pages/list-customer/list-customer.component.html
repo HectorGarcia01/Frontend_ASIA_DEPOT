@@ -54,10 +54,10 @@
                                 <h3 class="mb-4">Acciones</h3>
                                 <div class="d-flex flex-column btnAction">
                                     <div class="mb-3">
-                                        <a *ngIf="customer.estado.Tipo_Estado === 'Inactivo'" class="btn btn-primary btn-block" (click)="activateCustomer(customer.id)">Activar Cliente</a>
+                                        <a *ngIf="customer.estado.Tipo_Estado === 'Inactivo' && permissions === true" class="btn btn-primary btn-block" (click)="activateCustomer(customer.id)">Activar Cliente</a>
                                     </div>
                                     <div class="mb-3">
-                                        <a *ngIf="customer.estado.Tipo_Estado !== 'Inactivo'" class="btn btn-danger btn-block" (click)="deleteCustomer(customer.id)">Eliminar Cliente</a>
+                                        <a *ngIf="customer.estado.Tipo_Estado !== 'Inactivo' && permissions === true" class="btn btn-danger btn-block" (click)="deleteCustomer(customer.id)">Eliminar Cliente</a>
                                     </div>
                                     <div class="mb-3">
                                         <a class="btn btn-danger btn-block" [routerLink]="['/admin/list/customers']">Regresar</a>
