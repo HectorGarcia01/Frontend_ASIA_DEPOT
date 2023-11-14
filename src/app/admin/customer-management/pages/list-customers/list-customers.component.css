@@ -1,3 +1,44 @@
+/* Búsqueda */
+.head form {
+    max-width: 400px;
+    width: 100%;
+    margin-right: auto;
+}
+
+.head form .form-input {
+    display: flex;
+    align-items: center;
+    height: 36px;
+}
+
+.head form .form-input input {
+    flex-grow: 1;
+    padding: 0 16px;
+    height: 100%;
+    border: none;
+    background: #eee;
+    border-radius: 36px 0 0 36px;
+    outline: none;
+    width: 100%;
+    color: #342E37;
+}
+
+.head form .form-input button {
+    width: 36px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #3C91E6;
+    color: #F9F9F9;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    border-radius: 0 36px 36px 0;
+    cursor: pointer;
+}
+/* Búsqueda */
+
 .container div .table-data {
     display: flex;
     flex-wrap: wrap;
@@ -96,4 +137,47 @@
     background: #dc3545;
     font-weight: bold;
     font-size: 14px;
+}
+
+/* Ajustes para pantallas más pequeñas */
+@media (max-width: 768px) {
+
+    .container div .table-data .order table th,
+    .container div .table-data .order table td {
+        font-size: 16px;
+        padding: 10px 0;
+    }
+
+    .container div .table-data .order table tr td img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .container div .table-data .order table thead {
+        display: none;
+    }
+
+    .container div .table-data .order table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .container div .table-data .order table tr {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+        padding: 20px 0;
+    }
+
+    .container div .table-data .order table td {
+        padding: 6px 0;
+        text-align: center;
+    }
+
+    .container div .table-data .order table tr td .status {
+        font-size: 15px;
+        padding: 6px 12px;
+    }
 }
