@@ -4,10 +4,10 @@
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-7">
-            <div class="bg-light p-4">
+            <div class="bg-light shadow-lg rounded-5 p-5 p-4">
                 <h1 class="mx-xl-5 mb-4 text-center">Contáctanos</h1>
                 <form name="sentMessage" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-                    <div class="form-group mb-2">
+                    <div class="form-group mb-3">
                         <input type="text" formControlName="Nombre" class="form-control" id="name" placeholder="Ingresa tu nombre" />
                         <div *ngIf="contactForm.get('Nombre')?.hasError('minlength') && contactForm.get('Nombre')?.touched" class="text-danger">
                             El nombre es demasiado corto (mínimo 3 carácteres).
@@ -22,7 +22,7 @@
                             El nombre no es válido, no use carácteres especiales.
                         </div>
                     </div>
-                    <div class="form-group mb-2">
+                    <div class="form-group mb-3">
                         <input type="email" formControlName="Correo" class="form-control" id="email" placeholder="Tu correo electrónico" />
                         <div *ngIf="contactForm.get('Correo')?.hasError('required') && contactForm.get('Correo')?.touched" class="text-danger">
                             El correo es obligatorio.
@@ -34,7 +34,7 @@
                             El correo es demasiado largo (máximo 40 carácteres).
                         </div>
                     </div>
-                    <div class="form-group mb-2">
+                    <div class="form-group mb-3">
                         <input type="text" formControlName="Asunto" class="form-control" id="subject" placeholder="Asunto" />
                         <div *ngIf="contactForm.get('Asunto')?.hasError('minlength') && contactForm.get('Asunto')?.touched" class="text-danger">
                             El asunto es demasiado corto (mínimo 10 carácteres).
@@ -49,7 +49,7 @@
                             El asunto no es válido, no use carácteres especiales.
                         </div>
                     </div>
-                    <div class="form-group mb-2">
+                    <div class="form-group mb-5">
                         <textarea id="floatingTextarea2" minlength="10" maxlength="201" style="max-height: 140px;" formControlName="Mensaje" class="form-control" placeholder="Mensaje"></textarea>
                         <div *ngIf="contactForm.get('Mensaje')?.hasError('minlength') && contactForm.get('Mensaje')?.touched" class="text-danger">
                             El mensaje es demasiado corto (mínimo 10 carácteres).
@@ -65,7 +65,11 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Enviar correo</button>
+                        <button *ngIf="loading === false" class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">Enviar correo</button>
+                        <button *ngIf="loading === true" type="button" class="btn btn-primary py-2 px-4" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Cargando...
+                        </button>
                     </div>
                 </form>
             </div>
