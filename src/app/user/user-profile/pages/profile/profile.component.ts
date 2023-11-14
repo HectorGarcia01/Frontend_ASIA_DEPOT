@@ -15,6 +15,7 @@ import { getCustomer } from 'src/app/user/interfaces/customer.interface';
 export class ProfileComponent implements OnInit {
   customer: getCustomer = {} as getCustomer;
   image: any = 'assets/transparent.png';
+  loading = false;
 
   constructor(
     private authService: AuthService,
@@ -109,8 +110,10 @@ export class ProfileComponent implements OnInit {
 
   unsubscriptionNewsletter() {
     try {
+      this.loading = true;
       this.newsletterService.unsubscriptionNewsletter(`${apiURL}/usuario/anular/suscripcion/newsletter`).subscribe({
         next: (data: any) => {
+          this.loading = false;
           this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
         },
         error: (error: any) => {
