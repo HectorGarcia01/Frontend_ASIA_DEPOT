@@ -72,7 +72,7 @@
                                             <span *ngIf="saleInvoice.estado.Tipo_Estado === 'Cancelado'" class="status inactive">{{ saleInvoice.estado.Tipo_Estado }}</span>
                                         </td>
                                         <td class="text-center">
-                                            <button class="btn btn-sm btn-primary" title="Ver" [routerLink]="['/admin/view/customer', saleInvoice.id, saleInvoice.Numero_Orden]">
+                                            <button class="btn btn-sm btn-primary" title="Ver" [routerLink]="['/admin/view/sale', saleInvoice.id, saleInvoice.Numero_Orden]">
                                                 <i class="fa fa-search"></i></button>
                                             <button *ngIf="saleInvoice.estado.Tipo_Estado === 'Pendiente'" class="btn btn-sm btn-primary" title="Procesar venta" (click)="SalesInvoiceProcess(saleInvoice.id)">
                                                 <i class="fa fa-check"></i>

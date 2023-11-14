@@ -5,7 +5,112 @@
         <div class="col-md-9 mt-4">
             <div class="container">
                 <div class="row d-flex justify-content-center">
+                    <div *ngIf="error404 == true" class="row justify-content-center align-items-center">
+                        <div class="col-12 text-center mt-5">
+                            <h5>
+                                Lo siento, el detalle de venta que estás buscando no ha sido encontrado. Verifica el número de orden o
+                                selecciona otra venta.
+                            </h5>
+                            <img width="500" height="500" src="assets/404_2.jpg" class="img-fluid rounded-circle" alt="Error 404">
+                        </div>
+                    </div>
+                    <div *ngIf="error404 == false" class="table-data" id="contentMove">
+                        <div class="order">
+                            <div class="head">
+                                <h2>Detalle Venta</h2>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            <h5>Productos</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Precio</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Cantidad</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Subtotal</h5>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let detail of saleDetail.detalles_venta; let i = index">
+                                        <td class="text-center">
+                                            <p>{{ detail.producto.Nombre_Producto }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>Q.{{ detail.Precio_Unitario }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ detail.Cantidad_Producto }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ detail.Subtotal_Venta }}</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
+                    <div *ngIf="error404 == false" class="table-data" id="contentMove">
+                        <div class="order">
+                            <div class="head">
+                                <h2>Orden #{{ saleDetail.Numero_Orden }}</h2>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            <h5>Cliente</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Fecha de Registro</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Total</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Estado</h5>
+                                        </th>
+                                        <th *ngIf="saleDetail.estado.Tipo_Estado !== 'Cancelado' && saleDetail.estado.Tipo_Estado !== 'Completado'"class="text-center">
+                                            <h5>Acción</h5>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center">
+                                            <p>{{ saleDetail.cliente.Nombre_Cliente }} {{ saleDetail.cliente.Apellido_Cliente }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ saleDetail.createdAt }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>Q.{{ saleDetail.Total_Factura }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <span *ngIf="saleDetail.estado.Tipo_Estado === 'Pendiente'" class="status pending">{{ saleDetail.estado.Tipo_Estado }}</span>
+                                            <span *ngIf="saleDetail.estado.Tipo_Estado === 'En proceso'" class="status pending">{{ saleDetail.estado.Tipo_Estado }}</span>
+                                            <span *ngIf="saleDetail.estado.Tipo_Estado === 'Completado'" class="status active">{{ saleDetail.estado.Tipo_Estado }}</span>
+                                            <span *ngIf="saleDetail.estado.Tipo_Estado === 'Cancelado'" class="status inactive">{{ saleDetail.estado.Tipo_Estado }}</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <button *ngIf="saleDetail.estado.Tipo_Estado === 'Pendiente'" class="btn btn-sm btn-primary" title="Procesar venta" (click)="SalesInvoiceProcess(saleDetail.id)">
+                                                <i class="fa fa-check"></i>
+                                            </button>
+                                            <button *ngIf="saleDetail.estado.Tipo_Estado === 'En proceso'" class="btn btn-sm btn-success" title="Completar venta" (click)="SalesInvoiceComplete(saleDetail.id)">
+                                                <i class="fa fa-check"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
             <app-footer></app-footer>
