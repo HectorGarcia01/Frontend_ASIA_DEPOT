@@ -57,6 +57,7 @@ export class ListCustomersComponent {
   }
 
   ngOnInit() {
+    this.scrollToTop();
     this.isSuperAdmin();
     this.getCustomers();
   }
