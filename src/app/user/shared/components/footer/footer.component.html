@@ -62,7 +62,11 @@
                 <form [formGroup]="newsletterForm" (ngSubmit)="onSubmit()">
                     <div class="input-group mb-3">
                         <input formControlName="newsletterEmail" class="form-control" type="email" placeholder="Escribe tu correo" aria-label="Escribe tu correo" aria-describedby="button-addon2">
-                        <button class="btn btn-primary" id="button-addon2" type="submit"><i class="fas fa-paper-plane"></i></button>
+                        <button *ngIf="loading === false" class="btn btn-primary" id="button-addon2" type="submit"><i class="fas fa-paper-plane"></i></button>
+                        <button *ngIf="loading === true" class="btn btn-primary" type="button" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <span class="visually-hidden">Cargando...</span>
+                        </button>
                     </div>
                 </form>
             </div>
