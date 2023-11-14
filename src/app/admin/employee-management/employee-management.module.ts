@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { EmployeeManagementRoutingModule } from './employee-management-routing.module';
 import { ListEmployeesComponent } from './pages/list-employees/list-employees.component';
@@ -15,6 +16,8 @@ import { AdminSharedModule } from '../shared/admin-shared.module';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
     EmployeeManagementRoutingModule,
     AdminSharedModule
   ]
