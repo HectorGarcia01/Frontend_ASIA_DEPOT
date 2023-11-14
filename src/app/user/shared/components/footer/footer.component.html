@@ -42,7 +42,7 @@
                     <div class="col-md-4" *ngFor="let i of [0, 1, 2]">
                         <ul class="footer_ul_amrc">
                             <li *ngFor="let categoria of category.slice(i * categoriesPerColumn, (i + 1) * categoriesPerColumn)">
-                                <a [routerLink]="['/products/category', categoria.id]" (click)="scrollToTop()">{{ categoria.Nombre_Categoria }}</a>
+                                <a [routerLink]="['/products/category', categoria.id, categoria.Nombre_Categoria]" (click)="scrollToTop()">{{ categoria.Nombre_Categoria }}</a>
                             </li>
                         </ul>
                     </div>
