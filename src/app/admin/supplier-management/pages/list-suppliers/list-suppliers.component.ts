@@ -18,6 +18,10 @@ export class ListSuppliersComponent implements OnInit, OnDestroy {
   suppliers: getSupplier[] = [];
   permissions = false;
   pathRole: any = '';
+  totalPages: number = 0;
+  currentPage: number = 1;
+  pageSize: number = 5;
+  searchQuery: string = '';
 
   constructor(
     private toggleNavBarService: ToggleNavBarService,
@@ -51,6 +55,7 @@ export class ListSuppliersComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.scrollToTop();
     this.isSuperAdmin();
     this.getSuppliers();
   }
@@ -87,9 +92,11 @@ export class ListSuppliersComponent implements OnInit, OnDestroy {
 
   getSuppliers() {
     try {
-      this.supplierService.getSuppliers(`${apiURL}/${this.pathRole}/ver/proveedores`).subscribe({
+      this.supplierService.getSuppliers(`${apiURL}/${this.pathRole}/ver/proveedores`, this.currentPage, this.pageSize).subscribe({
         next: (data: any) => {
           this.suppliers = data.suppliers;
+          this.totalPages = data.totalPages;
+          this.currentPage = data.currentPage;
 
           this.suppliers.forEach((supplier: any) => {
             if (supplier.createdAt) {
@@ -105,6 +112,38 @@ export class ListSuppliersComponent implements OnInit, OnDestroy {
           console.log(error.error.error);
         }
       })
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  onSearch(event: Event) {
+    event.preventDefault();
+    this.searchSuppliers(this.searchQuery);
+  }
+
+  searchSuppliers(query: string) {
+    try {
+      this.supplierService.getSuppliers(`${apiURL}/${this.pathRole}/ver/proveedores?nombre=${query}`, this.currentPage, this.pageSize).subscribe({
+        next: (data: any) => {
+          this.suppliers = data.suppliers;
+          this.totalPages = data.totalPages;
+          this.currentPage = data.currentPage;
+
+          this.suppliers.forEach((supplier: any) => {
+            if (supplier.createdAt) {
+              const createdDate = supplier.createdAt;
+              const parts = createdDate.split('T');
+              const newDateCreate = parts[0];
+
+              supplier.createdAt = newDateCreate;
+            }
+          });
+        },
+        error: (error: any) => {
+          console.log(error.error.error);
+        }
+      });
     } catch (error: any) {
       console.log(error.error);
     }
@@ -169,5 +208,54 @@ export class ListSuppliersComponent implements OnInit, OnDestroy {
     }
 
     return paramsName.toLowerCase().replace(/ /g, '-');
+  }
+
+  /**
+   * Función para cambiar de página
+   * Fecha creación: 20/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getSuppliers
+   */
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.getSuppliers();
+      this.scrollToTop();
+    }
+  }
+
+  /**
+   * Función para cambiar el número de registros
+   * Fecha creación: 20/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getSuppliers
+   */
+
+  changePageSize(event: Event) {
+    const element = event.target as HTMLSelectElement;
+    this.pageSize = +element.value;
+    this.currentPage = 1;
+    this.getSuppliers();
+  }
+
+  /**
+   * Función para obtener el número de páginas
+   * Fecha creación: 20/10/2023
+   * Autor: Hector Armando García González
+   */
+
+  getPagesArray(): number[] {
+    const pagesArray = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pagesArray.push(i);
+    }
+    return pagesArray;
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

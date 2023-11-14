@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ToggleNavBarService } from 'src/app/admin/services/toggle-nav-bar.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { SupplierManagementService } from 'src/app/admin/services/supplier-management.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { getSupplier } from 'src/app/admin/interfaces/supplier.interface';
@@ -16,11 +17,14 @@ export class ListSupplierComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   sidebarVisible = false;
   supplier: getSupplier = {} as getSupplier;
+  permissions = false;
+  pathRole: any = '';
   error404: boolean = false;
 
   constructor(
     private toggleNavBarService: ToggleNavBarService,
     private route: ActivatedRoute,
+    private authService: AuthService,
     private supplierService: SupplierManagementService,
     private customAlertService: CustomAlertService
   ) {
@@ -28,6 +32,7 @@ export class ListSupplierComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.isSuperAdmin();
     this.getParamsId();
   }
 
@@ -72,6 +77,28 @@ export class ListSupplierComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Función para verificar si es un SuperAdmin
+   * Fecha creación: 20/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *            Función getCookieRole del servicio de autenticación (auth.service)
+   */
+
+  isSuperAdmin(): boolean {
+    const userRole = this.authService.getCookieRole();
+
+    if (userRole === 'SuperAdmin') {
+      this.pathRole = 'superAdmin';
+      this.permissions = true;
+      return true;
+    }
+
+    this.pathRole = 'admin';
+    this.permissions = false;
+    return false;
+  }
+
+  /**
    * Función para consumir el servicio de ver un proveedor
    * Fecha creación: 20/10/2023
    * Autor: Hector Armando García González
@@ -81,9 +108,10 @@ export class ListSupplierComponent implements OnInit, OnDestroy {
 
   getSupplier(id: any) {
     try {
-      this.supplierService.getSupplierId(`${apiURL}/superAdmin/ver/proveedor`, id).subscribe({
+      this.supplierService.getSupplierId(`${apiURL}/${this.pathRole}/ver/proveedor`, id).subscribe({
         next: (data: any) => {
           this.supplier = data.supplier;
+          this.error404 = false;
 
           if (this.supplier.createdAt) {
             const createdDate = this.supplier.createdAt;
@@ -92,8 +120,6 @@ export class ListSupplierComponent implements OnInit, OnDestroy {
 
             this.supplier.createdAt = newDateCreate;
           }
-
-          this.error404 = false;
         },
         error: (error: any) => {
           this.error404 = true;
