@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ToggleNavBarService } from 'src/app/admin/services/toggle-nav-bar.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -12,7 +12,7 @@ import { apiURL } from 'src/app/config/config';
   templateUrl: './list-customers.component.html',
   styleUrls: ['./list-customers.component.css']
 })
-export class ListCustomersComponent {
+export class ListCustomersComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   sidebarVisible = false;
   customers: getCustomer[] = [];
