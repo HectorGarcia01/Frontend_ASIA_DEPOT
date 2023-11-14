@@ -49,10 +49,10 @@
                                         <a class="btn btn-primary btn-block" [routerLink]="['/admin/update/supplier', supplier.id, getSupplierName(supplier)]">Actualizar Proveedor</a>
                                     </div>
                                     <div class="mb-3">
-                                        <a *ngIf="supplier.estado.Tipo_Estado === 'Inactivo' && permissions === true" class="btn btn-primary btn-block" (click)="activateSupplier(supplier.id)">Activar Proveedor</a>
+                                        <a *ngIf="dataSupplier === 'Inactivo' && permissions === true" class="btn btn-primary btn-block" (click)="activateSupplier(supplier.id)">Activar Proveedor</a>
                                     </div>
                                     <div class="mb-3">
-                                        <a *ngIf="supplier.estado.Tipo_Estado !== 'Inactivo' && permissions === true" class="btn btn-danger btn-block" (click)="deleteSupplier(supplier.id)">Eliminar Proveedor</a>
+                                        <a *ngIf="dataSupplier !== 'Inactivo' && permissions === true" class="btn btn-danger btn-block" (click)="deleteSupplier(supplier.id)">Eliminar Proveedor</a>
                                     </div>
                                     <div class="mb-3">
                                         <a class="btn btn-danger btn-block" [routerLink]="['/admin/list/suppliers']">Regresar</a>

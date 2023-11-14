@@ -17,6 +17,7 @@ export class ListSupplierComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   sidebarVisible = false;
   supplier: getSupplier = {} as getSupplier;
+  dataSupplier: any = {};
   permissions = false;
   pathRole: any = '';
   error404: boolean = false;
@@ -111,6 +112,7 @@ export class ListSupplierComponent implements OnInit, OnDestroy {
       this.supplierService.getSupplierId(`${apiURL}/${this.pathRole}/ver/proveedor`, id).subscribe({
         next: (data: any) => {
           this.supplier = data.supplier;
+          this.dataSupplier = this.supplier.estado.Tipo_Estado;
           this.error404 = false;
 
           if (this.supplier.createdAt) {
