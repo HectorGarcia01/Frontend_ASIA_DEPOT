@@ -164,7 +164,7 @@ export class ProductListComponent implements OnInit {
 
   getProductsCategory(categoria: number) {
     try {
-      this.productService.getProducts(`${apiURL}/usuario/ver/productos?estado=Activo&categoria=${categoria}`, this.currentPage, this.pageSize).subscribe({
+      this.productService.getProducts(`${apiURL}/usuario/ver/productos/categoria?estado=Activo&categoria=${categoria}`, this.currentPage, this.pageSize).subscribe({
         next: (data: any) => {
           this.product = data.products;
           this.totalPages = data.totalPages;
