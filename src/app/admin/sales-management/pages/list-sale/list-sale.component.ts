@@ -65,14 +65,19 @@ export class ListSaleComponent implements OnInit, OnDestroy {
       this.sidebarVisible = isVisible;
 
       const contentElement = document.getElementById('contentMove');
+      const contentElementTwo = document.getElementById('contentMoveTwo');
 
-      if (contentElement) {
+      if (contentElement && contentElementTwo) {
         if (this.sidebarVisible) {
           contentElement.style.width = 'calc(100% - 280px)';
           contentElement.style.left = '280px';
+          contentElementTwo.style.width = 'calc(100% - 280px)';
+          contentElementTwo.style.left = '280px';
         } else {
           contentElement.style.width = '100%';
           contentElement.style.left = '0';
+          contentElementTwo.style.width = '100%';
+          contentElementTwo.style.left = '0';
         }
       }
     });
