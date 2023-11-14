@@ -18,6 +18,7 @@ export class ShoppingComponent implements OnInit {
   payment_method: any = [];
   customer: getCustomer = {} as getCustomer;
   noneProducts: boolean = false;
+  loading = false;
 
   constructor(
     private shoppingCartService: ShoppingCartService,
@@ -219,9 +220,11 @@ export class ShoppingComponent implements OnInit {
       };
 
       if (this.registerForm.valid) {
+        this.loading = true;
         this.shoppingCartService.processSale(`${apiURL}/usuario/carrito/procesar`, body).subscribe({
           next: (data: any) => {
             this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
+            this.loading = false;
             this.getShoppingCart();
           },
           error: (error: any) => {
