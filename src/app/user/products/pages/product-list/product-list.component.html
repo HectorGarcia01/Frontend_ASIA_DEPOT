@@ -7,17 +7,17 @@
         <!-- Barra de navegación de categorías -->
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <a class="nav-link active" (click)="getProducts()">Todos</a>
+                <a class="nav-link active" [routerLink]="['/products']">Todos</a>
             </li>
             <li class="nav-item" *ngFor="let categoria of category">
-                <a class="nav-link" (click)="getProductsCategory(categoria.id)">{{ categoria.Nombre_Categoria }}</a>
+                <a class="nav-link" [routerLink]="['/products/category', categoria.id, categoria.Nombre_Categoria]">{{ categoria.Nombre_Categoria }}</a>
             </li>
         </ul>
     </div>
 
     <div class="col-md-12 mb-5 d-flex justify-content-center mt-4">
-        <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Bucar producto" aria-label="Search">
+        <form class="d-flex" role="search" [formGroup]="registerForm" (ngSubmit)="getProductsFilter()">
+            <input formControlName="nombre" class="form-control me-2" type="search" placeholder="Bucar producto" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Buscar</button>
         </form>
     </div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { ProductService } from 'src/app/user/services/product.service';
 import { ShoppingCartService } from 'src/app/user/services/shopping-cart.service';
@@ -14,6 +16,7 @@ import { apiURL } from 'src/app/config/config';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
+  registerForm!: FormGroup;
   category: Category[] = [];
   product: Product[] = [];
   prducts: Products[] = [];
@@ -23,17 +26,33 @@ export class ProductListComponent implements OnInit {
   msgError: string = '';
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private authService: AuthService,
     private productService: ProductService,
     private shoppingCartService: ShoppingCartService,
     private categoryService: CategoryService,
     private customAlertService: CustomAlertService
-  ) { }
+  ) { 
+    this.validateForm();
+  }
 
   ngOnInit() {
     this.scrollToTop();
     this.getCategories();
-    this.getProducts();
+    this.getParamsId();
+  }
+
+  /**
+   * Función privada para la definición de un formulario reactivo
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
+
+  private validateForm() {
+    this.registerForm = new FormGroup({
+      nombre: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/)])
+    });
   }
 
   /**
@@ -51,6 +70,27 @@ export class ProductListComponent implements OnInit {
         this.totalPages = data.totalPages;
         this.currentPage = data.currentPage;
       });
+  }
+
+  /**
+   * Función para obtener el id de los parámetros de la url
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *            Función getProductId que consume el servicio del backend
+   */
+
+  getParamsId() {
+    this.route.paramMap.subscribe(params => {
+      const productId = params.get('id');
+
+      if (productId) {
+        const idProduct = parseInt(productId);
+        this.getProductsCategory(idProduct);
+      } else {
+        this.getProducts();
+      }
+    });
   }
 
   /**
@@ -75,6 +115,39 @@ export class ProductListComponent implements OnInit {
           this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
         }
       });
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  /**
+   * Función para consumir servicio de listar todos los productos
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *            Función getProducts del servicio de productos (product.service),
+   *            Función sweetAlertPersonalizada del servicio de alerta personalizada (custom-alert.service)
+   */
+
+  getProductsFilter() {
+    try {
+      if (this.registerForm.valid) {
+        const nombre = this.registerForm.get('nombre')?.value;
+        this.productService.getProducts(`${apiURL}/usuario/ver/productos?estado=Activo&nombre=${nombre}`).subscribe({
+          next: (data: any) => {
+            this.product = data.products;
+            this.msgError = '';
+          },
+          error: (error: any) => {
+            this.msgError = error.error.error;
+            this.product = [];
+            this.totalPages = 0;
+          }
+        });
+      } else {
+        this.msgError = 'error';
+        this.product = [];
+      }
     } catch (error: any) {
       console.log(error.error);
     }
