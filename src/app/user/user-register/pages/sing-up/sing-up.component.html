@@ -3,18 +3,10 @@
 <div class="container mt-2 mb-4">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="tab-content">
+            <div class="tab-content bg-light shadow-lg rounded-5">
                 <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-                    <form class="border border-2 border-dark p-5" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                    <form class="p-5" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                         <h1 class="text-center mb-5">Regístrate</h1>
-                        <!-- <div class="text-center mb-3">
-                            <p>Regístrate con:</p>
-                            <button type="button" class="btn btn-secondary btn-floating mx-1">
-                                <i class="fab fa-google"></i>
-                            </button>
-                        </div>
-
-                        <p class="text-center">o:</p> -->
 
                         <!-- Name input -->
                         <div class="form-floating mb-3">
