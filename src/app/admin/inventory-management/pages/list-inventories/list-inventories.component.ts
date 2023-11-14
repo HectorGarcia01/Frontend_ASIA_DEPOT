@@ -103,14 +103,6 @@ export class ListInventoriesComponent implements OnInit, OnDestroy {
 
               inventory.createdAt = newDateCreate;
             }
-
-            if (inventory.updatedAt) {
-              const updateDate = inventory.updatedAt;
-              const parts = updateDate.split('T');
-              const newDateUpdate = parts[0];
-
-              inventory.createdAt = newDateUpdate;
-            }
           });
         },
         error: (error: any) => {

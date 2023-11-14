@@ -5,7 +5,73 @@
         <div class="col-md-9 mt-4">
             <div class="container">
                 <div class="row d-flex justify-content-center">
-
+                    <div *ngIf="error404 == true" class="row justify-content-center align-items-center">
+                        <div class="col-12 text-center mt-5">
+                            <h5>
+                                Lo siento, el detalle de inventario que estás buscando no ha sido encontrado. Verifica el número o selecciona otro inventario.
+                            </h5>
+                            <img width="500" height="500" src="assets/404_2.jpg" class="img-fluid rounded-circle" alt="Error 404">
+                        </div>
+                    </div>
+                    <div *ngIf="error404 == false" class="table-data" id="contentMove">
+                        <div class="order">
+                            <div class="head">
+                                <h2>Detalle de Inventario</h2>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            <h5>No.</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Tipo de Movimiento</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Cantidad de Movimiento</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Monto de Movimiento</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Producto</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Administrador</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Fecha de Creación</h5>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center">
+                                            <p>{{ inventory.id }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ inventory.Tipo_Movimiento }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ inventory.Cantidad_Movimiento }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>Q.{{ inventory.Monto_Movimiento }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ inventory.producto.Nombre_Producto }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ inventory.empleado.Nombre_Empleado }} {{ inventory.empleado.Apellido_Empleado }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ inventory.createdAt }}</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
             <app-footer></app-footer>
