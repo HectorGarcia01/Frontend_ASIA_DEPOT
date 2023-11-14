@@ -13,10 +13,11 @@ import { apiURL } from 'src/app/config/config';
   templateUrl: './list-inventory.component.html',
   styleUrls: ['./list-inventory.component.css']
 })
-export class ListInventoryComponent {
+export class ListInventoryComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   sidebarVisible = false;
   inventory: getInventoryDetail = {} as getInventoryDetail;
+  dataInventory: any = {};
   pathRole: any = '';
   error404: boolean = false;
 
@@ -109,6 +110,8 @@ export class ListInventoryComponent {
       this.inventoryService.getInventoryId(`${apiURL}/${this.pathRole}/ver/inventario`, id).subscribe({
         next: (data: any) => {
           this.inventory = data.inventory;
+          this.dataInventory.Nombre = this.inventory.producto.Nombre_Producto;
+          this.dataInventory.Admin = `${this.inventory.empleado.Nombre_Empleado} ${this.inventory.empleado.Apellido_Empleado}`;
 
             if (this.inventory.createdAt) {
               const createdDate = this.inventory.createdAt;
