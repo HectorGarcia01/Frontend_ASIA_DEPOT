@@ -11,7 +11,7 @@
                                 <h2>Ventas</h2>
                                 <form (submit)="onSearch($event)">
                                     <div class="form-input">
-                                        <input type="search" placeholder="Buscar por nombre o correo" name="search"
+                                        <input type="search" placeholder="Buscar por estado de venta" name="search"
                                             [(ngModel)]="searchQuery">
                                         <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
                                     </div>
@@ -66,10 +66,12 @@
                                             <p>{{ saleInvoice.createdAt }}</p>
                                         </td>
                                         <td class="text-center">
+                                            <span *ngIf="saleInvoice.estado.Tipo_Estado === 'Carrito'" class="status pending">{{ saleInvoice.estado.Tipo_Estado }}</span>
                                             <span *ngIf="saleInvoice.estado.Tipo_Estado === 'Pendiente'" class="status pending">{{ saleInvoice.estado.Tipo_Estado }}</span>
                                             <span *ngIf="saleInvoice.estado.Tipo_Estado === 'En proceso'" class="status pending">{{ saleInvoice.estado.Tipo_Estado }}</span>
                                             <span *ngIf="saleInvoice.estado.Tipo_Estado === 'Completado'" class="status active">{{ saleInvoice.estado.Tipo_Estado }}</span>
                                             <span *ngIf="saleInvoice.estado.Tipo_Estado === 'Cancelado'" class="status inactive">{{ saleInvoice.estado.Tipo_Estado }}</span>
+                                            <span *ngIf="saleInvoice.estado.Tipo_Estado === 'Inactivo'" class="status inactive">{{ saleInvoice.estado.Tipo_Estado }}</span>
                                         </td>
                                         <td class="text-center">
                                             <button class="btn btn-sm btn-primary" title="Ver" [routerLink]="['/admin/view/sale', saleInvoice.id, saleInvoice.Numero_Orden]">

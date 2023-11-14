@@ -96,6 +96,20 @@
     padding: 16px 0;
 }
 
+.container div .table-data .order table tr td:first-child {
+    display: flex;
+    align-items: center;
+    grid-gap: 12px;
+    padding-left: 6px;
+}
+
+.container div .table-data .order table td img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 .container div .table-data .order table tbody tr:hover {
     background: #eee;
 }
@@ -142,6 +156,11 @@
     .container div .table-data .order table td {
         font-size: 16px;
         padding: 10px 0;
+    }
+
+    .container div .table-data .order table tr td img {
+        width: 70px;
+        height: 70px;
     }
 
     .container div .table-data .order table thead {

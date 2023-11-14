@@ -121,7 +121,7 @@ export class ListSalesComponent implements OnInit, OnDestroy {
 
   searchSalesInvoice(query: string) {
     try {
-      this.salesService.getSalesInvoice(`${apiURL}/${this.pathRole}/ver/ventas?nombre=${query}`, this.currentPage, this.pageSize).subscribe({
+      this.salesService.getSalesInvoice(`${apiURL}/${this.pathRole}/ver/ventas?estado=${query}`, this.currentPage, this.pageSize).subscribe({
         next: (data: any) => {
           this.salesInvoice = data.salesInvoice;
           this.totalPages = data.totalPages;

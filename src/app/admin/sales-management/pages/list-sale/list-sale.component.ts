@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ToggleNavBarService } from 'src/app/admin/services/toggle-nav-bar.service';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { SalesManagementService } from 'src/app/admin/services/sales-management.service';
+import { ProductManagementService } from 'src/app/admin/services/product-management.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { getSaleDetail } from 'src/app/admin/interfaces/sales_invoice.interface';
 import { apiURL } from 'src/app/config/config';
@@ -16,13 +17,17 @@ import { apiURL } from 'src/app/config/config';
 export class ListSaleComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   sidebarVisible = false;
+  dataClient: any = {};
   saleDetail: getSaleDetail = {} as getSaleDetail;
+  productImages: { [key: number]: string } = {};
   pathRole: any = '';
   error404: boolean = false;
+  buttonVisible: boolean = false;
 
   constructor(
     private toggleNavBarService: ToggleNavBarService,
     private authService: AuthService,
+    private productService: ProductManagementService,
     private route: ActivatedRoute,
     private salesService: SalesManagementService,
     private customAlertService: CustomAlertService
@@ -114,19 +119,53 @@ export class ListSaleComponent implements OnInit, OnDestroy {
       this.salesService.getSaleInvoiceId(`${apiURL}/${this.pathRole}/ver/venta`, id).subscribe({
         next: (data: any) => {
           this.saleDetail = data.salesInvoice;
+          this.dataClient.Nombre = this.saleDetail.cliente.Nombre_Cliente;
+          this.dataClient.Apellido = this.saleDetail.cliente.Apellido_Cliente;
+          this.dataClient.Estado = this.saleDetail.estado.Tipo_Estado;
 
-          if (this.saleDetail.createdAt) {
-            const createdDate = this.saleDetail.createdAt;
-            const parts = createdDate.split('T');
-            const newDateCreate = parts[0];
+          const createdDate = this.saleDetail.createdAt;
+          const parts = createdDate.split('T');
+          const newDateCreate = parts[0];
+          this.saleDetail.createdAt = newDateCreate;
 
-            this.saleDetail.createdAt = newDateCreate;
+          if (this.saleDetail.estado.Tipo_Estado === "Pendiente" || this.saleDetail.estado.Tipo_Estado === "En proceso") {
+            this.buttonVisible = true;
+          } else {
+            this.buttonVisible = false;
           }
+
+          this.saleDetail.detalles_venta.forEach((product: any) => {
+            this.getPhotos(product.producto.id);
+          })
 
           this.error404 = false;
         },
         error: (error: any) => {
           this.error404 = true;
+          console.log(error.error.error);
+        }
+      })
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  /**
+   * Función para consumir el servicio de ver la imágen de cada producto
+   * Fecha creación: 20/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getPhotos del servicio de producto (product-management.service)   
+   */
+
+  getPhotos(id: any) {
+    try {
+      this.productService.getPhotos(`${apiURL}/${this.pathRole}/ver/foto/producto`, id).subscribe({
+        next: (data: Blob) => {
+          this.productImages[id] = URL.createObjectURL(data);
+        },
+        error: (error: any) => {
+          this.productImages[id] = 'assets/Logo_ASIA_DEPOT.png';
           console.log(error.error.error);
         }
       })

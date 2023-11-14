@@ -39,6 +39,7 @@
                                 <tbody>
                                     <tr *ngFor="let detail of saleDetail.detalles_venta; let i = index">
                                         <td class="text-center">
+                                            <img [src]="productImages[detail.producto.id] || 'assets/Logo_ASIA_DEPOT.png'" alt="Imagen-Producto">
                                             <p>{{ detail.producto.Nombre_Producto }}</p>
                                         </td>
                                         <td class="text-center">
@@ -76,7 +77,7 @@
                                         <th class="text-center">
                                             <h5>Estado</h5>
                                         </th>
-                                        <th *ngIf="saleDetail.estado.Tipo_Estado !== 'Cancelado' && saleDetail.estado.Tipo_Estado !== 'Completado'"class="text-center">
+                                        <th *ngIf="buttonVisible === true"class="text-center">
                                             <h5>Acción</h5>
                                         </th>
                                     </tr>
@@ -84,7 +85,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="text-center">
-                                            <p>{{ saleDetail.cliente.Nombre_Cliente }} {{ saleDetail.cliente.Apellido_Cliente }}</p>
+                                            <p>{{ dataClient.Nombre }} {{ dataClient.Apellido }}</p>
                                         </td>
                                         <td class="text-center">
                                             <p>{{ saleDetail.createdAt }}</p>
@@ -93,16 +94,18 @@
                                             <p>Q.{{ saleDetail.Total_Factura }}</p>
                                         </td>
                                         <td class="text-center">
-                                            <span *ngIf="saleDetail.estado.Tipo_Estado === 'Pendiente'" class="status pending">{{ saleDetail.estado.Tipo_Estado }}</span>
-                                            <span *ngIf="saleDetail.estado.Tipo_Estado === 'En proceso'" class="status pending">{{ saleDetail.estado.Tipo_Estado }}</span>
-                                            <span *ngIf="saleDetail.estado.Tipo_Estado === 'Completado'" class="status active">{{ saleDetail.estado.Tipo_Estado }}</span>
-                                            <span *ngIf="saleDetail.estado.Tipo_Estado === 'Cancelado'" class="status inactive">{{ saleDetail.estado.Tipo_Estado }}</span>
+                                            <span *ngIf="dataClient.Estado === 'Carrito'" class="status pending">{{ dataClient.Estado }}</span>
+                                            <span *ngIf="dataClient.Estado === 'Pendiente'" class="status pending">{{ dataClient.Estado }}</span>
+                                            <span *ngIf="dataClient.Estado === 'En proceso'" class="status pending">{{ dataClient.Estado }}</span>
+                                            <span *ngIf="dataClient.Estado === 'Completado'" class="status active">{{ dataClient.Estado }}</span>
+                                            <span *ngIf="dataClient.Estado === 'Cancelado'" class="status inactive">{{ dataClient.Estado }}</span>
+                                            <span *ngIf="dataClient.Estado === 'Inactivo'" class="status inactive">{{ dataClient.Estado }}</span>
                                         </td>
                                         <td class="text-center">
-                                            <button *ngIf="saleDetail.estado.Tipo_Estado === 'Pendiente'" class="btn btn-sm btn-primary" title="Procesar venta" (click)="SalesInvoiceProcess(saleDetail.id)">
+                                            <button *ngIf="dataClient.Estado === 'Pendiente'" class="btn btn-sm btn-primary" title="Procesar venta" (click)="SalesInvoiceProcess(saleDetail.id)">
                                                 <i class="fa fa-check"></i>
                                             </button>
-                                            <button *ngIf="saleDetail.estado.Tipo_Estado === 'En proceso'" class="btn btn-sm btn-success" title="Completar venta" (click)="SalesInvoiceComplete(saleDetail.id)">
+                                            <button *ngIf="dataClient.Estado === 'En proceso'" class="btn btn-sm btn-success" title="Completar venta" (click)="SalesInvoiceComplete(saleDetail.id)">
                                                 <i class="fa fa-check"></i>
                                             </button>
                                         </td>
