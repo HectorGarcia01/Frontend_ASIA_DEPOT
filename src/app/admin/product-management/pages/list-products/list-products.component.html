@@ -9,8 +9,22 @@
                         <div class="order">
                             <div class="head">
                                 <h2>Productos</h2>
-                                <i class='bx bx-search'></i>
-                                <i class='bx bx-filter'></i>
+                                <form (submit)="onSearch($event)">
+                                    <div class="form-input">
+                                        <input type="search" placeholder="Buscar por nombre o correo" name="search" [(ngModel)]="searchQuery">
+                                        <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+                                    </div>
+                                </form>
+                                <div class="col-md-1 form-floating">
+                                    <select class="form-select" aria-label="Default select example" (change)="changePageSize($event)">
+                                        <option [value]="5" [selected]="pageSize === 5">5</option>
+                                        <option [value]="20" [selected]="pageSize === 20">20</option>
+                                        <option [value]="40" [selected]="pageSize === 40">40</option>
+                                        <option [value]="60" [selected]="pageSize === 60">60</option>
+                                        <option [value]="80" [selected]="pageSize === 80">80</option>
+                                    </select>
+                                    <label for="registerShow">Mostrar</label>
+                                </div>
                             </div>
                             <table>
                                 <thead>

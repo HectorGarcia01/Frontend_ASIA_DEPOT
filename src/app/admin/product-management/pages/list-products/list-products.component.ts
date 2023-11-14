@@ -12,7 +12,7 @@ import { apiURL } from 'src/app/config/config';
   templateUrl: './list-products.component.html',
   styleUrls: ['./list-products.component.css']
 })
-export class ListProductsComponent implements OnInit, OnDestroy{
+export class ListProductsComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   sidebarVisible = false;
   products: getProduct[] = [];
@@ -23,6 +23,7 @@ export class ListProductsComponent implements OnInit, OnDestroy{
   totalPages: number = 0;
   currentPage: number = 1;
   pageSize: number = 8;
+  searchQuery: string = '';
 
   constructor(
     private toggleNavBarService: ToggleNavBarService,
@@ -56,6 +57,7 @@ export class ListProductsComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit() {
+    this.scrollToTop();
     this.isSuperAdmin();
     this.getProducts();
   }
@@ -93,6 +95,44 @@ export class ListProductsComponent implements OnInit, OnDestroy{
   getProducts() {
     try {
       this.productService.getProducts(`${apiURL}/${this.pathRole}/ver/productos`, this.currentPage, this.pageSize).subscribe({
+        next: (data: any) => {
+          this.products = data.products;
+          this.totalPages = data.totalPages;
+          this.currentPage = data.currentPage;
+
+          this.products.forEach((product: any) => {
+            if (product.createdAt) {
+              const createdDate = product.createdAt;
+              const parts = createdDate.split('T');
+              const newDateCreate = parts[0];
+
+              product.createdAt = newDateCreate;
+            }
+
+            if (!product.Precio_Compra) {
+              product.Precio_Compra = 0;
+            }
+
+            this.getPhotos(product.id);
+          });
+        },
+        error: (error: any) => {
+          console.log(error.error.error);
+        }
+      })
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  onSearch(event: Event) {
+    event.preventDefault();
+    this.searchProducts(this.searchQuery);
+  }
+
+  searchProducts(query: string) {
+    try {
+      this.productService.getProducts(`${apiURL}/${this.pathRole}/ver/productos?nombre=${query}`, this.currentPage, this.pageSize).subscribe({
         next: (data: any) => {
           this.products = data.products;
           this.totalPages = data.totalPages;
@@ -238,6 +278,21 @@ export class ListProductsComponent implements OnInit, OnDestroy{
       this.getProducts();
       this.scrollToTop();
     }
+  }
+
+  /**
+   * Función para cambiar el número de registros
+   * Fecha creación: 20/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getCustomers
+   */
+
+  changePageSize(event: Event) {
+    const element = event.target as HTMLSelectElement;
+    this.pageSize = +element.value;
+    this.currentPage = 1;
+    this.getProducts();
   }
 
   /**
