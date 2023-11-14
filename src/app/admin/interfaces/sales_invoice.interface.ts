@@ -13,3 +13,28 @@ export interface getSaleInvoice {
         Tipo_Estado: string;
     };
 }
+
+export interface getSaleDetail {
+    id: number;
+    Numero_Orden: string;
+    Total_Factura: number;
+    detalles_venta: [{
+        id: number;
+        Cantidad_Producto: number;
+        Precio_Unitario: number;
+        Subtotal_Venta: number;
+        producto: {
+            id: number;
+            Nombre_Producto: string;
+        }
+    }];
+    cliente: {
+        Nombre_Cliente: string;
+        Apellido_Cliente: string;
+    };
+    createdAt: string;
+    estado: {
+        id: number;
+        Tipo_Estado: string;
+    };
+}
