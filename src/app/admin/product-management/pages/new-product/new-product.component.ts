@@ -29,6 +29,7 @@ export class NewProductComponent implements OnInit, OnDestroy {
   registerCategoryForm!: FormGroup;
   registerBrandForm!: FormGroup;
   pathRole: any = '';
+  loading = false;
 
   constructor(
     private toggleNavBarService: ToggleNavBarService,
@@ -319,11 +320,13 @@ export class NewProductComponent implements OnInit, OnDestroy {
   onSubmit() {
     try {
       if (this.registerForm.valid) {
+        this.loading = true;
         const productData = this.getProductData();
         this.productService.createProduct(`${apiURL}/${this.pathRole}/crear/producto`, productData).subscribe({
           next: (response: any) => {
             this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
             this.registerForm.reset();
+            this.loading = false;
             this.router.navigate(['/admin/list/products']);
           },
           error: (error: any) => {
