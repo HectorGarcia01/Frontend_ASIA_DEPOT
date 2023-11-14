@@ -2,7 +2,7 @@
     <app-nav-bar></app-nav-bar>
     <section class="d-flex justify-content-center">
         <!-- Tabla de productos -->
-        <div class="col-md-9 mt-4">
+        <div class="col-md-10 mt-4">
             <div class="container">
                 <div class="row d-flex justify-content-center">
                     <div class="table-data" id="contentMove">
@@ -42,6 +42,9 @@
                                             <h5>Stock</h5>
                                         </th>
                                         <th class="text-center">
+                                            <h5>Código</h5>
+                                        </th>
+                                        <th class="text-center">
                                             <h5>Destacado</h5>
                                         </th>
                                         <th class="text-center">
@@ -69,6 +72,9 @@
                                         </td>
                                         <td class="text-center">
                                             <p>{{ product.Cantidad_Stock }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ product.Codigo_Barras }}</p>
                                         </td>
                                         <td class="text-center">
                                             <button *ngIf="product.Producto_Destacado === false" class="btn btn-sm btn-success" title="Destacar" (click)="updateProduct(product.id, product.Producto_Destacado)"><i class="fa fa-check"></i></button>
