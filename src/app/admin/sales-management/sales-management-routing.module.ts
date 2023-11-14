@@ -11,7 +11,7 @@ const routes: Routes = [
     component: ListSalesComponent,
   },
   {
-    path: 'view/sale/:id',
+    path: 'view/sale/:id/:order',
     component: ListSaleComponent,
   }
 ];

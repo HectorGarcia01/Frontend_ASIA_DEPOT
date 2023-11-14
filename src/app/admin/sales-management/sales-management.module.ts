@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { SalesManagementRoutingModule } from './sales-management-routing.module';
 import { ListSalesComponent } from './pages/list-sales/list-sales.component';
@@ -13,6 +14,7 @@ import { AdminSharedModule } from '../shared/admin-shared.module';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     SalesManagementRoutingModule,
     AdminSharedModule
   ]
