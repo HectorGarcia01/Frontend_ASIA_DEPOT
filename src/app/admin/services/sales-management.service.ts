@@ -63,7 +63,7 @@ export class SalesManagementService {
    *              Función getCookieAuth del servicio de autenticación (auth.service)
    */
 
-  updateSaleInvoice(url: string, id: number, product: any): Observable<any> {
+  updateSaleInvoice(url: string, id: number): Observable<any> {
     const token = this.authService.getCookieAuth();
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
@@ -71,6 +71,6 @@ export class SalesManagementService {
 
     url = `${url}/${id}`;
 
-    return this.http.patch<any>(url, product, { headers });
+    return this.http.patch<any>(url, null, { headers });
   }
 }
