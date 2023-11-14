@@ -17,6 +17,7 @@ export class ListCustomerComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   sidebarVisible = false;
   customer: getCustomer = {} as getCustomer;
+  dataCustomer: any = {};
   image: any = 'assets/transparent.png';
   error404: boolean = false;
   permissions = false;
@@ -112,6 +113,7 @@ export class ListCustomerComponent implements OnInit, OnDestroy {
       this.customerService.getCustomerId(`${apiURL}/${this.pathRole}/ver/cliente`, id).subscribe({
         next: (data: any) => {
           this.customer = data.customer;
+          this.dataCustomer.Estado = this.customer.estado.Tipo_Estado;
 
           if (this.customer.createdAt) {
             const createdDate = this.customer.createdAt;
