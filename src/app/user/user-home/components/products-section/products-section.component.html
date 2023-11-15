@@ -32,7 +32,7 @@
                             <h5>Cantidad disponible: {{ producto.Cantidad_Stock }}</h5>
                             <div class="d-flex align-items-center justify-content-center mt-2">
                                 <h5 style="margin-right: 6px;">Q{{ producto.Precio_Venta }}</h5>
-                                <h6 class="text-muted ml-2"><del>Q{{ producto.Precio_Venta }}</del></h6>
+                                <!-- <h6 class="text-muted ml-2"><del>Q{{ producto.Precio_Venta }}</del></h6> -->
                             </div>
                             <div class="container-btn">
                                 <a *ngIf="producto.Cantidad_Stock > 0" class="btn btn-primary"
