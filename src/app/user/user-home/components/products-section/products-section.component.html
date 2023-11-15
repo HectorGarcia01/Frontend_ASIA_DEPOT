@@ -1,5 +1,5 @@
-<section>
-    <div class="container pt-5 pb-3">
+<section class="mt-5">
+    <div class="container pt-5 pb-3 shadow-lg rounded-5">
         <h2 class="mb-4">Productos destacados</h2>
         <div *ngIf="noneProducts == false" class="row justify-content-center align-items-center">
             <div class="col-12 text-center">
@@ -9,12 +9,15 @@
                 <img width="300" height="300" src="assets/404.jpg" class="img-fluid rounded-circle" alt="Error 404">
             </div>
         </div>
-        <div *ngIf="noneProducts == true" data-spy="scroll" data-target="#reviewsNav" data-offset="50" style="height: 500px; overflow-y: auto; overflow-x: hidden;">
+        <div *ngIf="noneProducts == true" class="shadow-lg rounded-5" data-spy="scroll" data-target="#reviewsNav" data-offset="50" style="height: 500px; overflow-y: auto; overflow-x: hidden;">
             <div class="row row-cols-1 row-cols-md-3 g-2">
                 <div class="col-lg-3 col-md-4 col-sm-6 pb-1" *ngFor="let producto of product">
-                    <div class="product-item bg-light mb-4">
+                    <div class="product-item bg-light shadow-lg rounded-5 mb-4">
                         <div class="product-img position-relative overflow-hidden">
-                            <img class="img-fluid w-100" src="assets/Logo_ASIA_DEPOT.png" alt="Logo productos ASIA DEPOT">
+                            <div class="col-md4">
+                                <img class="img-fluid w-100" [src]="productImages[producto.id] || 'assets/Logo_ASIA_DEPOT.png'"
+                                    alt="Imagen-Producto">
+                            </div>
                             <div class="product-action">
                                 <button *ngIf="producto.Cantidad_Stock > 0" class="btn btn-outline-dark btn-square" (click)="addProductCart(producto.id)"><i class="fa fa-shopping-cart"></i></button>
                                 <button *ngIf="producto.Cantidad_Stock == 0" class="btn btn-outline-dark btn-square" disabled><i class="fa fa-shopping-cart"></i></button>

@@ -56,6 +56,8 @@
 
 .product-item .product-img img {
     transition: .5s;
+    width: 250px;
+    height: 280px;
 }
 
 .product-item:hover .product-img img {
@@ -75,3 +77,10 @@
 }
 
 /*Fin de estilos para los cards de productos*/
+
+@media (max-width: 768px) {
+    .product-img img {
+        width: 150px;
+        height: 150px;
+    }
+}

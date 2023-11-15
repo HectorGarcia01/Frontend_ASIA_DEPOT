@@ -1,6 +1,6 @@
 <!-- Estructura para la sección de Reseñas -->
-<section>
-    <div class="container pt-5 pb-3">
+<section class="mt-5 mb-5">
+    <div class="container pt-5 pb-3 shadow-lg rounded-5">
         <h2 class="mb-4">Reseñas</h2>
 
         <div *ngIf="noneReviews == false" class="row justify-content-center align-items-center">
@@ -13,7 +13,7 @@
         </div>
 
         <!-- Contenedor de las reseñas con desplazamiento -->
-        <div *ngIf="noneReviews == true" data-spy="scroll" data-target="#reviewsNav" data-offset="50" style="height: 400px; overflow-y: auto; overflow-x: hidden;">
+        <div *ngIf="noneReviews == true" class="shadow-lg rounded-5" data-spy="scroll" data-target="#reviewsNav" data-offset="50" style="height: 400px; overflow-y: auto; overflow-x: hidden;">
             <!-- Reseñas -->
             <div id="review1" class="review shadow-lg mb-4" *ngFor="let review of productReviews; let i = index">
                 <div class="row align-items-center">
