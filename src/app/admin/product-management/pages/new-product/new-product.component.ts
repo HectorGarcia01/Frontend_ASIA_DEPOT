@@ -149,10 +149,7 @@ export class NewProductComponent implements OnInit, OnDestroy {
   private validateForm() {
     this.registerForm = new FormGroup({
       nombre: new FormControl('', [Validators.required, Validators.pattern(/^[^\[\]<>(){\\}|'';]+$/), Validators.minLength(3), Validators.maxLength(50)]),
-      precio_venta: new FormControl(null, [Validators.required, Validators.min(1)]),
-      precio_compra: new FormControl(null, [Validators.min(1)]),
       descripcion: new FormControl('', [Validators.pattern(/^[^\[\]<>(){\\}|'';]+$/), Validators.minLength(10), Validators.maxLength(200)]),
-      cantidad: new FormControl(null, [Validators.pattern('^[0-9]+$'), Validators.required, Validators.min(1)]),
       codigo: new FormControl('', [Validators.minLength(5), Validators.maxLength(200)]),
       destacado: new FormControl(false, [Validators.required]),
       categoria: new FormControl(null, [Validators.pattern('^[0-9]+$')]),
@@ -178,10 +175,10 @@ export class NewProductComponent implements OnInit, OnDestroy {
   getProductData() {
     const product: addProduct = {
       Nombre_Producto: this.registerForm.get('nombre')?.value,
-      Precio_Venta: this.registerForm.get('precio_venta')?.value,
-      Precio_Compra: this.registerForm.get('precio_compra')?.value,
+      Precio_Venta: 0,
+      Precio_Compra: 0,
       Descripcion_Producto: this.registerForm.get('descripcion')?.value,
-      Cantidad_Stock: this.registerForm.get('cantidad')?.value,
+      Cantidad_Stock: 0,
       Codigo_Barras: this.registerForm.get('codigo')?.value,
       Producto_Destacado: this.registerForm.get('destacado')?.value,
       ID_Categoria_FK: this.registerForm.get('categoria')?.value,

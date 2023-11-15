@@ -28,26 +28,9 @@
                                 </div>
                             </div>
                     
-                            <div class="row">
-                                <!-- Precio de venta input -->
-                                <div class="col form-floating mb-3">
-                                    <input type="number" formControlName="precio_venta" class="form-control" placeholder="Ingresa el precio de venta">
-                                    <label style="margin-left: 8px;" for="registerPriceSales">Precio de Venta</label>
-                                    <div *ngIf="registerForm.get('precio_venta')?.hasError('required') && registerForm.get('precio_venta')?.touched" class="text-danger">
-                                        El precio de venta es obligatorio.
-                                    </div>
-                                </div>
-                            
-                                <!-- Precio de compra input -->
-                                <div class="col form-floating mb-3">
-                                    <input type="number" formControlName="precio_compra" class="form-control" placeholder="Ingresa el precio de compra">
-                                    <label style="margin-left: 8px;" for="registerPricePurchase">Precio de Compra</label>
-                                </div>
-                            </div>
-                    
                             <!-- Descripción input -->
                             <div class="form-floating mb-3">
-                                <input type="text" formControlName="descripcion" class="form-control" placeholder="Ingresa la descripción del producto">
+                                <textarea id="floatingTextarea2" minlength="10" maxlength="201" style="max-height: 150px; height: 125px;" formControlName="descripcion" class="form-control" placeholder="Ingresa la descripción del producto"></textarea>
                                 <label for="registerUsername">Descripción del Producto</label>
                                 <div *ngIf="registerForm.get('descripcion')?.hasError('minlength') && registerForm.get('descripcion')?.touched" class="text-danger">
                                     La descripción del producto es demasiado corta (mínimo 10 carácteres).
@@ -61,15 +44,6 @@
                             </div>
                     
                             <div class="row">
-                                <!-- Cantidad de producto input -->
-                                <div class="col form-floating mb-3">
-                                    <input type="number" formControlName="cantidad" class="form-control" placeholder="Ingresa la cantidad en stock">
-                                    <label style="margin-left: 8px;" for="registerStock">Cantidad en Stock</label>
-                                    <div *ngIf="registerForm.get('cantidad')?.hasError('required') && registerForm.get('cantidad')?.touched" class="text-danger">
-                                        La cantidad en stock es obligatoria.
-                                    </div>
-                                </div>
-                            
                                 <!-- Producto destacado input -->
                                 <div class="col form-floating mb-3">
                                     <select class="form-select" aria-label="Default select example" formControlName="destacado">
