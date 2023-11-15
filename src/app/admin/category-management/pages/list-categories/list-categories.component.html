@@ -5,7 +5,101 @@
         <div class="col-md-9 mt-4">
             <div class="container">
                 <div class="row d-flex justify-content-center">
-
+                    <div class="table-data" id="contentMove">
+                        <div class="order">
+                            <div class="head">
+                                <h2>Categorías</h2>
+                                <form (submit)="onSearch($event)">
+                                    <div class="form-input">
+                                        <input type="search" placeholder="Buscar por nombre" name="search"
+                                            [(ngModel)]="searchQuery">
+                                        <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+                                    </div>
+                                </form>
+                                <div class="col-md-1 form-floating">
+                                    <select class="form-select" aria-label="Default select example" (change)="changePageSize($event)">
+                                        <option [value]="5" [selected]="pageSize === 5">5</option>
+                                        <option [value]="20" [selected]="pageSize === 20">20</option>
+                                        <option [value]="40" [selected]="pageSize === 40">40</option>
+                                        <option [value]="60" [selected]="pageSize === 60">60</option>
+                                        <option [value]="80" [selected]="pageSize === 80">80</option>
+                                    </select>
+                                    <label for="registerShow">Mostrar</label>
+                                </div>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">
+                                            <h5>Nombre</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Descripción</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Fecha de Creación</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Estado</h5>
+                                        </th>
+                                        <th class="text-center">
+                                            <h5>Acciones</h5>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let category of categories">
+                                        <td class="text-center">
+                                            <p>{{ category.Nombre_Categoria }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ category.Descripcion_Categoria }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <p>{{ category.createdAt }}</p>
+                                        </td>
+                                        <td class="text-center">
+                                            <span *ngIf="category.estado.Tipo_Estado === 'Activo'" class="status active">{{ category.estado.Tipo_Estado }}</span>
+                                            <span *ngIf="category.estado.Tipo_Estado === 'Pendiente'" class="status pending">{{ category.estado.Tipo_Estado }}</span>
+                                            <span *ngIf="category.estado.Tipo_Estado === 'Inactivo'" class="status inactive">{{ category.estado.Tipo_Estado }}</span>
+                                        </td>
+                                        <td class="text-center">
+                                            
+                                            <button class="btn btn-sm btn-warning" title="Editar" [routerLink]="['/admin/update/category', category.id, getCategoryName(category)]">
+                                                <i class='fa fa-edit'></i>
+                                            </button>
+                                            <button *ngIf="category.estado.Tipo_Estado === 'Inactivo' && permissions === true" class="btn btn-sm btn-success" title="Activar" (click)="activateCategory(category.id)">
+                                                <i class="fa fa-check"></i>
+                                            </button>
+                                            <button *ngIf="category.estado.Tipo_Estado !== 'Inactivo' && permissions === true" class="btn btn-sm btn-danger" title="Desactivar" (click)="deleteCategory(category.id)">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- Paginación -->
+                            <div class="d-flex justify-content-center mt-3">
+                                <nav aria-label="Page navigation example" *ngIf="totalPages > 1">
+                                    <ul class="pagination">
+                                        <li class="page-item" [class.disabled]="currentPage === 1">
+                                            <a class="btn page-link" (click)="changePage(currentPage - 1)" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li class="page-item" *ngFor="let page of getPagesArray()" [class.active]="currentPage === page">
+                                            <a class="btn page-link" (click)="changePage(page)">{{ page }}</a>
+                                        </li>
+                                        <li class="page-item" [class.disabled]="currentPage === totalPages">
+                                            <a class="btn page-link" (click)="changePage(currentPage + 1)" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <app-footer></app-footer>

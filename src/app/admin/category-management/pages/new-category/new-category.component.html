@@ -5,7 +5,56 @@
         <div class="col-md-9 mt-4">
             <div class="container">
                 <div class="row d-flex justify-content-center">
+                    <div class="col-md-5 bg-light shadow-lg rounded-5 p-5 mb-3">
+                        <div class="text-center mb-3">
+                            <h2>Registro de Categorías</h2>
+                        </div>
+                        <form [formGroup]="registerCategoryForm" (ngSubmit)="onSubmit()">
+                            <div class="modal-body">
+                                <!-- Formulario para la nueva categoría -->
+                                <!-- Name input -->
+                                <div class="form-floating mb-3">
+                                    <input type="text" formControlName="nombre_categoria" class="form-control" placeholder="Ingresa el nombre del producto">
+                                    <label for="registerName">Nombre de Categoría</label>
+                                    <div *ngIf="registerCategoryForm.get('nombre_categoria')?.hasError('required') && registerCategoryForm.get('nombre_categoria')?.touched" class="text-danger">
+                                        El nombre de categoría es obligatorio.
+                                    </div>
+                                    <div *ngIf="registerCategoryForm.get('nombre_categoria')?.hasError('minlength') && registerCategoryForm.get('nombre_categoria')?.touched" class="text-danger">
+                                        El nombre de categoría es demasiado corto (mínimo 3 carácteres).
+                                    </div>
+                                    <div *ngIf="registerCategoryForm.get('nombre_categoria')?.hasError('maxlength') && registerCategoryForm.get('nombre_categoria')?.touched" class="text-danger">
+                                        El nombre de categoría es demasiado largo (máximo 50 carácteres).
+                                    </div>
+                                    <div *ngIf="registerCategoryForm.get('nombre_categoria')?.hasError('pattern') && registerCategoryForm.get('nombre_categoria')?.touched" class="text-danger">
+                                        El nombre de categoría no es válido, no use carácteres especiales.
+                                    </div>
+                                </div>
+                                <!-- Address input -->
+                                <div class="form-floating mb-3">
+                                    <textarea id="floatingTextarea2" minlength="10" maxlength="201" style="max-height: 150px; height: 125px;" formControlName="descripcion_categoria" class="form-control"
+                                        placeholder="Ingresa la descripción de categoría"></textarea>
+                                    <label for="registerAddress">Descripción de Categoría</label>
+                                    <div *ngIf="registerCategoryForm.get('descripcion_categoria')?.hasError('minlength') && registerCategoryForm.get('descripcion_categoria')?.touched" class="text-danger">
+                                        La descripción es demasiado corta (mínimo 10 carácteres).
+                                    </div>
+                                    <div *ngIf="registerCategoryForm.get('descripcion_categoria')?.hasError('maxlength') && registerCategoryForm.get('descripcion_categoria')?.touched" class="text-danger">
+                                        La descripción es demasiado larga (máximo 200 carácteres).
+                                    </div>
+                                    <div *ngIf="registerCategoryForm.get('descripcion_categoria')?.hasError('pattern') && registerCategoryForm.get('descripcion_categoria')?.touched" class="text-danger">
+                                        La descripción no es válida, no use carácteres especiales.
+                                    </div>
+                                </div>
+                            </div>
                     
+                            <div class="row mb-4">
+                                <div class="col-md-12 d-flex justify-content-center mt-3">
+                                    <!-- Submit button -->
+                                    <button type="submit"
+                                        class="btn btn-primary btn-block w-75">Registrar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
             <app-footer></app-footer>
