@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 import { UserServicesService } from 'src/app/user/services/user-services.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { Department, Municipalities } from 'src/app/user/interfaces/address.interface';
-import { updateCustomer } from 'src/app/user/interfaces/customer.interface';
+import { getCustomer, updateCustomer } from 'src/app/user/interfaces/customer.interface';
 import { apiURL } from 'src/app/config/config';
 
 @Component({
@@ -14,6 +14,7 @@ import { apiURL } from 'src/app/config/config';
   styleUrls: ['./update-profile.component.css']
 })
 export class UpdateProfileComponent implements OnInit {
+  customer: getCustomer = {} as getCustomer;
   updateForm!: FormGroup;
   departments: Department[] = [];
   selectedDepartmentId: number | null = null;
@@ -23,6 +24,7 @@ export class UpdateProfileComponent implements OnInit {
   selectedFile: File | undefined;
   uploading: boolean = false;
   previewImage: string | ArrayBuffer | null = null;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -36,9 +38,34 @@ export class UpdateProfileComponent implements OnInit {
 
   ngOnInit() {
     this.scrollToTop();
+    this.viewProfile();
     this.getProfilePicture();
     this.getAddresses();
   }
+
+  /**
+   * Función para consumir el servicio de ver perfil
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getCustomerProfile del servicio de usuarios (user-services.service)   
+   */
+
+  viewProfile() {
+    try {
+      this.userService.getCustomerProfile(`${apiURL}/usuario/ver/perfil`).subscribe({
+        next: (data: any) => {
+          this.customer = data.customer;
+        },
+        error: (error: any) => {
+          console.log(error.error);
+        }
+      });
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
 
   /**
    * Función para consumir el servicio de ver la foto de perfil
@@ -206,9 +233,11 @@ export class UpdateProfileComponent implements OnInit {
     try {
       if (this.selectedFile) {
         this.uploading = true;
+        this.loading = true;
         this.userService.uploadProfilePhoto(`${apiURL}/usuario/subir/avatar`, this.selectedFile).subscribe({
           next: (response: any) => {
             this.uploading = false;
+            this.loading = false;
             this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
             this.router.navigate(['/profile']);
           },
