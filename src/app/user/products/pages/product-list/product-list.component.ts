@@ -20,6 +20,7 @@ export class ProductListComponent implements OnInit {
   category: Category[] = [];
   product: Product[] = [];
   prducts: Products[] = [];
+  productImages: { [key: number]: string } = {};
   totalPages: number = 0;
   currentPage: number = 1;
   pageSize: number = 8;
@@ -110,6 +111,10 @@ export class ProductListComponent implements OnInit {
           this.totalPages = data.totalPages;
           this.currentPage = data.currentPage;
           this.msgError = '';
+
+          this.product.forEach((producImage: any) => {
+            this.getPhotos(producImage.id);
+          });
         },
         error: (error: any) => {
           this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
@@ -133,10 +138,15 @@ export class ProductListComponent implements OnInit {
     try {
       if (this.registerForm.valid) {
         const nombre = this.registerForm.get('nombre')?.value;
+        
         this.productService.getProducts(`${apiURL}/usuario/ver/productos?estado=Activo&nombre=${nombre}`).subscribe({
           next: (data: any) => {
             this.product = data.products;
             this.msgError = '';
+
+            this.product.forEach((producImage: any) => {
+              this.getPhotos(producImage.id);
+            });
           },
           error: (error: any) => {
             this.msgError = error.error.error;
@@ -145,8 +155,7 @@ export class ProductListComponent implements OnInit {
           }
         });
       } else {
-        this.msgError = 'error';
-        this.product = [];
+        this.getProducts();
       }
     } catch (error: any) {
       console.log(error.error);
@@ -170,6 +179,10 @@ export class ProductListComponent implements OnInit {
           this.totalPages = data.totalPages;
           this.currentPage = data.currentPage;
           this.msgError = '';
+
+          this.product.forEach((producImage: any) => {
+            this.getPhotos(producImage.id);
+          });
         },
         error: (error: any) => {
           this.msgError = error.error.error;
@@ -177,6 +190,30 @@ export class ProductListComponent implements OnInit {
           this.totalPages = 0;
         }
       });
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  /**
+   * Función para consumir el servicio de ver la imágen de cada producto
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getProductPhoto del servicio de producto (product.service)   
+   */
+
+  getPhotos(id: any) {
+    try {
+      this.productService.getProductPhoto(`${apiURL}/usuario/ver/foto/producto`, id).subscribe({
+        next: (data: Blob) => {
+          this.productImages[id] = URL.createObjectURL(data);
+        },
+        error: (error: any) => {
+          this.productImages[id] = 'assets/Logo_ASIA_DEPOT.png';
+          console.log(error.error.error);
+        }
+      })
     } catch (error: any) {
       console.log(error.error);
     }
