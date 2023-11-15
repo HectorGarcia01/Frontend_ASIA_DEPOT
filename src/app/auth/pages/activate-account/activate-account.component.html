@@ -21,7 +21,11 @@
                         <div class="row mb-4">
                             <div class="col-md-12 d-flex justify-content-center">
                                 <!-- Submit button -->
-                                <button type="submit" class="btn btn-primary btn-block w-75">Activar Cuenta</button>
+                                <button *ngIf="loading === false" type="submit" class="btn btn-primary btn-block w-75">Activar Cuenta</button>
+                                <button *ngIf="loading === true" type="button" class="btn btn-primary btn-block w-75" disabled>
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    Cargando...
+                                </button>
                             </div>
                         </div>
 
