@@ -32,7 +32,7 @@ export class NewEmployeeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    
+    this.scrollToTop();
   }
 
   ngOnDestroy() {
@@ -161,5 +161,9 @@ export class NewEmployeeComponent implements OnInit, OnDestroy {
     } else {
       this.customAlertService.sweetAlertPersonalizada('error', "Error", "Por favor, verifica los campos del formulario.");
     }
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
