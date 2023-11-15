@@ -68,7 +68,7 @@ export class UpdateCategoryComponent implements OnInit, OnDestroy {
    * Fecha creación: 20/10/2023
    * Autor: Hector Armando García González
    * Referencias:
-   *            Función getProductId que consume el servicio del backend
+   *            Función getCategoryId que consume el servicio del backend
    */
 
   getParamsId() {
@@ -105,7 +105,7 @@ export class UpdateCategoryComponent implements OnInit, OnDestroy {
    * Fecha creación: 20/10/2023
    * Autor: Hector Armando García González
    * Referencias: 
-   *            Función getSuppliers del servicio de proveedor (supplier-management.service)   
+   *            Función getCategoryId del servicio de categoría (category-management.service)   
    */
 
   getCategoryId(id: any) {
@@ -133,7 +133,7 @@ export class UpdateCategoryComponent implements OnInit, OnDestroy {
 
   private validateForm() {
     this.updateForm = new FormGroup({
-      nombre: new FormControl('', [Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/), Validators.minLength(3), Validators.maxLength(50)]),
+      nombre: new FormControl('', [Validators.pattern(/^[^\[\]<>(){\\}|'';]+$/), Validators.minLength(3), Validators.maxLength(50)]),
       descripcion: new FormControl('', [Validators.pattern(/^[^[\]<>(){}_=\\|';]+$/), Validators.minLength(10), Validators.maxLength(200)])
     });
   }

@@ -83,7 +83,7 @@ export class ListCategoriesComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Función para consumir el servicio de ver todos los proveedores
+   * Función para consumir el servicio de ver todas las categorías
    * Fecha creación: 20/10/2023
    * Autor: Hector Armando García González
    * Referencias: 
