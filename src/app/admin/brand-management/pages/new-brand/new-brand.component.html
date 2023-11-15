@@ -1,0 +1,43 @@
+<div id="main-content">
+    <app-nav-bar></app-nav-bar>
+    <section class="d-flex justify-content-center">
+        <!-- Formulario de categoría -->
+        <div class="col-md-9 mt-5">
+            <div class="container mb-5">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-5 bg-light shadow-lg rounded-5 p-5 mb-3 mt-5">
+                        <div class="text-center mb-3">
+                            <h2>Registro de Marcas</h2>
+                        </div>
+                        <form [formGroup]="registerBrandForm" (ngSubmit)="onSubmit()">
+                            <div class="modal-body">
+                                <!-- Formulario para la nueva marca -->
+                                <input type="text" formControlName="nombre_marca" class="form-control" placeholder="Nombre de la marca de producto">
+                                <div *ngIf="registerBrandForm.get('nombre_marca')?.hasError('required') && registerBrandForm.get('nombre_marca')?.touched" class="text-danger">
+                                    El nombre de marca es obligatorio.
+                                </div>
+                                <div *ngIf="registerBrandForm.get('nombre_marca')?.hasError('minlength') && registerBrandForm.get('nombre_marca')?.touched" class="text-danger">
+                                    El nombre de marca es demasiado corto (mínimo 3 carácteres).
+                                </div>
+                                <div *ngIf="registerBrandForm.get('nombre_marca')?.hasError('maxlength') && registerBrandForm.get('nombre_marca')?.touched" class="text-danger">
+                                    El nombre de marca es demasiado largo (máximo 50 carácteres).
+                                </div>
+                                <div *ngIf="registerBrandForm.get('nombre_marca')?.hasError('pattern') && registerBrandForm.get('nombre_marca')?.touched" class="text-danger">
+                                    El nombre de marca no es válido, no use carácteres especiales.
+                                </div>
+                            </div>
+
+                            <div class="row mb-4 mt-3">
+                                <div class="col-md-12 d-flex justify-content-center mt-3">
+                                    <!-- Submit button -->
+                                    <button type="submit" class="btn btn-primary btn-block w-75">Registrar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <app-footer></app-footer>
+        </div>
+    </section>
+</div>
