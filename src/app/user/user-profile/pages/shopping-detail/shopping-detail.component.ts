@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ShoppingCartService } from 'src/app/user/services/shopping-cart.service';
+import { ProductService } from 'src/app/user/services/product.service';
 import { UserServicesService } from 'src/app/user/services/user-services.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { apiURL } from 'src/app/config/config';
@@ -12,16 +13,19 @@ import { apiURL } from 'src/app/config/config';
 })
 export class ShoppingDetailComponent implements OnInit {
   shoppingDetail: any = {};
+  productImages: { [key: number]: string } = {};
   noneShoppingDetail: boolean = false;
   cancelShopping: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
+    private productService: ProductService,
     private shoppingCartService: ShoppingCartService,
     private customAlertService: CustomAlertService
   ) { }
 
   ngOnInit() {
+    this.scrollToTop();
     this.getParamsId();
   }
 
@@ -69,11 +73,39 @@ export class ShoppingDetailComponent implements OnInit {
           } else {
             this.cancelShopping = false;
           }
+
+          this.shoppingDetail.detalles_venta.forEach((producImage: any) => {
+            this.getPhotos(producImage.producto.id);
+          });
           
           this.noneShoppingDetail = true;
         },
         error: (error: any) => {
           this.noneShoppingDetail = false;
+        }
+      })
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  /**
+   * Función para consumir el servicio de ver la imágen de cada producto
+   * Fecha creación: 20/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getProductPhoto del servicio de producto (product.service)   
+   */
+
+  getPhotos(id: any) {
+    try {
+      this.productService.getProductPhoto(`${apiURL}/usuario/ver/foto/producto`, id).subscribe({
+        next: (data: Blob) => {
+          this.productImages[id] = URL.createObjectURL(data);
+        },
+        error: (error: any) => {
+          this.productImages[id] = 'assets/Logo_ASIA_DEPOT.png';
+          console.log(error.error.error);
         }
       })
     } catch (error: any) {
@@ -104,5 +136,9 @@ export class ShoppingDetailComponent implements OnInit {
     } catch (error: any) {
       console.log(error.error);
     }
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

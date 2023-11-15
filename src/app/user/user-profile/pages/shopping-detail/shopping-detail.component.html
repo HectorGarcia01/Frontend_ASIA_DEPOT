@@ -26,7 +26,7 @@
                         <td class="align-middle">
                             <div class="d-flex flex-column flex-md-row">
                                 <div class="col-md-2">
-                                    <img src="assets/Logo_ASIA_DEPOT.png" alt="" style="width: 50px;">
+                                    <img [src]="productImages[item.producto.id] || 'assets/Logo_ASIA_DEPOT.png'" alt="Imagen-Producto" style="width: 50px;">
                                 </div>
                                 <div class="col-md-5">
                                     {{ item.producto.Nombre_Producto }}

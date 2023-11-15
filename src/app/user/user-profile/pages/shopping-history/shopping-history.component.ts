@@ -14,6 +14,9 @@ export class ShoppingHistoryComponent implements OnInit {
   // shoppingDetail: ShoppingDetail[] = [];
   shoppingHistory: any = {};
   countProducts: any = [];
+  totalPages: number = 0;
+  currentPage: number = 1;
+  pageSize: number = 8;
   noneProducts: boolean = false;
 
   constructor(
@@ -22,6 +25,7 @@ export class ShoppingHistoryComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.scrollToTop();
     this.getShoppingHistory();
   }
 
@@ -36,10 +40,13 @@ export class ShoppingHistoryComponent implements OnInit {
 
   getShoppingHistory() {
     try {
-      this.shoppingCartService.getShoppingHistory(`${apiURL}/usuario/historial/compras`).subscribe({
+      this.shoppingCartService.getShoppingHistory(`${apiURL}/usuario/historial/compras`, this.currentPage, this.pageSize).subscribe({
         next: (data: any) => {
           this.shoppingHistory = data.shoppingHistory;
           this.countProducts = data.countProducts;
+          this.totalPages = data.totalPages;
+          this.currentPage = data.currentPage;
+
           this.shoppingHistory.forEach((detail: any) => {
             if (detail.createdAt) {
               const createdDate = detail.createdAt;
@@ -83,5 +90,39 @@ export class ShoppingHistoryComponent implements OnInit {
     } catch (error: any) {
       console.log(error.error);
     }
+  }
+
+  /**
+   * Función para cambiar de página
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getCustomers
+   */
+
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.getShoppingHistory();
+      this.scrollToTop();
+    }
+  }
+
+  /**
+   * Función para obtener el número de páginas
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
+
+  getPagesArray(): number[] {
+    const pagesArray = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pagesArray.push(i);
+    }
+    return pagesArray;
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

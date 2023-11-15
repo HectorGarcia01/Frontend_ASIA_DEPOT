@@ -13,6 +13,7 @@ import { apiURL } from 'src/app/config/config';
 })
 export class FavoriteProductsComponent implements OnInit {
   product: FavoriteProduct[] = [];
+  productImages: { [key: number]: string } = {};
   noneProducts: boolean = false;
 
   constructor(
@@ -48,14 +49,46 @@ export class FavoriteProductsComponent implements OnInit {
         this.product = this.product.filter((favoriteProduct: FavoriteProduct) => {
           return favoriteProduct.producto.estado.Tipo_Estado === 'Activo';
         });
-        
-        this.noneProducts = true;
+
+        this.product.forEach((producImage: any) => {
+          this.getPhotos(producImage.id);
+        });
+
+        if (this.product.length === 0) {
+          this.noneProducts = false;
+        } else {
+          this.noneProducts = true;
+        }
       },
       error: (error: any) => {
         this.product = [];
         this.noneProducts = false;
       }
     });
+  }
+
+  /**
+   * Función para consumir el servicio de ver la imágen de cada producto
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getProductPhoto del servicio de producto (product.service)   
+   */
+
+  getPhotos(id: any) {
+    try {
+      this.productService.getProductPhoto(`${apiURL}/usuario/ver/foto/producto`, id).subscribe({
+        next: (data: Blob) => {
+          this.productImages[id] = URL.createObjectURL(data);
+        },
+        error: (error: any) => {
+          this.productImages[id] = 'assets/Logo_ASIA_DEPOT.png';
+          console.log(error.error.error);
+        }
+      })
+    } catch (error: any) {
+      console.log(error.error);
+    }
   }
 
   /**
