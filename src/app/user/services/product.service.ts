@@ -30,6 +30,18 @@ export class ProductService {
   }
 
   /**
+   * Función para realizar una solicitud get para ver las fotos de los productos
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
+
+  getProductPhoto(url: string, id: string): Observable<Blob> {
+    url = `${url}/${id}`;
+
+    return this.http.get(url, { responseType: 'blob' });
+  }
+
+  /**
    * Función para realizar una solicitud post para agregar un producto a favoritos
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
