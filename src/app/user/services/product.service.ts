@@ -68,13 +68,19 @@ export class ProductService {
    *              Función getCookieAuth del servicio de autenticación (auth.service)
    */
 
-  getFavoriteProducts(url: string): Observable<any> {
+  getFavoriteProducts(url: string, page?: number, pageSize?: number): Observable<any> {
+    let params = new HttpParams();
+
+    if (page && pageSize) {
+      params = params.set('page', page.toString()).set('pageSize', pageSize.toString());
+    }
+
     const token = this.authService.getCookieAuth();
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
 
-    return this.http.get<any>(url, { headers });
+    return this.http.get<any>(url, { params, headers });
   }
 
   /**
