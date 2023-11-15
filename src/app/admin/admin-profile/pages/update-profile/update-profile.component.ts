@@ -21,6 +21,7 @@ export class UpdateProfileComponent implements OnInit {
   uploading: boolean = false;
   previewImage: string | ArrayBuffer | null = null;
   pathRole: any = '';
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -64,7 +65,7 @@ export class UpdateProfileComponent implements OnInit {
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    * Referencias: 
-   *            Función getCustomerProfile del servicio de usuarios (user-services.service)   
+   *            Función getEmployeeProfile del servicio de empleado (employee-management.service)   
    */
 
   viewProfile() {
@@ -200,10 +201,12 @@ export class UpdateProfileComponent implements OnInit {
     try {
       if (this.selectedFile) {
         this.uploading = true;
+        this.loading = true;
         this.isSuperAdmin();
         this.adminService.uploadProfilePhoto(`${apiURL}/${this.pathRole}/subir/avatar`, this.selectedFile).subscribe({
           next: (response: any) => {
             this.uploading = false;
+            this.loading = false;
             this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
             this.router.navigate(['admin/profile']);
           },
