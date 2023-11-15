@@ -112,6 +112,12 @@ const routes: Routes = [
     loadChildren: () =>
       import('./admin/inventory-management/inventory-management.module').then((m) => m.InventoryManagementModule),
     canActivate: [AuthGuardService]
+  },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./admin/brand-management/brand-management.module').then((m) => m.BrandManagementModule),
+    canActivate: [AuthGuardService]
   }
 ]
 
