@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   employeeData!: getEmployee;
   customerData!: getCustomer;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -57,6 +58,7 @@ export class LoginComponent implements OnInit {
   singIn() {
     try {
       if (this.loginForm.valid) {
+        this.loading = true;
         const signIn: SingIn = {
           correo: this.loginForm.get('correo')?.value,
           password: this.loginForm.get('password')?.value
@@ -66,6 +68,7 @@ export class LoginComponent implements OnInit {
           next: (data: any) => {
             this.authService.saveCookieAuth(data.userToken);
             this.authService.saveCookieRole(data.userRole);
+            this.loading = false;
             if (data.userRole === 'Admin' || data.userRole === 'SuperAdmin') {
               this.employeeData = data.user;
               this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", `Bienvenido ${this.employeeData.Nombre_Empleado} ${this.employeeData.Apellido_Empleado}`);
@@ -77,6 +80,7 @@ export class LoginComponent implements OnInit {
             }
           },
           error: (error: any) => {
+            this.loading = false;
             this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
           }
         });
