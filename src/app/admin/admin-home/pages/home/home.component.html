@@ -1,2 +1,74 @@
-<app-nav-bar></app-nav-bar>
-<app-footer></app-footer>
+<div id="main-content">
+    <app-nav-bar></app-nav-bar>
+    <section class="d-flex justify-content-center">
+        <!-- Contenido del perfil -->
+        <div class="col-md-9 mt-4">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-9 colorEdit shadow-lg rounded-5 mb-3">
+                        <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
+                            <div class="col-md-4">
+                                <img width="70%" src="{{ image }}" alt="Foto-Perfil" class="img-fluid rounded-circle">
+                            </div>
+                            <div class="col-md-6">
+                                <h1>{{ employee.Nombre_Empleado }}</h1>
+                                <h1>{{ employee.Apellido_Empleado }}</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9 mb-5">
+                        <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
+                            <div class="col-md-6 colorEdit shadow-lg rounded-5 p-5 mb-5 container-info">
+                                <h3 class="mb-4">Información personal</h3>
+                                <div class="mb-3">
+                                    <label for="nombre"><strong>Nombre</strong></label>
+                                    <p id="nombre">{{ employee.Nombre_Empleado }}</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="apellido"><strong>Apellido</strong></label>
+                                    <p id="apellido">{{ employee.Apellido_Empleado }}</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="correo"><strong>Correo</strong></label>
+                                    <p id="correo">{{ employee.Correo_Empleado }}</p>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="telefono"><strong>Teléfono</strong></label>
+                                    <p id="telefono">{{ employee.Telefono_Empleado }}</p>
+                                </div>
+                                <div *ngIf="employee.NIT_Empleado" class="mb-3">
+                                    <label for="nit"><strong>NIT</strong></label>
+                                    <p id="nit">{{ employee.NIT_Empleado }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-5 colorEdit shadow-lg rounded-5 p-5">
+                                <h3 class="mb-4">Acciones</h3>
+                                <div class="d-flex flex-column btnAction">
+                                    <div class="mb-3">
+                                        <a class="btn btn-primary btn-block"
+                                            [routerLink]="'/admin/profile/update'">Actualizar Datos</a>
+                                    </div>
+                                    <!-- <div class="mb-3">
+                                        <a class="btn btn-primary btn-block" [routerLink]="'/admin/profile/change-password'">Cambiar Contraseña</a>
+                                    </div> -->
+                                    <div class="mb-3">
+                                        <a class="btn btn-danger btn-block" (click)="deleteProfilePicture()">Borrar Foto
+                                            de Perfil</a>
+                                    </div>
+                                    <div class="mb-3">
+                                        <a class="btn btn-danger btn-block" (click)="logout()">Cerrar Sesión</a>
+                                    </div>
+                                    <div class="mb-3">
+                                        <a class="btn btn-danger btn-block" (click)="logoutAll()">Cerrar Todas las
+                                            Sesiones</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <app-footer></app-footer>
+        </div>
+    </section>
+</div>
