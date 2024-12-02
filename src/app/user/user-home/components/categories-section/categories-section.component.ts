@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CategoryService } from 'src/app/user/services/category.service';
 import { Category, CategoryResponse } from 'src/app/user/interfaces/category.interface';
 import { apiURL } from 'src/app/config/config';
@@ -21,6 +21,8 @@ export class CategoriesSectionComponent implements OnInit {
   ngOnInit() {
     this.getCategories();
   }
+
+  @ViewChild('categoriasSection') categoriasSection?: ElementRef<any>;
 
   /**
    * Función para consumir el servicio de listar categorías
@@ -51,6 +53,8 @@ export class CategoriesSectionComponent implements OnInit {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
       this.getCategories();
+
+      this.scrollIntoView();
     }
   }
 
@@ -66,5 +70,11 @@ export class CategoriesSectionComponent implements OnInit {
       pagesArray.push(i);
     }
     return pagesArray;
+  }
+
+  scrollIntoView() {
+    if (this.categoriasSection) {
+      this.categoriasSection.nativeElement.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 }

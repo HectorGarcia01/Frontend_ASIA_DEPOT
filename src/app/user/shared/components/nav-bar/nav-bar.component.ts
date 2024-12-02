@@ -64,6 +64,16 @@ export class NavBarComponent implements OnInit {
     }
   }
 
+  /**
+   * Función para ver la foto de perfil del cliente
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función isAuthenticated() del servicio de autenticación (auth.service),
+   *            Función getProfilePhoto() del servicio de usuario (user-service.service),
+   *            Función del servicio de alerta personalizada (custom-alert.service)
+   */
+
   getProfilePicture() {
     try {
       if (this.authService.isAuthenticated()) {

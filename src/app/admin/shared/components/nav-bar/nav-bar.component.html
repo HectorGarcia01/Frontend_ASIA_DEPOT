@@ -1,1 +1,300 @@
-<p>nav-bar works!</p>
+<!-- SIDEBAR -->
+<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+<section id="sidebar" *ngIf="isNavBarVisible">
+    <a class="brand" [routerLink]="['/admin']">
+        <i class='bx bxs-shopping-bags pointer'></i>
+        <span class="text">ASIA DEPOT</span>
+    </a>
+    <ul class="side-menu">
+        <li class="pointer">
+            <a [routerLink]="['/admin']">
+                <i class='bx bxs-dashboard'></i>
+                <span class="text">Dashboard</span>
+            </a>
+        </li>
+
+        <li class="pointer">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse" data-bs-target="#my-profile-collapse" aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Mi Gestión</span>
+            </a>
+            <div class="collapse" id="my-profile-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/profile']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Perfil</span>
+                        </a>
+                    </li>
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/profile/update']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Actualizar Perfil</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="pointer">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse" data-bs-target="#customer-management-collapse" aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Gestión de Clientes</span>
+            </a>
+            <div class="collapse" id="customer-management-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/list/customers']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Clientes</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="pointer" *ngIf="permissions === true">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse"
+                data-bs-target="#employee-management-collapse" aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Gestión de Administradores</span>
+            </a>
+            <div class="collapse" id="employee-management-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/create/admin']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Nuevo Administrador</span>
+                        </a>
+                    </li>
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/list/admins']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Administradores</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="pointer" *ngIf="isSuperAdmin">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse" data-bs-target="#supplier-management-collapse" aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Gestión de Proveedores</span>
+            </a>
+            <div class="collapse" id="supplier-management-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/create/supplier']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Nuevo Proveedor</span>
+                        </a>
+                    </li>
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/list/suppliers']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Proveedores</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="pointer">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse" data-bs-target="#category-collapse" aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Gestión de Categorías</span>
+            </a>
+            <div class="collapse" id="category-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/create/category']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Nueva Categoría</span>
+                        </a>
+                    </li>
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/list/categories']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Categorías</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="pointer">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse" data-bs-target="#brand-collapse"
+                aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Gestión de Marcas</span>
+            </a>
+            <div class="collapse" id="brand-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/create/brand']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Nueva Marca</span>
+                        </a>
+                    </li>
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/list/brands']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Marcas</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="pointer">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse" data-bs-target="#product-collapse" aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Gestión de Productos</span>
+            </a>
+            <div class="collapse" id="product-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li>
+                        <a [routerLink]="['/admin/create/product']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Nuevo Producto</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/list/products']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Productos</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="pointer">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse" data-bs-target="#purchase-collapse" aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Gestión de Compras</span>
+            </a>
+            <div class="collapse" id="purchase-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li>
+                        <a [routerLink]="['/admin/create/purchase']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Nueva Compra</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/admin/list/purchases']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Compras</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="pointer">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse" data-bs-target="#sales-collapse" aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Gestión de Ventas</span>
+            </a>
+            <div class="collapse" id="sales-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/list/sales']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Ventas</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="pointer">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse" data-bs-target="#inventory-collapse" aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Gestión de Inventario</span>
+            </a>
+            <div class="collapse" id="inventory-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li class="pointer">
+                        <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse" data-bs-target="#ajsInventory-collapse"
+                            aria-expanded="true">
+                            <i class='bx bxs-message-square-add'></i>
+                            <span class="text">Ajuste de Inventario</span>
+                        </a>
+                        <div class="collapse" id="ajsInventory-collapse">
+                            <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                <li class="pointer">
+                                    <a [routerLink]="['/admin/adjust/inventory/create/product']">
+                                        <i class='bx bx-list-ul'></i>
+                                        <span class="text">Registrar Producto</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/list/inventories']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Inventario</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <li class="pointer">
+            <a class="btn btn-toggle rounded collapsed" data-bs-toggle="collapse" data-bs-target="#newsletter-collapse" aria-expanded="true">
+                <i class='bx bxs-message-square-add'></i>
+                <span class="text">Gestión de Newsletter</span>
+            </a>
+            <div class="collapse" id="newsletter-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/send/newsletter']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Enviar Correo</span>
+                        </a>
+                    </li>
+                    <li class="pointer">
+                        <a [routerLink]="['/admin/list/newsletter']">
+                            <i class='bx bx-list-ul'></i>
+                            <span class="text">Ver Suscriptores</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+    <ul class="side-menu">
+        <li class="pointer" (click)="logout()">
+            <a>
+                <i class='bx bx-log-out' style="color: red;"></i>
+                <span class="text" style="color: red;">Cerrar Sesión</span>
+            </a>
+        </li>
+    </ul>
+</section>
+<!-- SIDEBAR -->
+
+<!-- CONTENT -->
+<section id="content">
+    <!-- NAVBAR -->
+    <nav>
+        <i class='bx bx-menu sizeToggle' (click)="toggleNavBar()"></i>
+        <a class="nav-link" [routerLink]="['/admin']">ASIA DEPOT</a>
+        <form (ngSubmit)="searchManagement()">
+            <div class="form-input">
+                <input type="search" placeholder="Busca una gestión..." [(ngModel)]="searchMag" name="search">
+                <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+            </div>
+        </form>
+        <a class="profile" [routerLink]="['/admin/profile']">
+            <img src="{{ image }}">
+        </a>
+    </nav>
+    <!-- NAVBAR -->
+</section>
+<!-- CONTENT -->

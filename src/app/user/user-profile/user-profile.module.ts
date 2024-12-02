@@ -7,12 +7,16 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { UpdateProfileComponent } from './pages/update-profile/update-profile.component';
 import { UserSharedModule } from '../shared/user-shared.module';
 import { FavoriteProductsComponent } from './pages/favorite-products/favorite-products.component';
+import { ShoppingHistoryComponent } from './pages/shopping-history/shopping-history.component';
+import { ShoppingDetailComponent } from './pages/shopping-detail/shopping-detail.component';
 
 @NgModule({
   declarations: [
     ProfileComponent,
     UpdateProfileComponent,
-    FavoriteProductsComponent
+    FavoriteProductsComponent,
+    ShoppingHistoryComponent,
+    ShoppingDetailComponent
   ],
   imports: [
     CommonModule,

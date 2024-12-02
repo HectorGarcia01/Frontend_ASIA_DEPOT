@@ -12,7 +12,11 @@ const routes: Routes = [
     component: ProductListComponent
   },
   {
-    path: 'products/category/:id',
+    path: 'products/category/:id/:name',
+    component: ProductListComponent
+  },
+  {
+    path: 'products/category/:name',
     component: ProductListComponent
   },
   {

@@ -30,6 +30,18 @@ export class ProductService {
   }
 
   /**
+   * Función para realizar una solicitud get para ver las fotos de los productos
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
+
+  getProductPhoto(url: string, id: string): Observable<Blob> {
+    url = `${url}/${id}`;
+
+    return this.http.get(url, { responseType: 'blob' });
+  }
+
+  /**
    * Función para realizar una solicitud post para agregar un producto a favoritos
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
@@ -56,13 +68,19 @@ export class ProductService {
    *              Función getCookieAuth del servicio de autenticación (auth.service)
    */
 
-  getFavoriteProducts(url: string): Observable<any> {
+  getFavoriteProducts(url: string, page?: number, pageSize?: number): Observable<any> {
+    let params = new HttpParams();
+
+    if (page && pageSize) {
+      params = params.set('page', page.toString()).set('pageSize', pageSize.toString());
+    }
+
     const token = this.authService.getCookieAuth();
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
 
-    return this.http.get<any>(url, { headers });
+    return this.http.get<any>(url, { params, headers });
   }
 
   /**

@@ -1,0 +1,51 @@
+<div id="main-content">
+    <app-nav-bar></app-nav-bar>
+    <section class="d-flex justify-content-center">
+        <!-- Formulario de actualización de marca -->
+        <div class="col-md-9 mt-5">
+            <div class="container mb-5">
+                <div class="row d-flex justify-content-center">
+                    <div *ngIf="error404 == true" class="row justify-content-center align-items-center">
+                        <div class="col-12 text-center mt-5">
+                            <h5>
+                                Lo siento, la marca que estás buscando no ha sido encontrado. Verifica el nombre o selecciona otra marca.
+                            </h5>
+                            <img width="500" height="500" src="assets/404_2.jpg" class="img-fluid rounded-circle"
+                                alt="Error 404">
+                        </div>
+                    </div>
+
+                    <div *ngIf="error404 == false" class="col-md-5 bg-light shadow-lg rounded-5 p-5 p-5 mb-3 mt-5">
+                        <div class="text-center mb-3">
+                            <h2>Actualizar Marca</h2>
+                        </div>
+                        <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+                            <!-- Name input -->
+                            <div class="form-floating mb-3">
+                                <input type="text" formControlName="nombre" class="form-control" placeholder="Ingresa el nombre del proveedor">
+                                <label for="registerName">{{ productBrand.Nombre_Marca }}</label>
+                                <div *ngIf="updateForm.get('nombre')?.hasError('minlength') && updateForm.get('nombre')?.touched" class="text-danger">
+                                    El nombre de la marca es demasiado corto (mínimo 3 carácteres).
+                                </div>
+                                <div *ngIf="updateForm.get('nombre')?.hasError('maxlength') && updateForm.get('nombre')?.touched" class="text-danger">
+                                    El nombre de la marca es demasiado largo (máximo 50 carácteres).
+                                </div>
+                                <div *ngIf="updateForm.get('nombre')?.hasError('pattern') && updateForm.get('nombre')?.touched" class="text-danger">
+                                    El nombre de la marca no es válido, no use carácteres especiales.
+                                </div>
+                            </div>
+
+                            <div class="row mb-4">
+                                <div class="col-md-12 d-flex justify-content-center mt-3">
+                                    <!-- Submit button -->
+                                    <button type="submit" class="btn btn-primary btn-block w-75">Actualizar datos</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <app-footer></app-footer>
+        </div>
+    </section>
+</div>

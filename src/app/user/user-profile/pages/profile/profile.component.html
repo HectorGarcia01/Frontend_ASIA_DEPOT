@@ -1,13 +1,13 @@
 <app-nav-bar></app-nav-bar>
 
-<div class="container">
+<div class="container mt-3">
     <div class="row d-flex justify-content-center">
-        <div class="col-md-9 bg-light mb-3">
+        <div class="col-md-9 bg-light shadow-lg rounded-5 mb-3">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
                 <div class="col-md-4">
-                    <img src="{{ image }}" alt="Foto-Perfil" class="img-fluid rounded-circle">
+                    <img width="70%" src="{{ image }}" alt="Foto-Perfil" class="img-fluid rounded-circle">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <h1>{{ customer.Nombre_Cliente }}</h1>
                     <h1>{{ customer.Apellido_Cliente }}</h1>
                 </div>
@@ -15,7 +15,7 @@
         </div>
         <div class="col-md-9 mb-5">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-between">
-                <div class="col-md-6 bg-light p-5 mb-5 container-info">
+                <div class="col-md-6 bg-light shadow-lg rounded-5 p-5 mb-5 container-info">
                     <h3 class="mb-4">Información personal</h3>
                     <div class="mb-3">
                         <label for="nombre"><strong>Nombre</strong></label>
@@ -50,26 +50,32 @@
                         <p id="direccion_general">{{ customer.Direccion_General }}</p>
                     </div>
                 </div>
-                <div class="col-md-5 bg-light p-5">
+                <div class="col-md-5 bg-light shadow-lg rounded-5 p-5">
                     <h3 class="mb-4">Acciones</h3>
                     <div class="d-flex flex-column btnAction">
                         <div class="mb-3">
                             <a class="btn btn-primary btn-block" [routerLink]="'/profile/update'">Actualizar Datos</a>
                         </div>
-                        <div class="mb-3">
+                        <!-- <div class="mb-3">
                             <a class="btn btn-primary btn-block" [routerLink]="'/profile/change-password'">Cambiar Contraseña</a>
-                        </div>
+                        </div> -->
                         <div class="mb-3">
                             <a class="btn btn-primary btn-block" [routerLink]="'/profile/favorite/products'">Productos Favoritos</a>
                         </div>
                         <div class="mb-3">
-                            <a class="btn btn-primary btn-block">Historial de Compras</a>
+                            <a class="btn btn-primary btn-block" [routerLink]="'/profile/shopping/history'">Historial de Compras</a>
                         </div>
                         <div class="mb-3">
                             <a class="btn btn-danger btn-block" (click)="deleteProfilePicture()">Borrar Foto de Perfil</a>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3" *ngIf="loading === false">
                             <a class="btn btn-danger btn-block" (click)="unsubscriptionNewsletter()">Anular Suscripción del Newsletter</a>
+                        </div>
+                        <div class="mb-3" *ngIf="loading === true">
+                            <a type="button" class="btn btn-danger btn-block" disabled>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Cargando...
+                            </a>
                         </div>
                         <div class="mb-3">
                             <a class="btn btn-danger btn-block" (click)="logout()">Cerrar Sesión</a>

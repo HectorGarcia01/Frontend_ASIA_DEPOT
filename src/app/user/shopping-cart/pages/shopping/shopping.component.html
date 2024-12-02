@@ -27,7 +27,7 @@
                         <td class="align-middle">
                             <div class="d-flex flex-column flex-md-row">
                                 <div class="col-md-2">
-                                    <img src="assets/Logo_ASIA_DEPOT.png" alt="" style="width: 50px;">
+                                    <img [src]="productImages[item.producto.id] || 'assets/Logo_ASIA_DEPOT.png'" alt="Imagen-Producto" style="width: 50px;">
                                 </div>
                                 <div class="col-md-5">
                                     {{ item.producto.nombre_producto }}
@@ -67,7 +67,11 @@
                     </div>
                     <div class="d-flex justify-content-center">
                         <div class="col-10 d-flex justify-content-between"> 
-                            <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" (click)="onSubmit()">Procesar compra</button>
+                            <button *ngIf="loading === false" class="btn btn-block btn-primary font-weight-bold my-3 py-3" (click)="onSubmit()">Procesar compra</button>
+                            <button *ngIf="loading === true" type="button" class="btn btn-block btn-primary font-weight-bold my-3 py-3" disabled>
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                Cargando...
+                            </button>
                             <button class="btn btn-block btn-danger font-weight-bold my-3 py-3" (click)="deleteShoppingCart()">Vaciar carrito</button>
                         </div>
                     </div>

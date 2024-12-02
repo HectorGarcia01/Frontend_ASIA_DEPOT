@@ -1,0 +1,8 @@
+.btnAction div a {
+    max-width: 300px;
+    width: 100%;
+}
+
+.colorEdit {
+    background-color: rgb(212, 212, 222);
+}

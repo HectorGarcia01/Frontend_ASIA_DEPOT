@@ -7,14 +7,32 @@
             <!-- ENCUÉNTRANOS -->
             <div class="col-md-4 col-sm-12">
                 <h5 class="headin5_amrc col_white_amrc pt2">ENCUÉNTRANOS</h5>
-                <p class="mb10">
-                    Visita nuestra tienda y descubre productos excepcionales que satisfarán todas tus necesidades. ¡Esperamos verte pronto en ASIA DEPOT!
-                </p>
-                <ul class="list-unstyled">
-                    <li><a href="https://www.google.com/maps?q=14.084309577941895,-90.38140869140625&z=17&hl=es" target="_blank" class="text-decoration-none text-white"><i class="fa fa-location-arrow"></i> Chiquimulilla, Santa Rosa </a></li>
-                    <li><a href="https://wa.me/50246651581" target="_blank" class="text-decoration-none text-white"><i class="fa fa-phone"></i> +502 4665 1581 </a></li>
-                    <li><a href="mailto:asiadepotchiquimulilla@gmail.com" target="_blank" class="text-decoration-none text-white"><i class="fa fa-envelope"></i> asiadepotchiquimulilla@gmail.com </a></li>
-                </ul>
+                <div class="col-md-10">
+                    <p style="text-align: justify;">
+                        Visita nuestra tienda y descubre productos excepcionales que satisfarán todas tus necesidades. ¡Esperamos verte
+                        pronto en ASIA DEPOT!
+                    </p>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="https://www.google.com/maps?q=14.084309577941895,-90.38140869140625&z=17&hl=es" target="_blank" class="text-decoration-none text-white">
+                                <i class="fa fa-location-arrow"></i> 
+                                Chiquimulilla, Santa Rosa 
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://wa.me/50246651581" target="_blank" class="text-decoration-none text-white">
+                                <i class="fa fa-phone"></i> 
+                                +502 4665 1581 
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:asiadepotchiquimulilla@gmail.com" target="_blank" class="text-decoration-none text-white">
+                                <i class="fa fa-envelope"></i> 
+                                asiadepotchiquimulilla@gmail.com 
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
             <!-- CATEGORÍAS -->
@@ -24,7 +42,7 @@
                     <div class="col-md-4" *ngFor="let i of [0, 1, 2]">
                         <ul class="footer_ul_amrc">
                             <li *ngFor="let categoria of category.slice(i * categoriesPerColumn, (i + 1) * categoriesPerColumn)">
-                                <a [routerLink]="['/products/category', categoria.id]" (click)="scrollToTop()">{{ categoria.Nombre_Categoria }}</a>
+                                <a [routerLink]="['/products/category', categoria.id, categoria.Nombre_Categoria]" (click)="scrollToTop()">{{ categoria.Nombre_Categoria }}</a>
                             </li>
                         </ul>
                     </div>
@@ -35,7 +53,7 @@
             <!-- SUSCRÍBETE AL NEWSLETTER -->
             <div class="col-md-4 col-sm-6">
                 <h5 class="headin5_amrc col_white_amrc pt2">SUSCRÍBETE AL NEWSLETTER</h5>
-                <p class="mb10">
+                <p class="mb10" style="text-align: justify;">
                     ¿Listo para descubrir lo mejor en productos de calidad? Únete a nuestra comunidad de suscriptores y mantente al día con
                     ASIA DEPOT. Desde herramientas hasta productos para el hogar, juguetes y más, nuestro newsletter te ofrece acceso
                     exclusivo a ofertas especiales, noticias emocionantes y sugerencias para aprovechar al máximo tus compras. ¡No te
@@ -44,7 +62,11 @@
                 <form [formGroup]="newsletterForm" (ngSubmit)="onSubmit()">
                     <div class="input-group mb-3">
                         <input formControlName="newsletterEmail" class="form-control" type="email" placeholder="Escribe tu correo" aria-label="Escribe tu correo" aria-describedby="button-addon2">
-                        <button class="btn btn-primary" id="button-addon2" type="submit"><i class="fas fa-paper-plane"></i></button>
+                        <button *ngIf="loading === false" class="btn btn-primary" id="button-addon2" type="submit"><i class="fas fa-paper-plane"></i></button>
+                        <button *ngIf="loading === true" class="btn btn-primary" type="button" disabled>
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <span class="visually-hidden">Cargando...</span>
+                        </button>
                     </div>
                 </form>
             </div>

@@ -1,0 +1,30 @@
+.quantity {
+    width: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.btn-add-to-cart {
+    margin-left: 10px;
+}
+
+.input-group-btn button {
+    font-size: 1rem;
+}
+
+@media (max-width: 767px) {
+    .quantity {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .input-group-btn button {
+        font-size: 0.8rem;
+    }
+
+    .btn-add-to-cart {
+        margin-left: 10px;
+        width: 100%;
+    }
+}

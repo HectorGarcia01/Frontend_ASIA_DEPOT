@@ -12,6 +12,7 @@ import { apiURL } from 'src/app/config/config';
 })
 export class ActivateAccountComponent implements OnInit {
   activateForm!: FormGroup;
+  loading = false;
 
   constructor(
     private activateAccountService: ActivateAccountService,
@@ -22,7 +23,7 @@ export class ActivateAccountComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.scrollToTop();
   }
 
   /**
@@ -47,16 +48,19 @@ export class ActivateAccountComponent implements OnInit {
   onSubmit() {
     try {
       if (this.activateForm.valid) {
+        this.loading = true;
         const token = this.activateForm.get('token')?.value;
 
         this.activateAccountService.activateAccount(`${apiURL}/usuario/activar/cuenta`, token).subscribe({
           next: (data: any) => {
             this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
+            this.loading = false;
             this.router.navigate(['/login']);
           },
           error: (error: any) => {
             console.log(error);
-            this.customAlertService.sweetAlertPersonalizada('error', "Error", error.error.error);
+            this.customAlertService.sweetAlertPersonalizada('error', "Error", "El token es inválido");
+            this.loading = false;
           }
         })
       } else {
@@ -65,5 +69,9 @@ export class ActivateAccountComponent implements OnInit {
     } catch (error: any) {
       console.log(error.error);
     }
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

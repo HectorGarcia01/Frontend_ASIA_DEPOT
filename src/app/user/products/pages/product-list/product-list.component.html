@@ -7,17 +7,17 @@
         <!-- Barra de navegación de categorías -->
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <a class="nav-link active" (click)="getProducts()">Todos</a>
+                <a class="nav-link active" [routerLink]="['/products']">Todos</a>
             </li>
             <li class="nav-item" *ngFor="let categoria of category">
-                <a class="nav-link" (click)="getProductsCategory(categoria.id)">{{ categoria.Nombre_Categoria }}</a>
+                <a class="nav-link" [routerLink]="['/products/category', categoria.id, categoria.Nombre_Categoria]">{{ categoria.Nombre_Categoria }}</a>
             </li>
         </ul>
     </div>
 
     <div class="col-md-12 mb-5 d-flex justify-content-center mt-4">
-        <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Bucar producto" aria-label="Search">
+        <form class="d-flex" role="search" [formGroup]="registerForm" (ngSubmit)="getProductsFilter()">
+            <input formControlName="nombre" class="form-control me-2" type="search" placeholder="Bucar producto" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Buscar</button>
         </form>
     </div>
@@ -31,15 +31,16 @@
             </div>
         </div>
         <div class="col-lg-3 col-md-4 col-sm-6 pb-1" *ngFor="let producto of product">
-            <div class="product-item bg-light mb-4">
+            <div class="product-item bg-light shadow-lg rounded-5 mb-4">
                 <div class="product-img position-relative overflow-hidden">
-                    <img class="img-fluid w-100" src="assets/Logo_ASIA_DEPOT.png" alt="Logo productos ASIA DEPOT">
+                    <div class="col-md4">
+                        <img class="img-fluid w-100" [src]="productImages[producto.id] || 'assets/Logo_ASIA_DEPOT.png'" alt="Imagen-Producto">
+                    </div>
                     <div class="product-action">
                         <button *ngIf="producto.Cantidad_Stock > 0" class="btn btn-outline-dark btn-square" (click)="addProductCart(producto.id)"><i class="fa fa-shopping-cart"></i></button>
                         <button *ngIf="producto.Cantidad_Stock == 0" class="btn btn-outline-dark btn-square" disabled><i class="fa fa-shopping-cart"></i></button>
                         <button class="btn btn-outline-dark btn-square" (click)="addFavoriteProduct(producto.id)"><i class="fa fa-heart"></i></button>
-                        <button *ngIf="producto.Cantidad_Stock > 0" class="btn btn-outline-dark btn-square" [routerLink]="['/product/detail', producto.id]"><i class="fa fa-search"></i></button>
-                        <button *ngIf="producto.Cantidad_Stock == 0" class="btn btn-outline-dark btn-square" disabled><i class="fa fa-search"></i></button>
+                        <button class="btn btn-outline-dark btn-square" [routerLink]="['/product/detail', producto.id]"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
                 <div class="text-center py-4">
@@ -47,7 +48,7 @@
                     <h5>Cantidad disponible: {{ producto.Cantidad_Stock }}</h5>
                     <div class="d-flex align-items-center justify-content-center mt-2">
                         <h5 style="margin-right: 6px;">Q{{ producto.Precio_Venta }}</h5>
-                        <h6 class="text-muted ml-2"><del>Q{{ producto.Precio_Venta }}</del></h6>
+                        <!-- <h6 class="text-muted ml-2"><del>Q{{ producto.Precio_Venta }}</del></h6> -->
                     </div>
                     <!-- <div class="d-flex align-items-center justify-content-center mb-1">
                         <small class="fa fa-star text-primary mr-1"></small>
