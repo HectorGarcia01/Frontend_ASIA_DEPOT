@@ -62,13 +62,61 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: () =>
+      import('./admin/admin-profile/admin-profile.module').then((m) => m.AdminProfileModule),
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'admin',
+    loadChildren: () =>
       import('./admin/customer-management/customer-management.module').then((m) => m.CustomerManagementModule),
     canActivate: [AuthGuardService]
   },
   {
     path: 'admin',
     loadChildren: () =>
-      import('./admin/admin-profile/admin-profile.module').then((m) => m.AdminProfileModule),
+      import('./admin/employee-management/employee-management.module').then((m) => m.EmployeeManagementModule),
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./admin/supplier-management/supplier-management.module').then((m) => m.SupplierManagementModule),
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./admin/product-management/product-management.module').then((m) => m.ProductManagementModule),
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./admin/category-management/category-management.module').then((m) => m.CategoryManagementModule),
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./admin/purchase-management/purchase-management.module').then((m) => m.PurchaseManagementModule),
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./admin/sales-management/sales-management.module').then((m) => m.SalesManagementModule),
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./admin/inventory-management/inventory-management.module').then((m) => m.InventoryManagementModule),
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./admin/brand-management/brand-management.module').then((m) => m.BrandManagementModule),
     canActivate: [AuthGuardService]
   }
 ]

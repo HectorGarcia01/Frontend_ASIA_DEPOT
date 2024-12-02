@@ -31,7 +31,7 @@ export class ReviewsService {
   }
 
   /**
-   * Función para realizar una solicitud get para listar todas las reseñas
+   * Función para realizar una solicitud get para listar todas las reseñas de un producto
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    */
@@ -39,6 +39,16 @@ export class ReviewsService {
   getReviews(url: string, id: string) {
     url = `${url}/${id}`;
 
+    return this.http.get(url);
+  }
+
+  /**
+   * Función para realizar una solicitud get para listar todas las reseñas
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   */
+
+  getAllReviews(url: string) {
     return this.http.get(url);
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
@@ -132,5 +132,66 @@ export class ShoppingCartService {
     });
 
     return this.http.patch<any>(url, body, { headers });
+  }
+
+  /**
+   * Función para realizar una solicitud get para ver el historial de compras
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *              Función getCookieAuth del servicio de autenticación (auth.service)
+   */
+
+  getShoppingHistory(url: string, page?: number, pageSize?: number): Observable<any> {
+    let params = new HttpParams();
+
+    if (page && pageSize) {
+      params = params.set('page', page.toString()).set('pageSize', pageSize.toString());
+    }
+
+    const token = this.authService.getCookieAuth();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.get<any>(url, { params, headers });
+  }
+
+  /**
+   * Función para realizar una solicitud delete para eliminar el carrito de compras
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *              Función getCookieAuth del servicio de autenticación (auth.service)
+   */
+
+  cancelCustomerSaleId(url: string, id: number): Observable<any> {
+    const token = this.authService.getCookieAuth();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    url = `${url}/${id}`;
+    
+    return this.http.delete<any>(url, { headers });
+  }
+
+  /**
+   * Función para realizar una solicitud get para ver detalle de compra por id
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias:
+   *              Función getCookieAuth del servicio de autenticación (auth.service)
+   */
+
+  shoppingHistoryId(url: string, id: number): Observable<any> {
+    const token = this.authService.getCookieAuth();
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    url = `${url}/${id}`;
+
+    return this.http.get<any>(url, { headers });
   }
 }

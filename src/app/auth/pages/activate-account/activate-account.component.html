@@ -3,9 +3,9 @@
 <div class="container mt-4 mb-5">
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <div class="tab-content">
+            <div class="tab-content bg-light shadow-lg rounded-5">
                 <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-                    <form class="border border-2 border-dark p-5" [formGroup]="activateForm" (ngSubmit)="onSubmit()">
+                    <form class="p-5" [formGroup]="activateForm" (ngSubmit)="onSubmit()">
                         <h1 class="text-center mb-5">Activa tu cuenta</h1>
 
                         <!-- Token input -->
@@ -21,7 +21,11 @@
                         <div class="row mb-4">
                             <div class="col-md-12 d-flex justify-content-center">
                                 <!-- Submit button -->
-                                <button type="submit" class="btn btn-primary btn-block w-75">Activar Cuenta</button>
+                                <button *ngIf="loading === false" type="submit" class="btn btn-primary btn-block w-75">Activar Cuenta</button>
+                                <button *ngIf="loading === true" type="button" class="btn btn-primary btn-block w-75" disabled>
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    Cargando...
+                                </button>
                             </div>
                         </div>
 

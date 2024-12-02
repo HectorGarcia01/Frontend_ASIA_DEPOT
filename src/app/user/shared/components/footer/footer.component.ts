@@ -17,6 +17,7 @@ export class FooterComponent implements OnInit {
   category: Category[] = [];
   categories: Categories[] = [];
   categoriesPerColumn!: number;
+  loading = false;
 
   constructor(
     private categoryService: CategoryService,
@@ -73,10 +74,12 @@ export class FooterComponent implements OnInit {
       }
 
       if (this.newsletterForm.valid) {
+        this.loading = true;
         const userData = { Correo_Cliente: this.newsletterForm.get('newsletterEmail')?.value };
 
         this.newsletterService.subscriptionNewsletter(`${apiURL}/usuario/suscripcion/newsletter`, userData).subscribe({
           next: (response: any) => {
+            this.loading = false;
             this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
           },
           error: (error: any) => {

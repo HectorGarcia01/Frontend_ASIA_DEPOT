@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
 import { UserServicesService } from 'src/app/user/services/user-services.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { Department, Municipalities } from 'src/app/user/interfaces/address.interface';
@@ -19,10 +19,9 @@ export class SingUpComponent implements OnInit {
   selectedMunicipalityId: number | null = null;
   municipalities: Municipalities[] = [];
   submitted = false;
-
+  loading = false;
 
   constructor(
-    private fb: FormBuilder,
     private router: Router,
     private userService: UserServicesService,
     private customAlertService: CustomAlertService
@@ -31,6 +30,7 @@ export class SingUpComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.scrollToTop();
     this.getAddresses();
   }
 
@@ -156,6 +156,7 @@ export class SingUpComponent implements OnInit {
     this.submitted = true;
 
     if (this.registerForm.valid) {
+      this.loading = true;
       const password = this.registerForm.get('password')?.value;
       const repeatPassword = this.registerForm.get('repetir_password')?.value;
 
@@ -166,6 +167,7 @@ export class SingUpComponent implements OnInit {
           next: (response: any) => {
             this.registerForm.reset();
             this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
+            this.loading = false;
             this.router.navigate(['/login/activate/account']);
           },
           error: (error: any) => {
@@ -178,5 +180,9 @@ export class SingUpComponent implements OnInit {
     } else {
       this.customAlertService.sweetAlertPersonalizada('error', "Error", "Por favor, verifica los campos del formulario.");
     }
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 } 

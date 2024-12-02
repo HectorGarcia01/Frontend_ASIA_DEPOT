@@ -12,6 +12,7 @@ import { apiURL } from 'src/app/config/config';
 })
 export class ContactUsComponent implements OnInit {
   contactForm!: FormGroup;
+  loading = false;
 
   constructor(
     private userService: UserServicesService,
@@ -55,6 +56,7 @@ export class ContactUsComponent implements OnInit {
     }
 
     if (this.contactForm.valid) {
+      this.loading = true;
       const userData = {
         Nombre: this.contactForm.get('Nombre')?.value,
         Correo: this.contactForm.get('Correo')?.value,
@@ -65,6 +67,7 @@ export class ContactUsComponent implements OnInit {
       this.userService.contactUs(`${apiURL}/usuario/contactanos`, userData).subscribe({
           next: (response: any) => {
             this.contactForm.reset();
+            this.loading = false;
             this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", response.msg);
           },
           error: (error: any) => {

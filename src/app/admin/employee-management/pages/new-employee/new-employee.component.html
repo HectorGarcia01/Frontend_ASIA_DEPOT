@@ -1,0 +1,152 @@
+<div id="main-content">
+    <app-nav-bar></app-nav-bar>
+    <section class="d-flex justify-content-center">
+        <!-- Formulario de empleado -->
+        <div class="col-md-12 mt-5">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-5 bg-light shadow-lg rounded-5 p-5 mb-3">
+                        <div class="text-center mb-3">
+                            <h2>Registro de Administrador</h2>
+                        </div>
+                        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">                        
+                            <!-- Name input -->
+                            <div class="form-floating mb-3">
+                                <input type="text" formControlName="nombre" class="form-control" placeholder="Ingresa tu nombre">
+                                <label for="registerName">Nombre</label>
+                                <div *ngIf="registerForm.get('nombre')?.hasError('minlength') && registerForm.get('nombre')?.touched"
+                                    class="text-danger">
+                                    El nombre es demasiado corto (mínimo 3 carácteres).
+                                </div>
+                                <div *ngIf="registerForm.get('nombre')?.hasError('maxlength') && registerForm.get('nombre')?.touched"
+                                    class="text-danger">
+                                    El nombre es demasiado largo (máximo 30 carácteres).
+                                </div>
+                                <div *ngIf="registerForm.get('nombre')?.hasError('required') && registerForm.get('nombre')?.touched"
+                                    class="text-danger">
+                                    El nombre es obligatorio.
+                                </div>
+                                <div *ngIf="registerForm.get('nombre')?.hasError('pattern') && registerForm.get('nombre')?.touched"
+                                    class="text-danger">
+                                    El nombre no es válido, no use carácteres especiales.
+                                </div>
+                            </div>
+                        
+                            <!-- Username input -->
+                            <div class="form-floating mb-3">
+                                <input type="text" formControlName="apellido" class="form-control" placeholder="Ingresa tu apellido">
+                                <label for="registerUsername">Apellido</label>
+                                <div *ngIf="registerForm.get('apellido')?.hasError('minlength') && registerForm.get('apellido')?.touched"
+                                    class="text-danger">
+                                    El apellido es demasiado corto (mínimo 3 carácteres).
+                                </div>
+                                <div *ngIf="registerForm.get('apellido')?.hasError('maxlength') && registerForm.get('apellido')?.touched"
+                                    class="text-danger">
+                                    El apellido es demasiado largo (máximo 30 carácteres).
+                                </div>
+                                <div *ngIf="registerForm.get('apellido')?.hasError('required') && registerForm.get('apellido')?.touched"
+                                    class="text-danger">
+                                    El apellido es obligatorio.
+                                </div>
+                                <div *ngIf="registerForm.get('apellido')?.hasError('pattern') && registerForm.get('apellido')?.touched"
+                                    class="text-danger">
+                                    El apellido no es válido, no use carácteres especiales.
+                                </div>
+                            </div>
+                        
+                            <div class="row">
+                                <!-- Tel input -->
+                                <div class="col form-floating mb-3">
+                                    <input type="text" formControlName="telefono" class="form-control"
+                                        placeholder="Ingresa tu número de teléfono">
+                                    <label style="margin-left: 8px;" for="registerTel">Teléfono</label>
+                                    <div *ngIf="registerForm.get('telefono')?.hasError('required') && registerForm.get('telefono')?.touched"
+                                        class="text-danger">
+                                        El teléfono es obligatorio.
+                                    </div>
+                                    <div *ngIf="registerForm.get('telefono')?.hasError('pattern') && registerForm.get('telefono')?.touched"
+                                        class="text-danger">
+                                        El teléfono no es válido, debe de poseer 8 dígitos.
+                                    </div>
+                                </div>
+                        
+                                <!-- Nit input -->
+                                <div class="col form-floating mb-3">
+                                    <input type="number" formControlName="nit" class="form-control" placeholder="Ingresa tu NIT">
+                                    <label style="margin-left: 8px;" for="registerNIT">NIT</label>
+                                    <div *ngIf="registerForm.get('nit')?.hasError('pattern') && registerForm.get('nit')?.touched"
+                                        class="text-danger">
+                                        El NIT no es válido.
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <!-- Email input -->
+                            <div class="form-floating mb-3">
+                                <input type="email" formControlName="correo" class="form-control" placeholder="Ingresa tu correo">
+                                <label for="registerEmail">Correo</label>
+                                <div *ngIf="registerForm.get('correo')?.hasError('required') && registerForm.get('correo')?.touched"
+                                    class="text-danger">
+                                    El correo es obligatorio.
+                                </div>
+                                <div *ngIf="registerForm.get('correo')?.hasError('email') && registerForm.get('correo')?.touched"
+                                    class="text-danger">
+                                    El correo no es válido.
+                                </div>
+                                <div *ngIf="registerForm.get('correo')?.hasError('maxlength') && registerForm.get('correo')?.touched"
+                                    class="text-danger">
+                                    El correo es demasiado largo (máximo 40 carácteres).
+                                </div>
+                            </div>
+                        
+                            <!-- Password input -->
+                            <div class="form-floating mb-3">
+                                <input type="password" formControlName="password" class="form-control" placeholder="Ingresa tu contraseña">
+                                <label for="registerPassword">Contraseña</label>
+                                <div *ngIf="registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched"
+                                    class="text-danger">
+                                    La contraseña es obligatoria.
+                                </div>
+                                <div *ngIf="registerForm.get('password')?.hasError('pattern') && registerForm.get('password')?.touched"
+                                    class="text-danger">
+                                    La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un dígito y no debe contener
+                                    espacios en blanco.
+                                </div>
+                                <div *ngIf="registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.touched"
+                                    class="text-danger">
+                                    La contraseña es demasiado corta (mínimo 8 carácteres).
+                                </div>
+                            </div>
+                        
+                            <!-- Repeat Password input -->
+                            <div class="form-floating mb-5">
+                                <input type="password" formControlName="repetir_password" class="form-control"
+                                    placeholder="Repite la contraseña">
+                                <label for="registerRepeatPassword">Repetir contraseña</label>
+                                <div *ngIf="registerForm.get('repetir_password')?.hasError('required') && registerForm.get('repetir_password')?.touched"
+                                    class="text-danger">
+                                    Debes repetir la contraseña.
+                                </div>
+                                <div *ngIf="submitted && registerForm.hasError('passwordsNotMatch')" class="text-danger">
+                                    Las contraseñas no coinciden.
+                                </div>
+                            </div>
+                        
+                            <div class="row mb-4">
+                                <div class="col-md-12 d-flex justify-content-center">
+                                    <!-- Submit button -->
+                                    <button *ngIf="loading === false" type="submit" class="btn btn-primary btn-block w-75">Registrar</button>
+                                    <button *ngIf="loading === true" type="button" class="btn btn-primary btn-block w-75" disabled>
+                                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        Cargando...
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <app-footer></app-footer>
+        </div>
+    </section>
+</div>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AdminProfileRoutingModule } from './admin-profile-routing.module';
 import { ProfileComponent } from './pages/profile/profile.component';
@@ -13,6 +14,8 @@ import { AdminSharedModule } from '../shared/admin-shared.module';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
     AdminProfileRoutingModule,
     AdminSharedModule
   ]

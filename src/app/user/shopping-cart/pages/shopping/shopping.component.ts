@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ShoppingCartService } from 'src/app/user/services/shopping-cart.service';
+import { ProductService } from 'src/app/user/services/product.service';
 import { UserServicesService } from 'src/app/user/services/user-services.service';
 import { CustomAlertService } from 'src/app/services/custom-alert.service';
 import { getCustomer } from 'src/app/user/interfaces/customer.interface';
@@ -17,10 +18,13 @@ export class ShoppingComponent implements OnInit {
   shipping_type: any = [];
   payment_method: any = [];
   customer: getCustomer = {} as getCustomer;
+  productImages: { [key: number]: string } = {};
   noneProducts: boolean = false;
+  loading = false;
 
   constructor(
     private shoppingCartService: ShoppingCartService,
+    private productService: ProductService,
     private userService: UserServicesService,
     private customAlertService: CustomAlertService
   ) { 
@@ -28,6 +32,7 @@ export class ShoppingComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.scrollToTop();
     this.getShoppingCart();
   }
 
@@ -58,6 +63,7 @@ export class ShoppingComponent implements OnInit {
       this.shoppingCartService.getShoppingCart(`${apiURL}/usuario/carrito/ver`).subscribe({
         next: (data: any) => {
           this.shoppingDetailCart = data.shoppingDetailCart;
+          this.shoppingDetailCart.Total_Factura = this.shoppingDetailCart.Total_Factura.toFixed(2);
           this.getProfile();
           this.getShipmentInformation();
           if (this.shoppingDetailCart.detalles_venta.length === 0) {
@@ -65,9 +71,37 @@ export class ShoppingComponent implements OnInit {
           } else {
             this.noneProducts = true;
           }
+
+          this.shoppingDetailCart.detalles_venta.forEach((producImage: any) => {
+            this.getPhotos(producImage.producto.id);
+          });
         },
         error: (error: any) => {
           this.noneProducts = false;
+        }
+      })
+    } catch (error: any) {
+      console.log(error.error);
+    }
+  }
+
+  /**
+   * Función para consumir el servicio de ver la imágen de cada producto
+   * Fecha creación: 06/10/2023
+   * Autor: Hector Armando García González
+   * Referencias: 
+   *            Función getProductPhoto del servicio de producto (product.service)   
+   */
+
+  getPhotos(id: any) {
+    try {
+      this.productService.getProductPhoto(`${apiURL}/usuario/ver/foto/producto`, id).subscribe({
+        next: (data: Blob) => {
+          this.productImages[id] = URL.createObjectURL(data);
+        },
+        error: (error: any) => {
+          this.productImages[id] = 'assets/Logo_ASIA_DEPOT.png';
+          console.log(error.error.error);
         }
       })
     } catch (error: any) {
@@ -100,7 +134,7 @@ export class ShoppingComponent implements OnInit {
   }
 
   /**
-   * Función para consumir el servicio de ver perfil
+   * Función para consumir el servicio de ver la información de envío
    * Fecha creación: 06/10/2023
    * Autor: Hector Armando García González
    * Referencias: 
@@ -218,9 +252,11 @@ export class ShoppingComponent implements OnInit {
       };
 
       if (this.registerForm.valid) {
+        this.loading = true;
         this.shoppingCartService.processSale(`${apiURL}/usuario/carrito/procesar`, body).subscribe({
           next: (data: any) => {
             this.customAlertService.sweetAlertPersonalizada('success', "Exitoso", data.msg);
+            this.loading = false;
             this.getShoppingCart();
           },
           error: (error: any) => {
@@ -245,5 +281,9 @@ export class ShoppingComponent implements OnInit {
   increaseQuantity(item: any) {
     item.Cantidad_Producto++;
     item.Subtotal_Venta = (item.Cantidad_Producto * item.Precio_Unitario).toFixed(2);
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

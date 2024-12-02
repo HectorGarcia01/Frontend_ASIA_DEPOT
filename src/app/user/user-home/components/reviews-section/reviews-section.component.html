@@ -1,46 +1,49 @@
 <!-- Estructura para la sección de Reseñas -->
-<section>
-    <div class="container pt-5 pb-3">
+<section class="mt-5 mb-5">
+    <div class="container pt-5 pb-3 shadow-lg rounded-5">
         <h2 class="mb-4">Reseñas</h2>
 
+        <div *ngIf="noneReviews == false" class="row justify-content-center align-items-center">
+            <div class="col-12 text-center">
+                <h5>
+                    No hay reseñas disponibles en este momento. ¡Regresa pronto para descubrir las opiniones de nuestros clientes!
+                </h5>
+                <img width="300" height="300" src="assets/404.jpg" class="img-fluid rounded-circle" alt="Error 404">
+            </div>
+        </div>
+
         <!-- Contenedor de las reseñas con desplazamiento -->
-        <div data-spy="scroll" data-target="#reviewsNav" data-offset="50" style="height: 400px; overflow-y: auto;">
-            <!-- Reseña 1 -->
-            <div id="review1" class="review">
+        <div *ngIf="noneReviews == true" class="shadow-lg rounded-5" data-spy="scroll" data-target="#reviewsNav" data-offset="50" style="height: 400px; overflow-y: auto; overflow-x: hidden;">
+            <!-- Reseñas -->
+            <div id="review1" class="review shadow-lg mb-4" *ngFor="let review of productReviews; let i = index">
                 <div class="row align-items-center">
-                    <div class="col-md-2">
+                    <div class="col-md-2 mt-2 d-flex justify-content-center">
                         <!-- Foto del cliente -->
-                        <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" alt="Foto del Cliente 1"
-                            class="img-fluid rounded-circle">
+                        <img src="{{ images[i] }}" alt="Foto del Cliente" class="img-fluid rounded-circle">
                     </div>
-                    <div class="col-md-10">
-                        <!-- Nombre del cliente y calificación -->
-                        <p><strong>Nombre del Cliente</strong> - ★★★★★</p>
-                        <!-- Comentario del cliente -->
-                        <p>¡Producto genial! Estoy muy satisfecho con mi compra. Definitivamente lo recomiendo.</p>
+                    <div class="col-md-9">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Fecha publicación -->
+                                <p class="text-end"><strong>Fecha de publicación: </strong>{{ review.createdAt }}</p>
+                            </div>
+                            <div class="col-12">
+                                <!-- Nombre del cliente y calificación -->
+                                <p><strong>{{ review.cliente.Nombre_Cliente }} {{ review.cliente.Apellido_Cliente }}</strong> - {{
+                                    review.Puntuacion_Producto }}</p>
+                            </div>
+                            <div class="col-12">
+                                <!-- Nombre del producto -->
+                                <p>{{ review.producto.Nombre_Producto }}</p>
+                            </div>
+                            <div class="col-12">
+                                <!-- Comentario del cliente -->
+                                <p>{{ review.Comentario_Producto }}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Reseña 2 -->
-            <div id="review2" class="review">
-                <div class="row align-items-center">
-                    <div class="col-md-2">
-                        <!-- Foto del cliente -->
-                        <img src="https://mdbcdn.b-cdn.net/img/new/avatars/3.webp" alt="Foto del Cliente 2"
-                            class="img-fluid rounded-circle">
-                    </div>
-                    <div class="col-md-10">
-                        <!-- Nombre del cliente y calificación -->
-                        <p><strong>Otro Cliente</strong> - ★★★★☆</p>
-                        <!-- Comentario del cliente -->
-                        <p>Gran experiencia de compra. El producto cumplió mis expectativas.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Agrega más reseñas siguiendo la misma estructura -->
-
         </div>
     </div>
 </section>
